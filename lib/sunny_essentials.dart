@@ -1,7 +1,11 @@
-library sunny_widgets;
+library sunny_essentials;
 
-/// A Calculator.
-class Calculator {
-  /// Returns [value] plus 1.
-  int addOne(int value) => value + 1;
-}
+export 'cards.dart';
+export 'container.dart';
+export 'image/platform_network_image.dart';
+export 'provided.dart';
+export 'taps.dart';
+export 'taps.dart';
+export 'text.dart';
+export 'theme.dart';
+export 'typedefs.dart';
