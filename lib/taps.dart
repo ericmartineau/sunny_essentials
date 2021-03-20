@@ -7,13 +7,13 @@ import 'package:flutter/widgets.dart';
 
 /// Enforces HitTest.opaque and removes parameters
 Widget tappable<R>(Widget child,
-    {FutureOrTappableCallback onTap,
-    Key key,
+    {FutureOrTappableCallback? onTap,
+    Key? key,
     double pressOpacity = 1.0,
-    BuildContext context,
-    String routeName,
+    BuildContext? context,
+    String? routeName,
     arguments,
-    void callback(R result)}) {
+    void callback(R? result)?}) {
   if (onTap == null && routeName == null) return child;
 
   return GestureDetector(
@@ -23,9 +23,9 @@ Widget tappable<R>(Widget child,
         assert(routeName == null || context != null,
             "If you provide a route, you must also provide a buildContext");
         if (routeName != null) {
-          final R result = await Navigator.pushNamed(context, routeName,
+          final R? result = await Navigator.pushNamed(context!, routeName,
               arguments: arguments);
-          callback(result);
+          callback!(result);
         }
       },
       behavior: HitTestBehavior.opaque);
@@ -42,12 +42,12 @@ enum TapTransform {
 class Tappable extends StatefulWidget {
   static const defaultScale = 0.98;
 
-  final double pressOpacity;
-  final double pressScale;
-  final FutureTappableCallback onTap;
-  final FutureTappableCallback onLongPress;
+  final double? pressOpacity;
+  final double? pressScale;
+  final FutureTappableCallback? onTap;
+  final FutureTappableCallback? onLongPress;
   final HitTestBehavior behavior;
-  final Widget child;
+  final Widget? child;
   final Duration duration;
 
   Tappable.link(
@@ -55,14 +55,14 @@ class Tappable extends StatefulWidget {
     this.onTap,
     this.behavior = HitTestBehavior.opaque,
     this.onLongPress,
-    TextStyle style,
+    TextStyle? style,
   })  : duration = const Duration(milliseconds: 300),
         pressOpacity = null,
         pressScale = null,
         child = Text(s, style: style);
 
   const Tappable(
-      {Key key,
+      {Key? key,
       this.pressOpacity = 0.7,
       this.pressScale,
       this.behavior = HitTestBehavior.opaque,
@@ -78,9 +78,9 @@ class Tappable extends StatefulWidget {
 
 class _TappableState extends State<Tappable>
     with SingleTickerProviderStateMixin {
-  AnimationController _ac;
-  Animation<double> _scaleAnimation;
-  Animation<double> _opacityAnimation;
+  late AnimationController _ac;
+  late Animation<double> _scaleAnimation;
+  late Animation<double> _opacityAnimation;
 
   @override
   void initState() {
@@ -88,9 +88,9 @@ class _TappableState extends State<Tappable>
 
     _ac = AnimationController(
       vsync: this,
-      duration: widget.duration ?? const Duration(milliseconds: 300),
+      duration: widget.duration,
       value: 0,
-      reverseDuration: widget.duration ?? const Duration(milliseconds: 300),
+      reverseDuration: widget.duration,
     );
     _opacityAnimation =
         _ac.drive(Tween(begin: 1, end: widget.pressOpacity ?? 1));
@@ -112,11 +112,11 @@ class _TappableState extends State<Tappable>
     return MouseRegion(
       cursor: SystemMouseCursors.click,
       child: GestureDetector(
-        behavior: widget.behavior ?? HitTestBehavior.opaque,
+        behavior: widget.behavior,
         onSecondaryTap: widget.onLongPress == null
             ? null
             : () {
-                widget.onLongPress(context);
+                widget.onLongPress!(context);
               },
         onTap: () async {
           try {
@@ -131,7 +131,7 @@ class _TappableState extends State<Tappable>
             ? null
             : () {
                 HapticFeedback.heavyImpact();
-                widget.onLongPress(context);
+                widget.onLongPress!(context);
               },
         onTapDown: (tap) {
           setState(() {
@@ -164,7 +164,7 @@ typedef HoverBuilder = Widget Function(bool isHover);
 class HoverEffect extends StatefulWidget {
   final HoverBuilder builder;
 
-  const HoverEffect({Key key, @required this.builder}) : super(key: key);
+  const HoverEffect({Key? key, required this.builder}) : super(key: key);
 
   @override
   _HoverEffectState createState() => _HoverEffectState();

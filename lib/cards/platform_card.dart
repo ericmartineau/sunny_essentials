@@ -13,24 +13,24 @@ import '../taps.dart';
 part 'platform_card.g.dart';
 
 class PlatformCardArgs {
-  final EdgeInsets padding;
-  final EdgeInsets margin;
-  final Color color;
-  final BorderRadius borderRadius;
-  final bool useShadow;
-  final double height;
-  final double width;
+  final EdgeInsets? padding;
+  final EdgeInsets? margin;
+  final Color? color;
+  final BorderRadius? borderRadius;
+  final bool? useShadow;
+  final double? height;
+  final double? width;
 
-  final double minHeight;
-  final double minWidth;
-  final double pressOpacity;
-  final double pressScale;
-  final FutureTappableCallback onTap;
-  final FutureTappableCallback onLongPress;
-  final FutureTappableCallback onHover;
-  final List<BoxShadow> shadow;
-  final PlatformCardTheme theme;
-  final bool shouldClip;
+  final double? minHeight;
+  final double? minWidth;
+  final double? pressOpacity;
+  final double? pressScale;
+  final FutureTappableCallback? onTap;
+  final FutureTappableCallback? onLongPress;
+  final FutureTappableCallback? onHover;
+  final List<BoxShadow>? shadow;
+  final PlatformCardTheme? theme;
+  final bool? shouldClip;
 
   const PlatformCardArgs({
     this.pressOpacity = 1,
@@ -56,12 +56,12 @@ class PlatformCardArgs {
 class PlatformCard extends StatelessWidget with _PlatformCardArgsMixin {
   @delegate(implementDelegate: true)
   final PlatformCardArgs _args;
-  final Widget child;
+  final Widget? child;
 
   PlatformCard({
-    PlatformCardArgs args,
+    PlatformCardArgs? args,
     this.child,
-    Key key,
+    Key? key,
   })  : _args = args ?? const PlatformCardArgs(),
         super(key: key);
 

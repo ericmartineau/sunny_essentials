@@ -1,3 +1,4 @@
+// ignore_for_file: unused_field
 import 'package:flutter/cupertino.dart';
 import 'package:sunny_dart/sunny_dart.dart';
 
@@ -9,10 +10,10 @@ SunnySpacing get sunnySpacing {
 
 /// cached stack widgets
 
-SizedBox _v1;
-SizedBox _v2;
-SizedBox _v3;
-SizedBox _v4;
+SizedBox? _v1;
+SizedBox? _v2;
+SizedBox? _v3;
+SizedBox? _v4;
 
 /// List of font styles based on reliveit naming conventions.  This can be easily applied to a material
 /// or cupertino theme.
@@ -21,6 +22,7 @@ class SunnySpacing {
   final double _spaceUnit;
   final double _pageSideMargin;
   final double _pageTopMargin;
+
   final double _cardSpacing;
   final double _cardImageHeight;
   final double _cardImageExpandedHeight;
@@ -62,15 +64,13 @@ class SunnySpacing {
     topRight: sixteenPxRadius,
   );
 
-  EdgeInsets get cardMargin =>
-      EdgeInsets.all(cardSpacing);
+  EdgeInsets get cardMargin => EdgeInsets.all(cardSpacing);
 
   EdgeInsets get hPaddingPage =>
       EdgeInsets.symmetric(horizontal: pageSideMargin);
-  
+
   final double _appBarHeight;
   final double appBarHeight;
-
 
   SizedBox get cardSpacingBox => SizedBox(height: cardSpacing);
 
@@ -105,9 +105,8 @@ class SunnySpacing {
   SizedBox get space => SizedBox(height: spaceUnit, width: spaceUnit);
 
   static void setScaleFactor(double scale) {
-    assert(scale != null);
     _trippiSpacing ??= SunnySpacing();
-    _trippiSpacing = _trippiSpacing.copyWith(scaleFactor: scale);
+    _trippiSpacing = _trippiSpacing!.copyWith(scaleFactor: scale);
   }
 
   factory SunnySpacing() => _trippiSpacing ??= defaults;
@@ -121,15 +120,12 @@ class SunnySpacing {
   );
 
   const SunnySpacing.of({
-    @required this.scaleFactor,
-    @required double spaceUnit,
-    @required double appBarHeight,
-    @required double cardImageHeight,
-    @required double cardImageExpandedHeight,
-  })  : assert(scaleFactor != null),
-        assert(spaceUnit != null),
-        assert(cardImageHeight != null),
-        _pageSideMargin = spaceUnit * 2,
+    required this.scaleFactor,
+    required double spaceUnit,
+    required double appBarHeight,
+    required double cardImageHeight,
+    required double cardImageExpandedHeight,
+  })   : _pageSideMargin = spaceUnit * 2,
         _pageTopMargin = spaceUnit * 3,
         _cardSpacing = spaceUnit * 3,
         _spaceUnit = spaceUnit,
@@ -145,11 +141,11 @@ class SunnySpacing {
         cardImageExpandedHeight = cardImageExpandedHeight * scaleFactor;
 
   SunnySpacing copyWith({
-    double scaleFactor,
-    double spaceUnit,
-    double cardImageHeight,
-    double cardImageExpandedHeight,
-    double appBarHeight,
+    double? scaleFactor,
+    double? spaceUnit,
+    double? cardImageHeight,
+    double? cardImageExpandedHeight,
+    double? appBarHeight,
   }) {
     return new SunnySpacing.of(
       scaleFactor: scaleFactor ?? this.scaleFactor,
@@ -162,7 +158,7 @@ class SunnySpacing {
   }
 }
 
-SunnySpacing _trippiSpacing;
+SunnySpacing? _trippiSpacing;
 
 extension SizedBoxExt on SizedBox {
   SizedBox operator *(num value) {
@@ -247,7 +243,7 @@ extension WidgetSpacingExt on Widget {
     );
   }
 
-  Widget listItemTallPad({Key key}) {
+  Widget listItemTallPad({Key? key}) {
     final x2 = SunnySpacing().spaceUnit * 2;
     return Padding(
       key: key,

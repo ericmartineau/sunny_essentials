@@ -17,19 +17,19 @@ class Themes with EquatableMixin {
   final PlatformCardTheme cardTheme;
   final ListTileTheme listTileTheme;
   Themes(
-      {@required this.brightness,
-      @required this.cardTheme,
-      @required this.themeBuilder,
-      @required this.lightTheme,
-      @required this.visualStyle,
-      @required this.cupertinoTheme,
-      this.listTileTheme = const ListTileTheme(child: null),
-      @required this.darkTheme});
+      {required this.brightness,
+      required this.cardTheme,
+      required this.themeBuilder,
+      required this.lightTheme,
+      required this.visualStyle,
+      required this.cupertinoTheme,
+      this.listTileTheme = const ListTileTheme(child: const SizedBox()),
+      required this.darkTheme});
 
   @override
   List<Object> get props => [brightness, lightTheme, darkTheme, cupertinoTheme];
 
-  Widget buildListTileTheme({Widget child}) {
+  Widget buildListTileTheme({required Widget child}) {
     return ListTileTheme(
       dense: listTileTheme.dense,
       shape: listTileTheme.shape,

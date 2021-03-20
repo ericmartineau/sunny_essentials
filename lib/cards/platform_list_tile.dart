@@ -15,18 +15,18 @@ part 'platform_list_tile.g.dart';
 @degen()
 abstract class _PlatformListTile extends StatelessWidget
     with _PlatformCardArgsMixin {
-  final Widget leading;
-  final Widget title;
-  final Widget subtitle;
-  final Widget trailing;
-  final Widget bottom;
+  final Widget? leading;
+  final Widget? title;
+  final Widget? subtitle;
+  final Widget? trailing;
+  final Widget? bottom;
 
   @delegate(implementDelegate: true)
-  final PlatformCardArgs _args;
+  final PlatformCardArgs? _args;
 
   const _PlatformListTile(
     @flatten() this._args, {
-    Key key,
+    Key? key,
     this.leading,
     this.title,
     this.bottom,
@@ -36,7 +36,7 @@ abstract class _PlatformListTile extends StatelessWidget
 
   const _PlatformListTile.cardArgs(
     this._args, {
-    Key key,
+    Key? key,
     this.leading,
     this.title,
     this.bottom,
@@ -45,7 +45,7 @@ abstract class _PlatformListTile extends StatelessWidget
   }) : super(key: key);
 
   const _PlatformListTile.nocard({
-    Key key,
+    Key? key,
     this.leading,
     this.title,
     this.bottom,
@@ -78,12 +78,12 @@ abstract class _PlatformListTile extends StatelessWidget
   }
 
   PlatformListTile copyWith({
-    Widget leading,
-    Widget title,
-    Widget bottom,
-    Widget subtitle,
-    Widget trailing,
-    PlatformCardArgs args,
+    Widget? leading,
+    Widget? title,
+    Widget? bottom,
+    Widget? subtitle,
+    Widget? trailing,
+    PlatformCardArgs? args,
   }) {
     return PlatformListTile.cardArgs(
       args,

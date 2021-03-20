@@ -4,7 +4,7 @@ import '../theme/sunny_colors.dart';
 import '../theme/sunny_spacing.dart';
 
 // Applies the space between each item in the list.  No space is applied after the last item in the list.
-List<Widget> spaced({List<Widget> children, EdgeInsets space}) {
+List<Widget> spaced({required List<Widget> children, EdgeInsets? space}) {
   space ??= EdgeInsets.all(sunnySpacing.spaceUnit);
   final spaced = children
       .map((item) =>
@@ -27,37 +27,37 @@ SunnyPad vpad(Widget child, [bool white = true]) =>
     SunnyPad.vertical(child: child, color: white == true ? Colors.white : null);
 
 class SunnyPad extends StatelessWidget {
-  final Widget child;
-  final Color color;
-  final EdgeInsets padding;
+  final Widget? child;
+  final Color? color;
+  final EdgeInsets? padding;
 
-  SunnyPad({Key key, this.child, this.color, bool dense})
+  SunnyPad({Key? key, this.child, this.color, bool? dense})
       : padding = dense == true ? sunnySpacing.half : sunnySpacing.all,
         super(key: key);
 
-  const SunnyPad._({Key key, this.child, this.color, this.padding})
+  const SunnyPad._({Key? key, this.child, this.color, this.padding})
       : super(key: key);
 
-  SunnyPad.vertical({Key key, this.child, Color color, bool dense, bool opaque})
+  SunnyPad.vertical({Key? key, this.child, Color? color, bool? dense, bool? opaque})
       : padding = dense == true ? sunnySpacing.vert / 2 : sunnySpacing.vert,
         color = opaque == true ? sunnyColors.white : color,
         super(key: key);
 
   SunnyPad.horizontal(
-      {Key key, this.child, Color color, bool dense, bool opaque})
+      {Key? key, this.child, Color? color, bool? dense, bool? opaque})
       : padding = dense == true ? sunnySpacing.horiz / 2 : sunnySpacing.horiz,
         color = opaque == true ? sunnyColors.white : color,
         super(key: key);
 
-  SunnyPad._header({Key key, this.child})
+  SunnyPad._header({Key? key, this.child})
       : padding = sunnySpacing.horiz * 2,
         color = sunnyColors.appBarBackground,
         super(key: key);
 
   static Widget header({
-    Key key,
-    @required Widget child,
-    @required double height,
+    Key? key,
+    required Widget child,
+    required double height,
   }) =>
       PreferredSize(
         key: key,
@@ -74,17 +74,17 @@ class SunnyPad extends StatelessWidget {
     return SunnyPad._(
       child: child,
       color: color,
-      padding: padding * amount,
+      padding: padding! * amount,
     );
   }
 }
 
 class SunnyMargin extends StatelessWidget {
-  final Widget child;
-  final Color color;
-  final bool dense;
+  final Widget? child;
+  final Color? color;
+  final bool? dense;
 
-  const SunnyMargin({Key key, this.child, this.color, this.dense})
+  const SunnyMargin({Key? key, this.child, this.color, this.dense})
       : super(key: key);
 
   @override

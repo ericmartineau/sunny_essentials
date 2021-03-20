@@ -8,7 +8,7 @@ class AppBarTitle extends StatelessWidget {
 
   const AppBarTitle.large(this.title) : style = _largeTitle;
 
-  const AppBarTitle(this.title, {Key key})
+  const AppBarTitle(this.title, {Key? key})
       : style = _smallTitle,
         super(key: key);
 

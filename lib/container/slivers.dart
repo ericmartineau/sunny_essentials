@@ -6,7 +6,7 @@ import 'spaced.dart';
 Widget sliverBox(Widget widget, [bool wrap = true]) =>
     wrap == true ? SliverToBoxAdapter(child: widget) : widget;
 
-Widget slivers({Widget child}) => SliverToBoxAdapter(child: child);
+Widget slivers({Widget? child}) => SliverToBoxAdapter(child: child);
 
 WidgetBuilder buildSliverBox(WidgetBuilder builder) =>
     (context) => sliverBox(builder(context));
@@ -16,22 +16,24 @@ List<Widget> sliverBoxes(Iterable<Widget> widgets) =>
 
 class SimpleSliverList<W> extends StatelessWidget with LoggingMixin {
   final Iterable<W> itemsIter;
-  final Widget Function(BuildContext context, W item) builder;
+  final Widget Function(BuildContext context, W item)? builder;
 
-  const SimpleSliverList(this.itemsIter, {Key key, this.divider, this.builder})
+  const SimpleSliverList(this.itemsIter, {Key? key, this.divider, this.builder})
       : super(key: key);
 
   static SimpleSliverList<T> of<T>(Iterable<T> itemsIter,
-      {Key key, Widget divider, Widget builder(BuildContext context, T item)}) {
+      {Key? key,
+      Widget? divider,
+      Widget builder(BuildContext context, T item)?}) {
     return SimpleSliverList(itemsIter,
         key: key, divider: divider, builder: builder);
   }
 
-  final Widget divider;
+  final Widget? divider;
 
   @override
   Widget build(BuildContext context) {
-    final itemsIter = this.itemsIter ?? const [];
+    final Iterable<W> itemsIter = this.itemsIter;
     final items = itemsIter.toList();
     final hasDivider = divider != null;
     final count = hasDivider ? ((items.length * 2) - 1) : items.length;
@@ -42,14 +44,13 @@ class SimpleSliverList<W> extends StatelessWidget with LoggingMixin {
             delegate: SliverChildBuilderDelegate(
               (context, idx) {
                 log.info("Building $idx");
-                if (items == null) return null;
                 if (idx.isOdd && hasDivider) {
                   return divider;
                 }
                 idx = hasDivider ? idx ~/ 2 : idx.toInt();
                 final item = items[idx];
                 if (item == null) return null;
-                return builder(context, item);
+                return builder!(context, item);
               },
               addRepaintBoundaries: true,
               childCount: count,

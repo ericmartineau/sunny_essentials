@@ -13,14 +13,14 @@ ThemeData form0Theme(Themes themes, Brightness brightness) {
 }
 
 class Form0Theme extends StatelessWidget {
-  final Widget child;
+  final Widget? child;
 
-  const Form0Theme({Key key, this.child}) : super(key: key);
+  const Form0Theme({Key? key, this.child}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     var currentTheme = Theme.of(context);
 
-    return Theme(data: form0Theme(context.get(), context.get()), child: child);
+    return Theme(data: form0Theme(context.get(), context.get()), child: child!);
   }
 }

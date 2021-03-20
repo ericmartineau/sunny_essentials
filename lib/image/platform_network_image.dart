@@ -5,24 +5,24 @@ import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 
 ImageProvider PlatformNetworkImageProvider(dynamic url) {
-  return (kIsWeb ? NetworkImage("$url") : CachedNetworkImageProvider("$url"))
-      as ImageProvider<dynamic>;
+  return ((kIsWeb ? NetworkImage("$url") : CachedNetworkImageProvider("$url"))
+      as ImageProvider<dynamic>) as ImageProvider<Object>;
 }
 
 class PlatformNetworkImage extends PlatformWidgetBase {
-  final String imageUrl;
-  final double height;
-  final double width;
-  final Widget Function(BuildContext context, String url) placeholder;
-  final Map<String, String> httpHeaders;
-  final Widget Function(BuildContext context, String url, Object err)
+  final String? imageUrl;
+  final double? height;
+  final double? width;
+  final Widget Function(BuildContext context, String url)? placeholder;
+  final Map<String, String>? httpHeaders;
+  final Widget Function(BuildContext context, String url, Object? err)?
       errorWidget;
   final Alignment alignment;
-  final bool useOldImageOnUrlChange;
-  final BoxFit fit;
+  final bool? useOldImageOnUrlChange;
+  final BoxFit? fit;
   PlatformNetworkImage(
     dynamic imageUrl, {
-    Key key,
+    Key? key,
     this.height,
     this.width,
     this.httpHeaders,
@@ -50,26 +50,26 @@ class PlatformNetworkImage extends PlatformWidgetBase {
           )
         : kIsWeb
             ? CachedNetworkImage(
-                imageUrl: imageUrl,
+                imageUrl: imageUrl!,
                 height: height,
                 width: width,
                 fit: fit,
-                alignment: alignment ?? Alignment.center,
+                alignment: alignment,
                 placeholder: placeholder,
                 httpHeaders: httpHeaders,
                 errorWidget: errorWidget,
-                useOldImageOnUrlChange: useOldImageOnUrlChange,
+                useOldImageOnUrlChange: useOldImageOnUrlChange!,
               )
             : CachedNetworkImage(
-                imageUrl: imageUrl,
+                imageUrl: imageUrl!,
                 height: height,
                 width: width,
                 fit: fit,
-                alignment: alignment ?? Alignment.center,
+                alignment: alignment,
                 placeholder: placeholder,
                 httpHeaders: httpHeaders,
                 errorWidget: errorWidget,
-                useOldImageOnUrlChange: useOldImageOnUrlChange,
+                useOldImageOnUrlChange: useOldImageOnUrlChange!,
               );
   }
 }

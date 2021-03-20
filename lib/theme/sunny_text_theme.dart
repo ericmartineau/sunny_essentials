@@ -31,7 +31,7 @@ const body3Spacing = 0.41;
 SunnyTextTheme get sunnyText =>
     _sunnyText ?? illegalState("No theme initialized");
 
-SunnyTextTheme _sunnyText;
+SunnyTextTheme? _sunnyText;
 
 /// List of font styles based on reliveit naming conventions.  This can be easily applied to a material
 /// or cupertino theme.
@@ -74,23 +74,21 @@ class SunnyTextTheme {
   TextStyle get placeholder2 => body2Light;
 
   static void setFontScale(double scale) {
-    assert(scale != null);
-
     _sunnyTextTheme = SunnyTextTheme.defaults;
-    _sunnyTextTheme = _sunnyTextTheme.applyEach((style) {
+    _sunnyTextTheme = _sunnyTextTheme!.applyEach((style) {
       return style.apply(fontSizeFactor: scale);
     }).copyWith(fontScale: scale);
   }
 
   static void setBrightness(BuildContext context) {
     _sunnyTextTheme ??= SunnyTextTheme.defaults;
-    _sunnyTextTheme = _sunnyTextTheme.applyEach((style) {
+    _sunnyTextTheme = _sunnyTextTheme!.applyEach((style) {
       final resolved = style.color;
       return style.copyWith(color: resolved);
     });
   }
 
-  static void init([SunnyTextTheme theme]) {
+  static void init([SunnyTextTheme? theme]) {
     _sunnyText = theme ?? SunnyTextTheme.defaults;
   }
 
@@ -98,29 +96,29 @@ class SunnyTextTheme {
 
   /// The internal constructor
   SunnyTextTheme._({
-    @required this.fontScale,
-    @required this.body1Normal,
-    @required this.body1Medium,
-    @required this.body1Bold,
-    @required this.body1Light,
-    @required this.body2Normal,
-    @required this.body2Medium,
-    @required this.body2Bold,
-    @required this.body2Light,
-    @required this.header4,
-    @required this.header3,
-    @required this.header2,
-    @required this.header1,
-    @required this.body3Light,
-    @required this.body3Link,
-    @required this.input1,
-    @required this.input2,
-    @required this.hero,
-    @required this.heroBold,
-    @required this.heroMedium,
-    @required this.input0,
-    @required this.placeholder0,
-  })  : body1Link = body1Medium.copyWith(color: sunnyColors.linkColor),
+    required this.fontScale,
+    required this.body1Normal,
+    required this.body1Medium,
+    required this.body1Bold,
+    required this.body1Light,
+    required this.body2Normal,
+    required this.body2Medium,
+    required this.body2Bold,
+    required this.body2Light,
+    required this.header4,
+    required this.header3,
+    required this.header2,
+    required this.header1,
+    required this.body3Light,
+    required this.body3Link,
+    required this.input1,
+    required this.input2,
+    required this.hero,
+    required this.heroBold,
+    required this.heroMedium,
+    required this.input0,
+    required this.placeholder0,
+  })   : body1Link = body1Medium.copyWith(color: sunnyColors.linkColor),
         body2Link = body2Medium.copyWith(color: sunnyColors.linkColor);
 
   static final defaults = SunnyTextTheme._(
@@ -297,7 +295,7 @@ class SunnyTextTheme {
     return style.copyWith(fontFamily: defaultFontFamily);
   }
 
-  TextTheme apply(TextTheme original, {TextStyle inputStyle}) {
+  TextTheme apply(TextTheme original, {TextStyle? inputStyle}) {
     return original.copyWith(
       headline1: header1,
       headline2: header2,
@@ -328,28 +326,28 @@ class SunnyTextTheme {
   }
 
   SunnyTextTheme copyWith({
-    double fontScale,
-    TextStyle body1Normal,
-    TextStyle body1Medium,
-    TextStyle body1Bold,
-    TextStyle body1Light,
-    TextStyle body2Normal,
-    TextStyle body2Medium,
-    TextStyle body2Bold,
-    TextStyle body2Light,
-    TextStyle header4,
-    TextStyle header3,
-    TextStyle header2,
-    TextStyle header1,
-    TextStyle body3Light,
-    TextStyle body3Link,
-    TextStyle input1,
-    TextStyle input2,
-    TextStyle hero,
-    TextStyle heroBold,
-    TextStyle heroMedium,
-    TextStyle input0,
-    TextStyle placeholder0,
+    double? fontScale,
+    TextStyle? body1Normal,
+    TextStyle? body1Medium,
+    TextStyle? body1Bold,
+    TextStyle? body1Light,
+    TextStyle? body2Normal,
+    TextStyle? body2Medium,
+    TextStyle? body2Bold,
+    TextStyle? body2Light,
+    TextStyle? header4,
+    TextStyle? header3,
+    TextStyle? header2,
+    TextStyle? header1,
+    TextStyle? body3Light,
+    TextStyle? body3Link,
+    TextStyle? input1,
+    TextStyle? input2,
+    TextStyle? hero,
+    TextStyle? heroBold,
+    TextStyle? heroMedium,
+    TextStyle? input0,
+    TextStyle? placeholder0,
   }) {
     return new SunnyTextTheme._(
       fontScale: fontScale ?? this.fontScale,
@@ -415,30 +413,30 @@ extension TextStylePlatformExt on TextStyle {
   }
 }
 
-SunnyTextTheme _sunnyTextTheme;
+SunnyTextTheme? _sunnyTextTheme;
 
 class HeroText extends StyledText {
   final String text;
   final FontType fontType;
-  final Color color;
+  final Color? color;
 
-  const HeroText.normal(this.text, {this.color, Key key})
+  const HeroText.normal(this.text, {this.color, Key? key})
       : fontType = FontType.normal,
         super(key: key);
 
-  const HeroText.bold(this.text, {this.color, Key key})
+  const HeroText.bold(this.text, {this.color, Key? key})
       : fontType = FontType.bold,
         super(key: key);
 
-  const HeroText.medium(this.text, {this.color, Key key})
+  const HeroText.medium(this.text, {this.color, Key? key})
       : fontType = FontType.medium,
         super(key: key);
 
-  const HeroText.light(this.text, {this.color, Key key})
+  const HeroText.light(this.text, {this.color, Key? key})
       : fontType = FontType.light,
         super(key: key);
 
-  const factory HeroText(String text, {Key key}) = HeroText.normal;
+  const factory HeroText(String text, {Key? key}) = HeroText.normal;
 
   @override
   StyleExtractor get styleGetter => (theme) => SunnyTextTheme().hero;
@@ -449,7 +447,7 @@ extension RichTextBuilderTrippiExt on RichTextBuilder {
     if (text.isNotNullOrBlank) {
       children.add(TextSpan(
           text: text,
-          style: textTheme.headline4.copyWith(fontWeight: FontWeight.bold)));
+          style: textTheme.headline4!.copyWith(fontWeight: FontWeight.bold)));
     }
     return this;
   }
@@ -458,7 +456,7 @@ extension RichTextBuilderTrippiExt on RichTextBuilder {
     if (text.isNotNullOrBlank) {
       children.add(TextSpan(
           text: text,
-          style: textTheme.headline4.copyWith(fontWeight: FontWeight.normal)));
+          style: textTheme.headline4!.copyWith(fontWeight: FontWeight.normal)));
     }
     return this;
   }

@@ -3,7 +3,7 @@ description: Just the basic widgets, with limited dependencies
 version: 0.4.4-nullsafety.0
 
 environment:
-  sdk: ">=2.7.0 <3.0.0"
+  sdk: '>=2.12.0 <3.0.0'
 
 dependencies:
 #  badges: ^2.0.0-nullsafety.1
@@ -16,12 +16,12 @@ dependencies:
   flutter_screen_scaling: ^3.3.2+1
   logging: ^1.0.0
 #  material_segmented_control: ^3.0.0-nullsafety.1
-  dartxx: ^0.4.5-nullsafety.3
+  dartxx: ^0.4.5-nullsafety.4
 #  modal_bottom_sheet: ^2.0.0
 #  permission_handler: ^6.1.1
   provider: ^5.0.0
 #  responsive_builder: ^0.4.0-nullsafety.1
-#  sunny_dart: ^0.8.2+2
+
 #  sunny_sdk_core: ^2.0.0-nullsafe.16
   timeago: ^3.0.2
   uri: ^1.0.0
@@ -31,6 +31,10 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+
+#dependency_overrides:
+#  dartxx:
+#    path: ../dartxx
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

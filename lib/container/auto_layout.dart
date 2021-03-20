@@ -1,47 +1,47 @@
+import 'package:dartxx/dartxx.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:sunny_dart/helpers/functions.dart';
 
-import 'package:sunny_dart/sunny_dart.dart';
 import '../image/platform_network_image.dart';
 import '../slivers/resizing_pinned_header.dart';
 import '../theme/sunny_spacing.dart';
-
 import 'dividing_line.dart';
 import 'standard_column.dart';
 
-List<Widget> divide(Iterable<Widget> widgets, Widget wrapped) {
+List<Widget> divide(Iterable<Widget> widgets, Widget? wrapped) {
   return [
     ...widgets.mapPos((item, pos) {
       return [
         if (pos.isNotFirst && wrapped != null) wrapped,
         item,
       ];
-    }).expand((_) => _)
+    }).flatten()
   ];
 }
 
 class AutoLayout {
   Layout _layout;
-  TextStyle _style;
+  TextStyle? _style;
   double _spacing = 8;
   double _radius = 12;
   bool _softWrap = true;
-  Color _color;
-  TextAlign _textAlign;
+  Color? _color;
+  TextAlign? _textAlign;
   bool _useFlex = true;
-  bool _isMax;
-  bool _isCrossMax;
-  CrossAxisAlignment _crossAxisAlignment;
+  bool? _isMax;
+  bool? _isCrossMax;
+  CrossAxisAlignment? _crossAxisAlignment;
   bool _centerEach = false;
-  Widget _divider;
-  EdgeInsets _padding;
-  double _height;
-  double _width;
-  EdgeInsets _margin;
-  Color _backgroundColor;
-  BorderRadius _borderRadius;
+  Widget? _divider;
+  EdgeInsets? _padding;
+  double? _height;
+  double? _width;
+  EdgeInsets? _margin;
+  Color? _backgroundColor;
+  BorderRadius? _borderRadius;
   MainAxisAlignment _mainAxisAlignment = MainAxisAlignment.center;
-  MainAxisSize _mainAxisSize = MainAxisSize.min;
+  MainAxisSize? _mainAxisSize = MainAxisSize.min;
   List<WidgetWrapper> _wrappers = [];
 
   AutoLayout(this._layout);
@@ -73,7 +73,6 @@ class AutoLayout {
 
   Widget build(
       [item1, item2, item3, item4, item5, item6, item7, item8, item9, item10]) {
-    assert(_layout != null, "You cannot build unless you have a layout");
     final items = [];
     [item1, item2, item3, item4, item5, item6, item7, item8, item9, item10]
         .forEach((element) {
@@ -115,20 +114,20 @@ class AutoLayout {
     if (item is Icon) {
       w = Icon(
         item.icon,
-        size: _radius?.times(2) ?? item.size,
+        size: _radius.times(2) ?? item.size,
         color: _color ?? item.color,
       );
     } else if (item is IconData) {
       w = Icon(
         item,
-        size: _radius?.times(2),
+        size: _radius.times(2),
         color: _color,
       );
     } else if (item is Uri) {
-      w = PlatformNetworkImage("$item", height: _radius?.times(2));
+      w = PlatformNetworkImage("$item", height: _radius.times(2));
     } else if (item is Text) {
       w = Text(
-        item.data,
+        item.data!,
         key: item.key,
         style: (item.style ?? TextStyle())
             .copyWith(color: _color ?? item.style?.color),
@@ -145,10 +144,10 @@ class AutoLayout {
     } else if (item is Widget) {
       w = item;
     } else {
-      w = Text(item?.toString(),
+      w = Text(item?.toString() ?? '',
           softWrap: _softWrap,
           textAlign: _textAlign,
-          style: (_style ?? TextStyle())?.copyWith(color: _color));
+          style: (_style ?? TextStyle()).copyWith(color: _color));
     }
 
     return _centerEach ? Center(child: w) : w;
@@ -156,7 +155,7 @@ class AutoLayout {
 
   Widget applyWrappers(Widget built) {
     for (final wrapper in _wrappers.reversed) {
-      built = wrapper(built) ?? built;
+      built = wrapper(built);
     }
     return built;
   }
@@ -179,7 +178,7 @@ class AutoLayout {
 typedef LayoutConfigure = void Function(AutoLayout container);
 
 class Layout {
-  Widget space(double space, AutoLayout container) => null;
+  Widget? space(double space, AutoLayout container) => null;
 
   Widget wrapWidgets(List<Widget> items, AutoLayout container) =>
       illegalState("This builder cannot be used to perform layout");
@@ -257,7 +256,7 @@ class _ContainerBuilder implements Layout {
   Widget _single(Widget child, AutoLayout container) {
     final withPadding = container.applyPadding(
       Container(
-        alignment: container._mainAxisAlignment?.toAlignment(),
+        alignment: container._mainAxisAlignment.toAlignment(),
         child: child,
       ),
     );
@@ -274,22 +273,16 @@ extension AutoLayoutConversion on MainAxisAlignment {
     switch (self) {
       case MainAxisAlignment.start:
         return Alignment.centerLeft;
-        break;
       case MainAxisAlignment.end:
         return Alignment.centerRight;
-        break;
       case MainAxisAlignment.center:
         return Alignment.center;
-        break;
       case MainAxisAlignment.spaceBetween:
         return Alignment.center;
-        break;
       case MainAxisAlignment.spaceAround:
         return Alignment.center;
-        break;
       case MainAxisAlignment.spaceEvenly:
         return Alignment.center;
-        break;
       default:
         return Alignment.center;
     }
@@ -565,16 +558,15 @@ extension AutoLayoutBuilderExt on AutoLayout {
   AutoLayout isHeader(
       {bool pinned = false,
       bool floating = false,
-      double height,
-      double expandedHeight}) {
-    assert(height != null);
+      required double height,
+      double? expandedHeight}) {
     return this
       .._wrappers.add((widget) {
         final delegate = (expandedHeight != null && expandedHeight != height)
             ? ResizingPinnedHeader(
                 expandedHeight: expandedHeight,
                 minExtent: height,
-                builder: (double height, double ratio, Widget child) => widget,
+                builder: (double height, double ratio, Widget? child) => widget,
                 child: widget)
             : FixedPinnedHeader(child: widget, fixedHeight: height);
         return SliverPersistentHeader(

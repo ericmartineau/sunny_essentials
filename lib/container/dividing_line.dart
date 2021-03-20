@@ -12,7 +12,7 @@ class DividingLine extends StatelessWidget {
   }
 
   static List<Widget> divideWithLines(Iterable<Widget> widgets,
-      [Widget divider]) {
+      [Widget? divider]) {
     return divide(widgets, divider ?? dividingLine);
   }
 

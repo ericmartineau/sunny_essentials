@@ -3,29 +3,28 @@ import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import '../provided.dart';
 
-CupertinoVisualStyle _instance;
+CupertinoVisualStyle? _instance;
 
 class CupertinoVisualStyle {
   final bool appBarHasBorder;
   final Color appBarColor;
   final Color cardColor;
-  final EdgeInsets inputPadding;
-  final TextStyle appBarTextStyle;
-  final CupertinoTabBarData tabBarData;
-  final List<BoxShadow> cardShadow;
+  final EdgeInsets? inputPadding;
+  final TextStyle? appBarTextStyle;
+  final CupertinoTabBarData? tabBarData;
+  final List<BoxShadow>? cardShadow;
 
   factory CupertinoVisualStyle() {
     return _instance ??= CupertinoVisualStyle.defaults();
   }
 
   static set instance(CupertinoVisualStyle style) {
-    assert(style != null);
     _instance = style;
   }
 
   static CupertinoVisualStyle get instance {
     _instance ??= CupertinoVisualStyle.defaults();
-    return _instance;
+    return _instance!;
   }
 
   /// ctor uses positional arguments to hellp us not miss new args
@@ -40,13 +39,13 @@ class CupertinoVisualStyle {
   );
 
   const CupertinoVisualStyle.of({
-    @required this.appBarHasBorder,
-    @required this.appBarColor,
-    @required this.cardColor,
-    @required this.inputPadding,
-    @required this.appBarTextStyle,
-    @required this.tabBarData,
-    @required this.cardShadow,
+    required this.appBarHasBorder,
+    required this.appBarColor,
+    required this.cardColor,
+    required this.inputPadding,
+    required this.appBarTextStyle,
+    required this.tabBarData,
+    required this.cardShadow,
   });
 
   const CupertinoVisualStyle.defaults()
@@ -64,13 +63,13 @@ class CupertinoVisualStyle {
         );
 
   CupertinoVisualStyle copyWith({
-    bool appBarHasBorder,
-    Color appBarColor,
-    Color cardColor,
-    EdgeInsets inputPadding,
-    TextStyle appBarTextStyle,
-    CupertinoTabBarData tabBarData,
-    List<BoxShadow> cardShadow,
+    bool? appBarHasBorder,
+    Color? appBarColor,
+    Color? cardColor,
+    EdgeInsets? inputPadding,
+    TextStyle? appBarTextStyle,
+    CupertinoTabBarData? tabBarData,
+    List<BoxShadow>? cardShadow,
   }) {
     return new CupertinoVisualStyle._of(
       appBarColor ?? this.appBarColor,
@@ -86,12 +85,12 @@ class CupertinoVisualStyle {
   CupertinoVisualStyle withTextScale(double textScaleFactor) {
     return this.copyWith(
         appBarTextStyle:
-            appBarTextStyle.apply(fontSizeFactor: textScaleFactor));
+            appBarTextStyle!.apply(fontSizeFactor: textScaleFactor));
   }
 
   CupertinoVisualStyle withBrightness(BuildContext context) {
     return this.copyWith(
-        cardShadow: cardShadow.map((sh) {
+        cardShadow: cardShadow!.map((sh) {
       return BoxShadow(
           color: sh.color,
           offset: sh.offset,
@@ -102,15 +101,15 @@ class CupertinoVisualStyle {
 }
 
 extension CupertinoVisualStyleBuildContext on BuildContext {
-  CupertinoVisualStyle get cupertinoVisualStyle {
+  CupertinoVisualStyle? get cupertinoVisualStyle {
     return Provided.find(this);
   }
 
-  CupertinoTabBarData get tabBarData {
+  CupertinoTabBarData? get tabBarData {
     return cupertinoVisualStyle?.tabBarData;
   }
 
-  TextStyle get appBarTextStyle {
+  TextStyle? get appBarTextStyle {
     return cupertinoVisualStyle?.appBarTextStyle;
   }
 }

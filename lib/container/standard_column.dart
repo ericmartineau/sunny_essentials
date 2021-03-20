@@ -6,7 +6,7 @@ typedef WidgetWrapper = Widget Function(Widget widget);
 
 // ignore: non_constant_identifier_names
 Widget column(Iterable<Widget> children,
-    {Color color, WidgetWrapper wrapper, Widget ifEmpty()}) {
+    {Color? color, WidgetWrapper? wrapper, Widget ifEmpty()?}) {
   if (children.isEmpty && ifEmpty != null) {
     return ifEmpty();
   }
@@ -17,15 +17,16 @@ Widget column(Iterable<Widget> children,
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
       children: [
-        ...?children?.map((widget) => wrapper?.call(widget) ?? widget),
+        ...children.map((widget) => wrapper?.call(widget) ?? widget),
       ],
     ),
   );
 }
 
-Widget stack(Iterable<Widget> children, {AlignmentGeometry alignment}) => Stack(
+Widget stack(Iterable<Widget> children, {AlignmentGeometry? alignment}) =>
+    Stack(
       alignment: alignment ?? Alignment.center,
-      children: [...?children],
+      children: [...children],
     );
 
 Widget row(Iterable<Widget> children) => Container(
@@ -33,7 +34,7 @@ Widget row(Iterable<Widget> children) => Container(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          ...?children,
+          ...children,
         ],
       ),
     );
@@ -43,26 +44,26 @@ Widget centerRow(Iterable<Widget> children) => Container(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          ...?children,
+          ...children,
         ],
       ),
     );
 
-Widget centerColumn(Iterable<Widget> children, {Color color}) => Container(
+Widget centerColumn(Iterable<Widget> children, {Color? color}) => Container(
       color: color,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisSize: MainAxisSize.min,
         children: [
-          ...?children,
+          ...children,
         ],
       ),
     );
 
 // ignore: non_constant_identifier_names
 Widget wrap(
-        {Iterable<Widget> children,
+        {Iterable<Widget>? children,
         double runspacing = 5,
         double spacing = 10}) =>
     Wrap(

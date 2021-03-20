@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:sunny_dart/helpers/functions.dart';
 
 extension BuildContextProvidesExtension on BuildContext {
-  T consume<T>([void exec(T value)]) {
+  T? consume<T>([void exec(T value)?]) {
     try {
       final t = Provider.of<T>(this, listen: false);
       exec?.call(t);
@@ -28,7 +28,7 @@ extension BuildContextProvidesExtension on BuildContext {
     return listenable.value;
   }
 
-  T tryListen<T>() {
+  T? tryListen<T>() {
     final listenable = Provided.find<ValueNotifier<T>>(this);
     return listenable?.value;
   }
@@ -39,10 +39,10 @@ extension BuildContextProvidesExtension on BuildContext {
   }
 
   void remove<T>() {
-    put<T>(null);
+    put<T?>(null);
   }
 
-  T find<T>() {
+  T? find<T>() {
     return Provided.find<T>(this);
   }
 
@@ -57,7 +57,7 @@ class Provided {
     return t;
   }
 
-  static T find<T>(BuildContext context) {
+  static T? find<T>(BuildContext context) {
     try {
       final t = Provider.of<T>(context, listen: false);
       return t;
@@ -79,7 +79,7 @@ class Provided {
   // }
 }
 
-T consume<T>(BuildContext context, [void exec(T value)]) {
+T? consume<T>(BuildContext context, [void exec(T value)?]) {
   try {
     final t = Provider.of<T>(context, listen: false);
     exec?.call(t);
@@ -92,7 +92,7 @@ T consume<T>(BuildContext context, [void exec(T value)]) {
 /// A container that sits at the top of the provider tree that can be updated from
 /// within the tree.
 class ProvidedBox<T> {
-  T _value;
+  T? _value;
 
   ProvidedBox([this._value]);
 
@@ -100,7 +100,7 @@ class ProvidedBox<T> {
     _value = t;
   }
 
-  T get valueOrNull {
+  T? get valueOrNull {
     return _value;
   }
 

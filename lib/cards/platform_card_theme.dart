@@ -34,7 +34,7 @@ class PlatformCardTheme {
     }
   }
 
-  final String debugLabel;
+  final String? debugLabel;
   final EdgeInsets padding;
   final EdgeInsets margin;
   final Color cardColor;
@@ -50,7 +50,7 @@ class PlatformCardTheme {
       this.borderRadius = kDefaultBorderRadius});
 
   PlatformCardTheme.ofRadius({
-    double radiusAmount,
+    required double radiusAmount,
     this.boxShadow = kDefaultShadow,
     this.debugLabel,
     this.cardColor = Colors.white,
