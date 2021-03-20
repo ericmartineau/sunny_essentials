@@ -1,3 +1,6 @@
+## [0.4.4-nullsafety.4]
+ * Adding scroll physics
+
 ## [0.4.4-nullsafety.3]
  * Updating root import
 
