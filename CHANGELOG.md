@@ -1,3 +1,6 @@
+## [0.4.4-nullsafety.3]
+ * Updating root import
+
 ## [0.4.4-nullsafety.1]
  * Initial checkin
 
