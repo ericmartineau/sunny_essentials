@@ -1,14 +1,14 @@
 // ignore_for_file: unused_field
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:sunny_dart/sunny_dart.dart';
+import 'package:info_x/info_x.dart';
 
 SunnyColors? _sunnyColors;
 
 SunnyColors get sunnyColors =>
     _sunnyColors ??
-    illegalState(
-        "No sunny colors have been initialized.  Set using SunnyColors.init");
+    (throw Exception(
+        "No sunny colors have been initialized.  Set using SunnyColors.init"));
 
 abstract class SunnyColors {
   CupertinoDynamicColor get white;

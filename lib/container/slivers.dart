@@ -1,5 +1,5 @@
 import 'package:flutter/widgets.dart';
-import 'package:sunny_dart/sunny_dart.dart';
+import 'package:logging/logging.dart';
 
 import 'spaced.dart';
 
@@ -14,7 +14,8 @@ WidgetBuilder buildSliverBox(WidgetBuilder builder) =>
 List<Widget> sliverBoxes(Iterable<Widget> widgets) =>
     widgets.map((widget) => SliverToBoxAdapter(child: widget)).toList();
 
-class SimpleSliverList<W> extends StatelessWidget with LoggingMixin {
+class SimpleSliverList<W> extends StatelessWidget {
+  static final log = Logger("SimpleSliverList");
   final Iterable<W> itemsIter;
   final Widget Function(BuildContext context, W item)? builder;
 

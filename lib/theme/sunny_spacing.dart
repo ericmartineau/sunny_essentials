@@ -1,6 +1,6 @@
 // ignore_for_file: unused_field
 import 'package:flutter/cupertino.dart';
-import 'package:sunny_dart/sunny_dart.dart';
+import 'package:dartxx/dartxx.dart';
 
 export 'package:flutter_screen_scaling/size_extension.dart';
 

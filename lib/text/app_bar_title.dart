@@ -1,10 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import '../theme/sunny_text_theme.dart';
-import 'package:sunny_dart/typedefs.dart';
 
 class AppBarTitle extends StatelessWidget {
   final String title;
-  final Getter<TextStyle> style;
+  final TextStyle Function() style;
 
   const AppBarTitle.large(this.title) : style = _largeTitle;
 

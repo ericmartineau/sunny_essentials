@@ -333,6 +333,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.5.3+2"
+  info_x:
+    dependency: "direct main"
+    description:
+      name: info_x
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.4.4-nullsafety.1"
   intl:
     dependency: transitive
     description:

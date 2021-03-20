@@ -1,6 +1,5 @@
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
-import 'package:sunny_dart/helpers/functions.dart';
 
 extension BuildContextProvidesExtension on BuildContext {
   T? consume<T>([void exec(T value)?]) {
@@ -105,6 +104,7 @@ class ProvidedBox<T> {
   }
 
   T get value {
-    return _value ?? nullPointer("No value $T could be found.  Was it set?");
+    return _value ??
+        (throw Exception("No value $T could be found.  Was it set?"));
   }
 }

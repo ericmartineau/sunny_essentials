@@ -2,10 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/src/cupertino/text_theme.dart';
+import 'package:info_x/info_x.dart';
+import 'package:dartxx/dartxx.dart';
 import '../text/text_widgets.dart';
-import 'package:sunny_dart/helpers.dart';
-import 'package:sunny_dart/is_x.dart';
-import 'package:sunny_dart/sunny_dart.dart';
 
 import 'sunny_colors.dart';
 
@@ -29,7 +28,7 @@ const body3Height = 15.0 / 13.0;
 const body3Spacing = 0.41;
 
 SunnyTextTheme get sunnyText =>
-    _sunnyText ?? illegalState("No theme initialized");
+    _sunnyText ?? (throw Exception("No theme initialized"));
 
 SunnyTextTheme? _sunnyText;
 

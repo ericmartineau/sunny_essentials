@@ -1,7 +1,6 @@
 import 'package:dartxx/dartxx.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:sunny_dart/helpers/functions.dart';
 
 import '../image/platform_network_image.dart';
 import '../slivers/resizing_pinned_header.dart';
@@ -181,7 +180,7 @@ class Layout {
   Widget? space(double space, AutoLayout container) => null;
 
   Widget wrapWidgets(List<Widget> items, AutoLayout container) =>
-      illegalState("This builder cannot be used to perform layout");
+      (throw Exception("This builder cannot be used to perform layout"));
 
   static const Layout _row = _RowBuilder();
   static const Layout _container = _ContainerBuilder();
