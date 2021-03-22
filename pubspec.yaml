@@ -1,19 +1,19 @@
 name: sunny_essentials
-version: 0.4.4-nullsafety.7
+version: 0.5.0
 description: Just the basic widgets, with limited dependencies
 environment: 
   sdk: '>=2.12.0 <3.0.0'
 dependencies: 
   cached_network_image: ^3.0.0-nullsafety
   equatable: ^2.0.0
-  flutter_degen: ^0.5.1-nullsafety.2
-  flutter_platform_widgets: ^1.0.1-nullsafety.2
-  flutter_screen_scaling: ^3.3.2+1
+  flutter_degen: ^0.6.0+1
+  flutter_platform_widgets: ^1.1.0
+  flutter_screen_scaling: ^3.3.2+2
   logging: ^1.0.0
-  dartxx: ^0.4.5-nullsafety.5
+  dartxx: ^0.5.0+2
   recase: ^4.0.0-nullsafety.0
   provider: ^5.0.0
-  info_x: ^0.4.4-nullsafety.1
+  info_x: ^0.5.0+1
   timeago: ^3.0.2
   uri: ^1.0.0
   flutter: 

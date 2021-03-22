@@ -98,7 +98,7 @@ packages:
       name: built_value
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "8.0.3"
+    version: "8.0.4"
   cached_network_image:
     dependency: "direct main"
     description:
@@ -189,14 +189,14 @@ packages:
       name: dartx
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.7.0"
+    version: "0.7.1"
   dartxx:
     dependency: "direct main"
     description:
       name: dartxx
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.4.5-nullsafety.5"
+    version: "0.4.5-nullsafety.8"
   equatable:
     dependency: "direct main"
     description:
@@ -238,7 +238,7 @@ packages:
       name: flexidate
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.4.5-nullsafety.2"
+    version: "0.4.5-nullsafety.3"
   flutter:
     dependency: "direct main"
     description: flutter
@@ -257,7 +257,7 @@ packages:
       name: flutter_cache_manager
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.0.0-nullsafety.1"
+    version: "3.0.0-nullsafety.2"
   flutter_degen:
     dependency: "direct main"
     description:
@@ -271,14 +271,14 @@ packages:
       name: flutter_platform_widgets
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.1-nullsafety.2"
+    version: "1.1.0"
   flutter_screen_scaling:
     dependency: "direct main"
     description:
       name: flutter_screen_scaling
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.3.2+1"
+    version: "3.3.2+2"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -339,7 +339,7 @@ packages:
       name: info_x
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.4.4-nullsafety.1"
+    version: "0.4.4-nullsafety.2"
   intl:
     dependency: transitive
     description:
@@ -638,7 +638,7 @@ packages:
       name: sunny_dart
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.8.3+2"
+    version: "0.8.3+3"
   synchronized:
     dependency: transitive
     description:
@@ -708,7 +708,7 @@ packages:
       name: uuid
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.0.1"
+    version: "3.0.2"
   vector_math:
     dependency: transitive
     description:
