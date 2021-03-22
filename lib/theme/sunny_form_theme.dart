@@ -19,6 +19,7 @@ class Form0Theme extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // ignore: unused_local_variable
     var currentTheme = Theme.of(context);
 
     return Theme(data: form0Theme(context.get(), context.get()), child: child!);

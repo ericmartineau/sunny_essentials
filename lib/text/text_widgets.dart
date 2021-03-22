@@ -608,7 +608,6 @@ class RichTextBuilder extends StatelessWidget {
   // FontStyle? _fontStyle;
   int? _maxLines;
   TextAlign _textAlign = TextAlign.start;
-  TextAlignVertical _textAlignVertical = TextAlignVertical.center;
   double? _height = null;
   bool _softWrap = true;
   TextOverflow _overflow = TextOverflow.clip;
@@ -775,10 +774,6 @@ class RichTextBuilder extends StatelessWidget {
 
   RichTextBuilder height(double height) {
     return this.._height = height;
-  }
-
-  RichTextBuilder textVertAlign(TextAlignVertical vert) {
-    return this.._textAlignVertical = vert;
   }
 
   RichTextBuilder applyChild(

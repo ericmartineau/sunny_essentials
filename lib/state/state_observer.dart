@@ -46,7 +46,7 @@ abstract class BaseState<T extends StatefulWidget> extends State<T>
   }
 
   Future asyncState(AsyncCallback callback) async {
-    await callback?.call();
+    await callback.call();
     safeState(() {});
   }
 

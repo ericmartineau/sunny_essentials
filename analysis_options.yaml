@@ -2,6 +2,8 @@ include: package:dartxx/analysis_options.yaml
 analyzer:
   enable-experiment:
     - variance
+  exclude:
+    - lib/shims/real_ui.dart
   errors:
     annotate_overrides: info
     always_declare_return_types: info
