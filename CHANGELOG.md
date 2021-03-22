@@ -1,3 +1,6 @@
+## [0.5.0+1]
+ * Minor bump
+
 ## [0.4.4-nullsafety.7]
  * shims
 
