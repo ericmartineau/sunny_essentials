@@ -1,3 +1,6 @@
+## [0.5.0+2]
+ * Adding brightness and color resolving methods
+
 ## [0.5.0+1]
  * Minor bump
 
