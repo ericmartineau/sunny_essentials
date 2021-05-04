@@ -6,7 +6,7 @@ environment:
 dependencies: 
   cached_network_image: ^3.0.0-nullsafety
   equatable: ^2.0.0
-  flutter_degen: ^0.6.0+1
+  flutter_degen: ^0.6.0+3
   flutter_platform_widgets: ^1.1.0
   flutter_screen_scaling: ^3.3.2+2
   logging: ^1.0.0

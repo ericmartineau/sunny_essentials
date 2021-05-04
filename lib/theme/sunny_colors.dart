@@ -11,6 +11,13 @@ SunnyColors get sunnyColors =>
         "No sunny colors have been initialized.  Set using SunnyColors.init"));
 
 abstract class SunnyColors {
+  /// The currently resolved brightness of this color set.
+  Brightness get brightness;
+
+  /// Resolves all colors against this BuildContext and returns an immutable
+  /// copy of the color data
+  SunnyColors resolve(BuildContext context);
+
   CupertinoDynamicColor get white;
 
   CupertinoDynamicColor get red;
@@ -66,6 +73,7 @@ abstract class SunnyColors {
   Color get barrierColor;
 
   const factory SunnyColors({
+    required Brightness brightness,
     required CupertinoDynamicColor white,
     required CupertinoDynamicColor primaryColor,
     required CupertinoDynamicColor linkColor,
@@ -97,6 +105,14 @@ abstract class SunnyColors {
 
   static void init([SunnyColors? color]) {
     _sunnyColors = color ?? SunnyColors.defaults();
+  }
+
+  /**
+   * Given a brightness, resolves colors against it
+   */
+  static SunnyColors resolveBrightness(BuildContext context) {
+    _sunnyColors = sunnyColors.resolve(context);
+    return sunnyColors;
   }
 
   factory SunnyColors.defaults() => const _DefaultSunnyColors();
@@ -150,6 +166,8 @@ class RawSunnyColors {
 
 /// This class hold unmodified constants.
 class _DefaultSunnyColors with SunnyColorMixin {
+  Brightness get brightness => Brightness.light;
+
   CupertinoDynamicColor get primaryColor =>
       const CupertinoDynamicColor.withBrightness(
         color: RawSunnyColors.blueColor,
@@ -352,6 +370,7 @@ class _DefaultSunnyColors with SunnyColorMixin {
 
 /// Implementation of color spec.
 class SunnyColorData with SunnyColorMixin implements SunnyColors {
+  final Brightness brightness;
   final CupertinoDynamicColor primaryColor;
   final CupertinoDynamicColor linkColor;
   final CupertinoDynamicColor red;
@@ -381,6 +400,7 @@ class SunnyColorData with SunnyColorMixin implements SunnyColors {
   final Color barrierColor;
 
   const SunnyColorData({
+    required this.brightness,
     required this.white,
     required this.primaryColor,
     required this.linkColor,
@@ -412,6 +432,43 @@ class SunnyColorData with SunnyColorMixin implements SunnyColors {
 }
 
 mixin SunnyColorMixin implements SunnyColors {
+  SunnyColors resolve(BuildContext context) {
+    if (platformBrightness != this.brightness) {
+      return SunnyColors(
+        brightness: platformBrightness,
+        white: this.white.resolveFrom(context),
+        primaryColor: this.primaryColor.resolveFrom(context),
+        linkColor: this.linkColor.resolveFrom(context),
+        red: this.red.resolveFrom(context),
+        g50: this.g50.resolveFrom(context),
+        g100: this.g100.resolveFrom(context),
+        g200: this.g200.resolveFrom(context),
+        g300: this.g300.resolveFrom(context),
+        g400: this.g400.resolveFrom(context),
+        g500: this.g500.resolveFrom(context),
+        g600: this.g600.resolveFrom(context),
+        g700: this.g700.resolveFrom(context),
+        g800: this.g800.resolveFrom(context),
+        g900: this.g900.resolveFrom(context),
+        black: this.black.resolveFrom(context),
+        iconDark: this.iconDark.resolveFrom(context),
+        shadow: this.shadow.resolveFrom(context),
+        appBarBackground: this.appBarBackground.resolveFrom(context),
+        placeholder: this.placeholder.resolveFrom(context),
+        inputBackground: this.inputBackground.resolveFrom(context),
+        scaffoldBackground: this.scaffoldBackground.resolveFrom(context),
+        inputBorder: this.inputBorder.resolveFrom(context),
+        headerLink: this.headerLink.resolveFrom(context),
+        separator: this.separator.resolveFrom(context),
+        text: this.text.resolveFrom(context),
+        textLight: this.textLight.resolveFrom(context),
+        barrierColor: this.barrierColor,
+      );
+    } else {
+      return this;
+    }
+  }
+
   SunnyColorData copyWith({
     CupertinoDynamicColor? white,
     CupertinoDynamicColor? primaryColor,
@@ -442,6 +499,7 @@ mixin SunnyColorMixin implements SunnyColors {
     Color? barrierColor,
   }) {
     return SunnyColorData(
+      brightness: this.brightness,
       white: white ?? this.white,
       primaryColor: primaryColor ?? this.primaryColor,
       linkColor: linkColor ?? this.linkColor,
@@ -478,112 +536,6 @@ const wideLetterSpacing = 0.0;
 
 final defaultLightTheme = ThemeData.light();
 final defaultDarkTheme = ThemeData.dark();
-
-// TextStyle adjustStyle(TextStyle original) {
-//   return original.copyWith(fontFamily: defaultFontFamily);
-// }
-//
-// PlatformCardTheme trippiCardTheme(CupertinoVisualStyle visual) {
-//   return PlatformCardTheme(
-//       debugLabel: "trippiCardTheme", boxShadow: visual.cardShadow);
-// }
-//
-// ThemeData trippiLightMaterialTheme(
-//     {TextStyle inputStyle, TextStyle placeholder1}) {
-//   final tt = sunnyText;
-//   final text = tt.apply(defaultLightTheme.textTheme, inputStyle: inputStyle);
-//   return defaultLightTheme.copyWith(
-//     primaryColorDark: DefaultSunnyColors.g800,
-//     primaryColor: DefaultSunnyColors.primaryColor,
-//     backgroundColor: DefaultSunnyColors.g50,
-//     textTheme: text,
-//     primaryIconTheme: IconThemeData(color: TrippiColors.g800),
-//     appBarTheme: AppBarTheme(
-//       color: TrippiColors.appBarBackground,
-//       elevation: 0,
-// //      color: TrippiColors.appBarBackground,
-// //      iconTheme: IconThemeData(color: TrippiColors.g600),
-//     ),
-//     inputDecorationTheme: trippiInputDecorationTheme(tt,
-//         input: inputStyle, placeholder: placeholder1),
-//   );
-// }
-//
-// InputDecorationTheme trippiInputDecorationTheme(TrippiTextTheme tt,
-//     {TextStyle input, TextStyle placeholder}) {
-//   input ??= tt.input1;
-//   placeholder ??= tt.placeholder1;
-//   return InputDecorationTheme(
-//     labelStyle: tt.body2Light.copyWith(fontWeight: mediumWeight),
-//     hintStyle: placeholder,
-//     contentPadding: EdgeInsets.symmetric(vertical: 12.px),
-//     focusedBorder:
-//         UnderlineInputBorder(borderSide: TrippiColors.g800.borderSide1),
-//     focusedErrorBorder: UnderlineInputBorder(
-//         borderSide: BorderSide(width: 1, color: Colors.red)),
-//     enabledBorder: UnderlineInputBorder(
-//         borderSide: BorderSide(width: .5, color: TrippiColors.g300)),
-//     disabledBorder: UnderlineInputBorder(
-//         borderSide: BorderSide(width: .5, color: TrippiColors.g300)),
-//     errorBorder: UnderlineInputBorder(
-//         borderSide: BorderSide(width: .5, color: Colors.red)),
-//   );
-// }
-//
-// ThemeData trippiDarkMaterialTheme(
-//     {TextStyle bodyText1, TextStyle placeholder1}) {
-//   final tt = sunnyText;
-//   final theme = tt.apply(defaultDarkTheme.textTheme, inputStyle: bodyText1);
-//   return defaultDarkTheme.copyWith(
-//     appBarTheme: AppBarTheme(
-//       color: TrippiColors.appBarBackground,
-//       elevation: 0,
-// //      color: TrippiColors.appBarBackground,
-// //      iconTheme: IconThemeData(color: TrippiColors.g600),
-//     ),
-//     textTheme: theme,
-//     primaryColorDark: DefaultSunnyColors.g800,
-//     primaryColor: DefaultSunnyColors.primaryColor,
-//     backgroundColor: DefaultSunnyColors.g50.inverted,
-//     inputDecorationTheme: trippiInputDecorationTheme(tt,
-//         input: bodyText1, placeholder: placeholder1),
-//   );
-// }
-//
-// ThemeData get form0Theme {
-//   final tt = sunnyText;
-//   return trippiLightMaterialTheme(
-//     inputStyle: tt.input0,
-//     placeholder1: tt.placeholder0,
-//   );
-// }
-//
-// const defaultCupertinoText = const CupertinoTextThemeData();
-//
-// CupertinoThemeData trippiCupertinoTheme(Brightness brightness) =>
-//     CupertinoThemeData().copyWith(
-//       brightness: brightness,
-//       textTheme: sunnyText.applyCupertino(defaultCupertinoText),
-//       primaryColor: TrippiColors.g800,
-//       primaryContrastingColor: DefaultSunnyColors.linkColor,
-//       barBackgroundColor: TrippiColors.inputBackground,
-//       scaffoldBackgroundColor: TrippiColors.scaffoldBackground,
-//     );
-//
-// CupertinoVisualStyle trippiVisualStyles() {
-//   return CupertinoVisualStyle().copyWith(
-//       appBarHasBorder: false,
-//       appBarColor: TrippiColors.appBarBackground,
-//       appBarTextStyle: TrippiTextTheme.defaults.body1Medium,
-//       cardShadow: [
-//         BoxShadow(
-//           color: TrippiColors.shadow,
-//           offset: Offset(0, 8.px),
-//           spreadRadius: 0,
-//           blurRadius: 24.px, // has the effect of softening the shadow
-//         ),
-//       ]);
-// }
 
 /// we run points calculations off this
 // const basePixelWidth = 375;
@@ -652,4 +604,8 @@ extension SunnyColorExt on SunnyColors {
   CupertinoDynamicColor get iconDisabled {
     return this.textLight;
   }
+}
+
+Brightness get platformBrightness {
+  return WidgetsBinding.instance!.window.platformBrightness;
 }
