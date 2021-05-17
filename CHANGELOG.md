@@ -1,3 +1,6 @@
+## [0.6.0+3]
+ * Updated dependencies
+
 ## [0.6.0+2]
  * Updated dependencies
 
