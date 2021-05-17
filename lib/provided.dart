@@ -52,8 +52,15 @@ extension BuildContextProvidesExtension on BuildContext {
 
 class Provided {
   static T get<T>(BuildContext context) {
-    final t = Provider.of<T>(context, listen: false);
-    return t;
+    try {
+      final t = Provider.of<T>(context, listen: false);
+      return t;
+    } on ProviderNotFoundException {
+      print("############  WOFJKDLSFJKLDS:JFD  ######################  ${T} was found under ${T}?");
+      print("############  WOFJKDLSFJKLDS:JFD  ######################");
+      final t = Provider.of<T?>(context, listen: false)!;
+      return t;
+    }
   }
 
   static T? find<T>(BuildContext context) {
