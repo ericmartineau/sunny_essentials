@@ -9,6 +9,7 @@ typedef DisposeFn = FutureOr Function();
 
 mixin ObserverMixin implements LoggingMixin, HasDisposers {
   bool _isDisposing = false;
+  bool get isDisposing => _isDisposing;
   final List<DisposeFn> disposers = <DisposeFn>[];
   final List<StreamSubscription> subscriptions = <StreamSubscription>[];
 
@@ -109,23 +110,6 @@ mixin ObserverMixin implements LoggingMixin, HasDisposers {
 //      onChange?.call(change);
 //    }).cancel);
 //  }
-
-  // SyncStream<V> watchStream<V>(Stream<V> changeStream,
-  //     {V initial, String name, Consumer<V> onChange}) {
-  //   if (changeStream == null) return SyncStream.empty();
-  //   final ss = changeStream.toSyncStream(
-  //       initial,
-  //       onChange == null
-  //           ? null
-  //           : (input) {
-  //               if (!_isDisposing) {
-  //                 onChange?.call(input);
-  //               }
-  //             },
-  //       name);
-  //   disposers.add(ss.disposeAll);
-  //   return ss;
-  // }
 
   // SyncStream<V> watchVStream<V>(ValueStream<V> stream,
   //     {String name, Consumer<V> onChange}) {
