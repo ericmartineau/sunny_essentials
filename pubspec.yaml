@@ -10,7 +10,7 @@ dependencies:
   flutter_degen: ^0.6.0+3
   flutter_platform_widgets: ^1.7.1
   flutter_screen_scaling: ^3.3.2+3
-  info_x: ^0.6.0+1
+  info_x: ^0.7.0+1
   logging: ^1.0.1
   provider: ^5.0.0
   recase: ^4.0.0
