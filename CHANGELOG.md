@@ -1,3 +1,6 @@
+## [0.6.0+2]
+ * Updated dependencies
+
 ## [0.5.0+2]
  * Adding brightness and color resolving methods
 
