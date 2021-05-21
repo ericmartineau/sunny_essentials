@@ -5,6 +5,8 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 
+import 'theme/sunny_text_theme.dart';
+
 /// Enforces HitTest.opaque and removes parameters
 Widget tappable<R>(Widget child,
     {FutureOrTappableCallback? onTap,
@@ -59,7 +61,7 @@ class Tappable extends StatefulWidget {
   })  : duration = const Duration(milliseconds: 300),
         pressOpacity = null,
         pressScale = null,
-        child = Text(s, style: style);
+        child = Text(s, style: style ?? sunnyText.body1Link);
 
   const Tappable(
       {Key? key,

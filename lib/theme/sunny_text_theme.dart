@@ -82,7 +82,7 @@ class SunnyTextTheme {
   static void setBrightness(BuildContext context) {
     _sunnyTextTheme ??= SunnyTextTheme.defaults;
     _sunnyTextTheme = _sunnyTextTheme!.applyEach((style) {
-      final resolved = style.color;
+      final resolved = style.color?.resolveFrom(context);
       return style.copyWith(color: resolved);
     });
   }
@@ -302,7 +302,7 @@ class SunnyTextTheme {
       headline4: header4,
       headline5: body1Bold,
       headline6: body2Bold,
-      subtitle1: inputStyle ?? body1Medium,
+      subtitle1: (inputStyle ?? body1Medium),
       subtitle2: body2Medium,
       bodyText1: body1Normal,
       bodyText2: body2Normal,
@@ -412,6 +412,36 @@ extension TextStylePlatformExt on TextStyle {
   }
 }
 
+extension TextThemeApplyEachExt on TextTheme {
+  TextTheme withBrightness(Brightness brightness) {
+    return this.applyEach((original) =>
+        original?.copyWith(color: original.color?.withBrightness(brightness)));
+  }
+
+  TextTheme brightnessOf(BuildContext context) {
+    return this.applyEach((original) =>
+        original?.copyWith(color: original.color?.resolveFrom(context)));
+  }
+
+  TextTheme applyEach(TextStyle? apply(TextStyle? original)) {
+    return this.copyWith(
+      headline1: apply(headline1),
+      headline2: apply(headline2),
+      headline3: apply(headline3),
+      headline4: apply(headline4),
+      headline5: apply(headline5),
+      headline6: apply(headline6),
+      subtitle1: apply(subtitle1),
+      subtitle2: apply(subtitle2),
+      bodyText1: apply(bodyText1),
+      bodyText2: apply(bodyText2),
+      caption: apply(caption),
+      button: apply(button),
+      overline: apply(overline),
+    );
+  }
+}
+
 SunnyTextTheme? _sunnyTextTheme;
 
 class HeroText extends StyledText {
@@ -464,5 +494,9 @@ extension RichTextBuilderTrippiExt on RichTextBuilder {
 extension TextStyleWidgetBuilderExt on TextStyle {
   Widget build(String text, {TextAlign textAlign = TextAlign.left}) {
     return Text(text, style: this, textAlign: textAlign);
+  }
+
+  TextStyle withBrightness(BuildContext context) {
+    return this.copyWith(color: this.color?.resolveFrom(context));
   }
 }

@@ -19,9 +19,9 @@ abstract class BaseState<T extends StatefulWidget> extends State<T>
   String get stateId => "${runtimeType.simpleName}$stateCounter";
   Object? pageError;
 
-  void safeState(VoidCallback callback) {
+  void safeState([VoidCallback? callback]) {
     if (mounted) {
-      setState(callback);
+      setState(callback ?? (){});
     }
   }
 

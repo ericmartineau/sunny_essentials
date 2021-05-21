@@ -56,6 +56,8 @@ abstract class SunnyColors {
 
   CupertinoDynamicColor get scaffoldBackground;
 
+  CupertinoDynamicColor get modalBackground;
+
   CupertinoDynamicColor get inputBorder;
 
   CupertinoDynamicColor get headerLink;
@@ -95,6 +97,7 @@ abstract class SunnyColors {
     required CupertinoDynamicColor placeholder,
     required CupertinoDynamicColor inputBackground,
     required CupertinoDynamicColor scaffoldBackground,
+    required CupertinoDynamicColor modalBackground,
     required CupertinoDynamicColor inputBorder,
     required CupertinoDynamicColor headerLink,
     required CupertinoDynamicColor separator,
@@ -139,6 +142,7 @@ abstract class SunnyColors {
     CupertinoDynamicColor? placeholder,
     CupertinoDynamicColor? inputBackground,
     CupertinoDynamicColor? scaffoldBackground,
+    CupertinoDynamicColor? modalBackground,
     CupertinoDynamicColor? inputBorder,
     CupertinoDynamicColor? headerLink,
     CupertinoDynamicColor? separator,
@@ -337,7 +341,8 @@ class _DefaultSunnyColors with SunnyColorMixin {
 
   CupertinoDynamicColor get inputBackground => g50;
 
-  CupertinoDynamicColor get scaffoldBackground => g50;
+  CupertinoDynamicColor get scaffoldBackground => g100;
+  CupertinoDynamicColor get modalBackground => g50;
 
   CupertinoDynamicColor get inputBorder => g200;
 
@@ -392,6 +397,7 @@ class SunnyColorData with SunnyColorMixin implements SunnyColors {
   final CupertinoDynamicColor placeholder;
   final CupertinoDynamicColor inputBackground;
   final CupertinoDynamicColor scaffoldBackground;
+  final CupertinoDynamicColor modalBackground;
   final CupertinoDynamicColor inputBorder;
   final CupertinoDynamicColor headerLink;
   final CupertinoDynamicColor separator;
@@ -422,6 +428,7 @@ class SunnyColorData with SunnyColorMixin implements SunnyColors {
     required this.placeholder,
     required this.inputBackground,
     required this.scaffoldBackground,
+    required this.modalBackground,
     required this.inputBorder,
     required this.headerLink,
     required this.separator,
@@ -457,6 +464,7 @@ mixin SunnyColorMixin implements SunnyColors {
         placeholder: this.placeholder.resolveFrom(context),
         inputBackground: this.inputBackground.resolveFrom(context),
         scaffoldBackground: this.scaffoldBackground.resolveFrom(context),
+        modalBackground: this.modalBackground.resolveFrom(context),
         inputBorder: this.inputBorder.resolveFrom(context),
         headerLink: this.headerLink.resolveFrom(context),
         separator: this.separator.resolveFrom(context),
@@ -491,6 +499,7 @@ mixin SunnyColorMixin implements SunnyColors {
     CupertinoDynamicColor? placeholder,
     CupertinoDynamicColor? inputBackground,
     CupertinoDynamicColor? scaffoldBackground,
+    CupertinoDynamicColor? modalBackground,
     CupertinoDynamicColor? inputBorder,
     CupertinoDynamicColor? headerLink,
     CupertinoDynamicColor? separator,
@@ -521,6 +530,7 @@ mixin SunnyColorMixin implements SunnyColors {
       placeholder: placeholder ?? this.placeholder,
       inputBackground: inputBackground ?? this.inputBackground,
       scaffoldBackground: scaffoldBackground ?? this.scaffoldBackground,
+      modalBackground: modalBackground ?? this.modalBackground,
       inputBorder: inputBorder ?? this.inputBorder,
       headerLink: headerLink ?? this.headerLink,
       separator: separator ?? this.separator,
@@ -558,6 +568,26 @@ extension CupertinoDynamicColorToWidgetExt on CupertinoDynamicColor {
   }
 }
 
+extension ColorResolver on Color {
+  Color resolveFrom(BuildContext context) {
+    final self = this;
+    if (self is CupertinoDynamicColor) {
+      return self.resolveFrom(context);
+    } else {
+      return this;
+    }
+  }
+
+  Color withBrightness(Brightness brightness) {
+    final self = this;
+    if (self is CupertinoDynamicColor) {
+      return brightness == Brightness.light ? self.color : self.darkColor;
+    } else {
+      return this;
+    }
+  }
+}
+
 extension ColorToWidgetExt on Color {
   BorderSide get borderSide1 {
     return BorderSide(color: this);
@@ -587,18 +617,6 @@ extension ColorToWidgetExt on Color {
     return Border.fromBorderSide(BorderSide(color: this, width: 0.5));
   }
 }
-
-// class Form0Theme extends StatelessWidget {
-//   final Widget child;
-//
-//   const Form0Theme({Key key, this.child}) : super(key: key);
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     var currentTheme = Theme.of(context);
-//     return Theme(data: form0Theme, child: child);
-//   }
-// }
 
 extension SunnyColorExt on SunnyColors {
   CupertinoDynamicColor get iconDisabled {
