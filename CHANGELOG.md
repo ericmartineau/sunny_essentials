@@ -1,3 +1,6 @@
+## [0.6.0+6]
+ * Theme
+
 ## [0.6.0+5]
  * Updating colors
 
