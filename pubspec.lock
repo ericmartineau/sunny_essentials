@@ -325,7 +325,7 @@ packages:
       name: info_x
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.6.0+1"
+    version: "0.7.0+1"
   intl:
     dependency: transitive
     description:

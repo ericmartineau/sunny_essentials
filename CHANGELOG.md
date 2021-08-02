@@ -1,3 +1,6 @@
+## [0.6.0+8]
+ * REBUILD
+
 ## [0.6.0+7]
  * Adding properties to platform overlay
 
