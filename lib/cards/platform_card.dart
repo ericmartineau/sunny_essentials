@@ -4,7 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_degen/annotations.dart';
+import 'package:flutter_degen_annotations/flutter_degen_annotations.dart';
 import 'package:info_x/info_x.dart';
 import 'platform_card_theme.dart';
 
