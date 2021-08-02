@@ -309,16 +309,21 @@ class TertiaryText extends StatelessWidget {
 
 class ErrorText extends StatelessWidget {
   final String text;
+  final bool isCentered;
 
-  ErrorText(this.text);
+  ErrorText(this.text, {this.isCentered = false});
 
-  ErrorText.ofValidationError(Object error) : text = error.toString();
+  ErrorText.ofValidationError(Object error, {this.isCentered = false})
+      : text = error.toString();
 
   @override
   Widget build(BuildContext context) {
     return Text(
       text,
-      style: sunnyText.body3Light.copyWith(color: Colors.red),
+      textAlign: isCentered ? TextAlign.center : TextAlign.left,
+      style: sunnyText.body3Light.copyWith(
+        color: Colors.red,
+      ),
     );
   }
 }
