@@ -1,3 +1,6 @@
+## [0.6.0+7]
+ * Adding properties to platform overlay
+
 ## [0.6.0+6]
  * Theme
 
