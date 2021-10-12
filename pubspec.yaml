@@ -1,5 +1,5 @@
 name: sunny_essentials
-version: 0.6.0+9
+version: 0.6.0+10
 description: Just the basic widgets, with limited dependencies
 environment: 
   sdk: '>=2.12.0 <3.0.0'
@@ -18,10 +18,10 @@ dependencies:
   uri: ^1.0.0
   flutter: 
     sdk: flutter
-dev_dependencies:
+dev_dependencies: 
   meta: ^1.7.0
   flutter_degen: ^0.7.0+2
   flutter_test: 
     sdk: flutter
-dependency_overrides:
+dependency_overrides: 
   meta: ^1.7.0

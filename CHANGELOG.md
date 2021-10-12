@@ -1,3 +1,9 @@
+## [0.6.0+10]
+ * Adding lib/hero.drat
+Updates to essentials
+Updated degen annotations
+Updated degen annotations
+
 ## [0.6.0+8]
  * REBUILD
 
