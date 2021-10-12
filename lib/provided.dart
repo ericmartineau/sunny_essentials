@@ -50,6 +50,10 @@ extension BuildContextProvidesExtension on BuildContext {
   }
 }
 
+Widget Reprovide<T>(BuildContext context, {bool listen=true, required Widget child}) {
+  return Provider<T>.value(value: Provider.of<T>(context, listen:listen), child: child);
+}
+
 class Provided {
   static T get<T>(BuildContext context) {
     try {
