@@ -44,23 +44,25 @@ abstract class _PlatformListTile extends StatelessWidget
     this.trailing,
   }) : super(key: key);
 
-  const _PlatformListTile.nocard({
+  _PlatformListTile.nocard({
     Key? key,
     this.leading,
     this.title,
     this.bottom,
+    FutureOr<dynamic> Function(BuildContext)? onTap,
     this.subtitle,
     this.trailing,
-  })  : _args = const PlatformCardArgs(
+  })  : _args = PlatformCardArgs(
           useShadow: false,
+          onTap: onTap,
         ),
         super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final tile = ListTile(
-      onTap: () => this.onTap?.call(context),
-      onLongPress: () => this.onLongPress?.call(context),
+      onTap: onTap == null ? null : ()=>this.onTap?.call(context),
+      onLongPress: onLongPress == null ? null : () => this.onLongPress?.call(context),
       title: title,
       leading: leading,
       trailing: trailing,

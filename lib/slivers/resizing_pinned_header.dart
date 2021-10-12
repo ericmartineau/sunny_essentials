@@ -78,12 +78,13 @@ class ResizingPinnedHeader extends SliverPersistentHeaderDelegate {
   double get maxExtent => expandedHeight;
 
   @override
-  bool shouldRebuild(SliverPersistentHeaderDelegate oldDelegate) => false;
+  bool shouldRebuild(SliverPersistentHeaderDelegate oldDelegate) => true;
 }
 
 class FixedPinnedHeader extends SliverPersistentHeaderDelegate {
   final double fixedHeight;
   final Widget child;
+
 
   const FixedPinnedHeader({required this.fixedHeight, required this.child});
 
@@ -107,5 +108,5 @@ class FixedPinnedHeader extends SliverPersistentHeaderDelegate {
   double get minExtent => fixedHeight;
 
   @override
-  bool shouldRebuild(SliverPersistentHeaderDelegate oldDelegate) => false;
+  bool shouldRebuild(SliverPersistentHeaderDelegate oldDelegate) => true;
 }

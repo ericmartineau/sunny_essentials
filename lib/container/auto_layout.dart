@@ -22,12 +22,12 @@ List<Widget> divide(Iterable<Widget> widgets, Widget? wrapped) {
 class AutoLayout {
   Layout _layout;
   TextStyle? _style;
-  double _spacing = 8;
+  double _spacing = 0;
   double _radius = 12;
   bool _softWrap = true;
   Color? _color;
   TextAlign? _textAlign;
-  bool _useFlex = true;
+  bool _useFlex = false;
   bool? _isMax;
   bool? _isCrossMax;
   CrossAxisAlignment? _crossAxisAlignment;

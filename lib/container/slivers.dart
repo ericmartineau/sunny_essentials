@@ -21,6 +21,13 @@ class SimpleSliverList<W> extends StatelessWidget {
 
   const SimpleSliverList(this.itemsIter, {Key? key, this.divider, this.builder})
       : super(key: key);
+  
+  static SimpleSliverList<Widget> children(Iterable<Widget> itemsIter,
+      {Key? key,
+        Widget? divider,}) {
+    return SimpleSliverList(itemsIter,
+        key: key, divider: divider, builder: (context, item)=>item,);
+  }
 
   static SimpleSliverList<T> of<T>(Iterable<T> itemsIter,
       {Key? key,

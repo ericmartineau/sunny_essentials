@@ -69,7 +69,7 @@ class PlatformCard extends StatelessWidget with _PlatformCardArgsMixin {
   Widget build(BuildContext context) {
     final theme = this.theme ?? PlatformCardTheme.of(context);
     Widget widget;
-    if (kIsWeb || infoX.isIOS == true) {
+    if (kIsWeb || infoX.isIOS == true || infoX.isMacOS) {
       final inner = shouldClip == true
           ? ClipRRect(
               borderRadius: borderRadius ?? theme.borderRadius, child: child)

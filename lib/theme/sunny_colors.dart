@@ -568,6 +568,12 @@ extension CupertinoDynamicColorToWidgetExt on CupertinoDynamicColor {
   }
 }
 
+extension BorderSideExtensions on BorderSide {
+  Border toBorder() {
+    return Border.fromBorderSide(this);
+  }
+}
+
 extension ColorResolver on Color {
   Color resolveFrom(BuildContext context) {
     final self = this;

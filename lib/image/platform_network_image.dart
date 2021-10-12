@@ -18,7 +18,7 @@ class PlatformNetworkImage extends PlatformWidgetBase {
   final Widget Function(BuildContext context, String url, Object? err)?
       errorWidget;
   final Alignment alignment;
-  final bool? useOldImageOnUrlChange;
+  final bool useOldImageOnUrlChange;
   final BoxFit? fit;
   PlatformNetworkImage(
     dynamic imageUrl, {
@@ -29,7 +29,7 @@ class PlatformNetworkImage extends PlatformWidgetBase {
     this.placeholder,
     this.errorWidget,
     this.alignment = Alignment.center,
-    this.useOldImageOnUrlChange,
+    this.useOldImageOnUrlChange = false,
     this.fit,
   })  : assert(imageUrl != null),
         imageUrl = "$imageUrl",
@@ -58,7 +58,7 @@ class PlatformNetworkImage extends PlatformWidgetBase {
                 placeholder: placeholder,
                 httpHeaders: httpHeaders,
                 errorWidget: errorWidget,
-                useOldImageOnUrlChange: useOldImageOnUrlChange!,
+                useOldImageOnUrlChange: useOldImageOnUrlChange,
               )
             : CachedNetworkImage(
                 imageUrl: imageUrl!,
@@ -69,7 +69,7 @@ class PlatformNetworkImage extends PlatformWidgetBase {
                 placeholder: placeholder,
                 httpHeaders: httpHeaders,
                 errorWidget: errorWidget,
-                useOldImageOnUrlChange: useOldImageOnUrlChange!,
+                useOldImageOnUrlChange: useOldImageOnUrlChange,
               );
   }
 }

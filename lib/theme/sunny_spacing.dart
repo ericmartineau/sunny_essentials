@@ -83,6 +83,11 @@ class SunnySpacing {
   }
 
   SizedBox get vertSpace => vspace(1);
+
+  Widget vsliver([int x = 1]) {
+    return vspace(x).sliverBox();
+  }
+
   SizedBox vspace([int x = 1]) {
     switch (x) {
       case 0:

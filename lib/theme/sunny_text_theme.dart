@@ -8,7 +8,7 @@ import '../text/text_widgets.dart';
 
 import 'sunny_colors.dart';
 
-const defaultFontFamily = 'Roboto';
+var defaultFontFamily = 'Roboto';
 const mediumWeight = FontWeight.w500;
 
 const input0Size = 18.0;
@@ -26,6 +26,8 @@ const body2Spacing = 0.44;
 const body3Size = 13.0;
 const body3Height = 15.0 / 13.0;
 const body3Spacing = 0.41;
+
+const heroSpacing = -0.42;
 
 SunnyTextTheme get sunnyText =>
     _sunnyText ?? (throw Exception("No theme initialized"));
@@ -73,15 +75,15 @@ class SunnyTextTheme {
   TextStyle get placeholder2 => body2Light;
 
   static void setFontScale(double scale) {
-    _sunnyTextTheme = SunnyTextTheme.defaults;
-    _sunnyTextTheme = _sunnyTextTheme!.applyEach((style) {
+    _sunnyText ??= SunnyTextTheme.defaults;
+    _sunnyText = _sunnyText!.applyEach((style) {
       return style.apply(fontSizeFactor: scale);
     }).copyWith(fontScale: scale);
   }
 
   static void setBrightness(BuildContext context) {
-    _sunnyTextTheme ??= SunnyTextTheme.defaults;
-    _sunnyTextTheme = _sunnyTextTheme!.applyEach((style) {
+    _sunnyText ??= SunnyTextTheme.defaults;
+    _sunnyText = _sunnyText!.applyEach((style) {
       final resolved = style.color?.resolveFrom(context);
       return style.copyWith(color: resolved);
     });
@@ -91,7 +93,7 @@ class SunnyTextTheme {
     _sunnyText = theme ?? SunnyTextTheme.defaults;
   }
 
-  factory SunnyTextTheme() => _sunnyTextTheme ??= SunnyTextTheme.defaults;
+  factory SunnyTextTheme() => _sunnyText ??= SunnyTextTheme.defaults;
 
   /// The internal constructor
   SunnyTextTheme._({
@@ -250,7 +252,7 @@ class SunnyTextTheme {
     ),
     hero: TextStyle(
       fontSize: 20,
-      letterSpacing: 0.63,
+      letterSpacing: heroSpacing,
       height: 30.0 / 20.0,
       fontFamily: defaultFontFamily,
       fontWeight: FontWeight.normal,
@@ -258,7 +260,7 @@ class SunnyTextTheme {
     ),
     heroMedium: TextStyle(
       fontSize: 20,
-      letterSpacing: 0.63,
+      letterSpacing: heroSpacing,
       height: 30.0 / 20.0,
       fontFamily: defaultFontFamily,
       fontWeight: FontWeight.w500,
@@ -266,7 +268,7 @@ class SunnyTextTheme {
     ),
     heroBold: TextStyle(
       fontSize: 20,
-      letterSpacing: 0.63,
+      letterSpacing: heroSpacing,
       height: 30.0 / 20.0,
       fontFamily: defaultFontFamily,
       fontWeight: FontWeight.bold,
@@ -441,8 +443,6 @@ extension TextThemeApplyEachExt on TextTheme {
     );
   }
 }
-
-SunnyTextTheme? _sunnyTextTheme;
 
 class HeroText extends StyledText {
   final String text;

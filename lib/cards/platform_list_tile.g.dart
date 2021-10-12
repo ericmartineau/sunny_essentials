@@ -111,10 +111,12 @@ class PlatformListTile extends _PlatformListTile with _PlatformCardArgsMixin {
     Widget? bottom,
     Widget? subtitle,
     Widget? trailing,
+    FutureOr<dynamic> Function(BuildContext)? onTap,
   }) : super.nocard(
             key: key,
             leading: leading,
             title: title,
+            onTap: onTap,
             bottom: bottom,
             subtitle: subtitle,
             trailing: trailing);

@@ -22,6 +22,8 @@ abstract class BaseState<T extends StatefulWidget> extends State<T>
   void safeState([VoidCallback? callback]) {
     if (mounted) {
       setState(callback ?? (){});
+    } else {
+      callback?.call();
     }
   }
 

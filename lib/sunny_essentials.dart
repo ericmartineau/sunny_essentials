@@ -5,7 +5,7 @@ export 'container.dart';
 export 'image/platform_network_image.dart';
 export 'provided.dart';
 export 'scroll/modal_scroll_physics.dart';
-export 'taps.dart';
+export 'hero.dart';
 export 'taps.dart';
 export 'text.dart';
 export 'theme.dart';
