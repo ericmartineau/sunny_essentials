@@ -5,7 +5,7 @@ environment:
   sdk: '>=2.12.0 <3.0.0'
 dependencies: 
   cached_network_image: ^3.1.0
-  dartxx: ^0.5.0+2
+  dartxx: ^0.5.3+2
   equatable: ^2.0.3
   flutter_degen_annotations: ^1.4.0+1
   flutter_platform_widgets: ^1.9.5
