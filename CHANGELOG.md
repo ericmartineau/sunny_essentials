@@ -1,3 +1,7 @@
+## [0.6.0+11]
+ * Updated dartxx
+Adding Reprovide
+
 ## [0.6.0+10]
  * Adding lib/hero.drat
 Updates to essentials
