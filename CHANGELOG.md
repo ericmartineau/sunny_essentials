@@ -1,3 +1,6 @@
+## [0.6.0+12]
+ * Updated deps
+
 ## [0.6.0+11]
  * Updated dartxx
 Adding Reprovide
