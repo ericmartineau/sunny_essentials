@@ -39,7 +39,7 @@ class PlatformCardArgs {
     this.padding,
     this.margin,
     this.borderRadius,
-    this.color = Colors.white,
+    this.color,
     this.height,
     this.width,
     this.useShadow = true,

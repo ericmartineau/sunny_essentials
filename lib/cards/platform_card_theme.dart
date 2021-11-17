@@ -38,7 +38,7 @@ class PlatformCardTheme {
   const PlatformCardTheme(
       {this.boxShadow = kDefaultShadow,
       this.debugLabel,
-      this.cardColor = Colors.white,
+      this.cardColor = CupertinoColors.white,
       this.padding = kDefaultPadding,
       this.margin = kDefaultMargin,
       this.borderRadius = kDefaultBorderRadius});
@@ -47,7 +47,7 @@ class PlatformCardTheme {
     required double radiusAmount,
     this.boxShadow = kDefaultShadow,
     this.debugLabel,
-    this.cardColor = Colors.white,
+    this.cardColor = CupertinoColors.white,
     this.padding = kDefaultPadding,
     this.margin = kDefaultMargin,
   }) : borderRadius = BorderRadius.all(Radius.circular(radiusAmount));

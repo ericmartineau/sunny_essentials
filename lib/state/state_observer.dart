@@ -1,27 +1,26 @@
 import 'dart:async';
 
+import 'package:dartxx/dartxx.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
-import 'package:dartxx/dartxx.dart';
 import 'package:sunny_essentials/state.dart';
+
 // import 'package:sunny_dart/sunny_dart.dart';
 
 import '../logging.dart';
-import 'disposable.dart';
 import 'observer_mixin.dart';
 
 int counter = 1;
 
 /// A base class
-abstract class BaseState<T extends StatefulWidget> extends State<T>
-    with ObserverMixin, LoggingMixin {
+abstract class BaseState<T extends StatefulWidget> extends State<T> with ObserverMixin, LoggingMixin {
   final int stateCounter = counter++;
   String get stateId => "${runtimeType.simpleName}$stateCounter";
   Object? pageError;
 
   void safeState([VoidCallback? callback]) {
     if (mounted) {
-      setState(callback ?? (){});
+      setState(callback ?? () {});
     } else {
       callback?.call();
     }

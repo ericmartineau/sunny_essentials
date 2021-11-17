@@ -101,7 +101,7 @@ class AutoLayout {
             ? null
             : BoxDecoration(
                 color: _backgroundColor, borderRadius: _borderRadius),
-        child: widget,
+        child: _borderRadius == null ? widget : ClipRRect(borderRadius: _borderRadius!, child: widget,),
       );
     } else {
       return widget;
@@ -460,6 +460,10 @@ extension AutoLayoutBuilderExt on AutoLayout {
 
   AutoLayout get divided {
     return this.._divider = dividingLine;
+  }
+
+  AutoLayout divider({Color? color, double? thickness}) {
+    return this.._divider = Divider(color: color, thickness: thickness, height: thickness,);
   }
 
   AutoLayout get dividedIndentLeft {

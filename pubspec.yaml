@@ -4,11 +4,11 @@ description: Just the basic widgets, with limited dependencies
 environment: 
   sdk: '>=2.14.0 <3.0.0'
 dependencies: 
-  cached_network_image: ^3.1.0
-  dartxx: ^0.5.3+2
+  cached_network_image: ^3.1.0+1
+  dartxx: ^0.5.4
   equatable: ^2.0.3
   flutter_degen_annotations: ^1.4.0+1
-  flutter_platform_widgets: ^1.9.5
+  flutter_platform_widgets: ^1.10.0
   flutter_screen_scaling: ^3.3.2+3
   info_x: ^0.8.0+3
   logging: ^1.0.2

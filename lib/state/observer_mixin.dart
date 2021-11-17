@@ -1,9 +1,9 @@
 import 'dart:async';
 
+import 'package:dartxx/dartxx.dart';
 import 'package:flutter/widgets.dart';
 
 import '../logging.dart';
-import 'disposable.dart';
 
 typedef DisposeFn = FutureOr Function();
 
@@ -64,8 +64,7 @@ mixin ObserverMixin implements LoggingMixin, HasDisposers {
     return controller;
   }
 
-  Stream<String> streamTextEdit(TextEditingController cont,
-      [StreamController<String>? controller]) {
+  Stream<String> streamTextEdit(TextEditingController cont, [StreamController<String>? controller]) {
     final streamer = controller ?? StreamController<String>.broadcast();
     final listener = () {
       streamer.add(cont.text);
