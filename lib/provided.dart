@@ -33,8 +33,9 @@ extension BuildContextProvidesExtension on BuildContext {
   }
 
   void put<T>(T value) {
-    final listenable = Provided.get<ValueNotifier<T>>(this);
-    listenable.value = value;
+    final listenable = Provided.find<ValueNotifier<T>>(this) ?? Provided.find<ValueNotifier<T?>>(this);
+    assert(listenable != null, "No ValueNotifier could be found");
+    listenable!.value = value;
   }
 
   void remove<T>() {
@@ -60,10 +61,13 @@ class Provided {
       final t = Provider.of<T>(context, listen: false);
       return t;
     } on ProviderNotFoundException {
-      print("############  WOFJKDLSFJKLDS:JFD  ######################  ${T} was found under ${T}?");
-      print("############  WOFJKDLSFJKLDS:JFD  ######################");
-      final t = Provider.of<T?>(context, listen: false)!;
-      return t;
+      print("##################################  ${T} was found under ${T}?");
+      print("##################################");
+      final t = Provider.of<T?>(context, listen: false);
+      if(t==null) {
+        rethrow;
+      }
+      return t as T;
     }
   }
 

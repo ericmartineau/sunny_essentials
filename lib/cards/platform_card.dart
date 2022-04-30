@@ -1,9 +1,8 @@
 import 'dart:async';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_degen_annotations/flutter_degen_annotations.dart';
 import 'package:info_x/info_x.dart';
 import 'platform_card_theme.dart';
@@ -72,14 +71,16 @@ class PlatformCard extends StatelessWidget with _PlatformCardArgsMixin {
     if (kIsWeb || infoX.isIOS == true || infoX.isMacOS) {
       final inner = shouldClip == true
           ? ClipRRect(
-              borderRadius: borderRadius ?? theme.borderRadius, child: child)
+              borderRadius: borderRadius ?? theme.borderRadius,
+              child: child,
+            )
           : child;
       widget = Container(
         margin: margin ?? theme.margin,
         padding: padding ?? theme.padding,
         alignment: AlignmentDirectional.centerStart,
         decoration: BoxDecoration(
-            color: color ?? theme.cardColor,
+            color: color ?? theme.cardColor.resolveColor(context),
             borderRadius: borderRadius ?? theme.borderRadius,
             boxShadow: useShadow == true ? shadow ?? theme.boxShadow : null),
         child: inner,
@@ -105,5 +106,11 @@ class PlatformCard extends StatelessWidget with _PlatformCardArgsMixin {
     } else {
       return widget;
     }
+  }
+}
+
+extension on Color {
+  Color resolveColor(BuildContext context) {
+    return CupertinoDynamicColor.resolve(this, context);
   }
 }

@@ -1,7 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter/src/cupertino/text_theme.dart';
 import 'package:info_x/info_x.dart';
 import 'package:dartxx/dartxx.dart';
 import '../text/text_widgets.dart';
@@ -29,8 +27,7 @@ const body3Spacing = 0.41;
 
 const heroSpacing = -0.42;
 
-SunnyTextTheme get sunnyText =>
-    _sunnyText ?? (throw Exception("No theme initialized"));
+SunnyTextTheme get sunnyText => _sunnyText ?? (throw Exception("No theme initialized"));
 
 SunnyTextTheme? _sunnyText;
 
@@ -119,7 +116,7 @@ class SunnyTextTheme {
     required this.heroMedium,
     required this.input0,
     required this.placeholder0,
-  })   : body1Link = body1Medium.copyWith(color: sunnyColors.linkColor),
+  })  : body1Link = body1Medium.copyWith(color: sunnyColors.linkColor),
         body2Link = body2Medium.copyWith(color: sunnyColors.linkColor);
 
   static final defaults = SunnyTextTheme._(
@@ -416,13 +413,11 @@ extension TextStylePlatformExt on TextStyle {
 
 extension TextThemeApplyEachExt on TextTheme {
   TextTheme withBrightness(Brightness brightness) {
-    return this.applyEach((original) =>
-        original?.copyWith(color: original.color?.withBrightness(brightness)));
+    return this.applyEach((original) => original?.copyWith(color: original.color?.withBrightness(brightness)));
   }
 
   TextTheme brightnessOf(BuildContext context) {
-    return this.applyEach((original) =>
-        original?.copyWith(color: original.color?.resolveFrom(context)));
+    return this.applyEach((original) => original?.copyWith(color: original.color?.resolveFrom(context)));
   }
 
   TextTheme applyEach(TextStyle? apply(TextStyle? original)) {
@@ -474,18 +469,14 @@ class HeroText extends StyledText {
 extension RichTextBuilderTrippiExt on RichTextBuilder {
   RichTextBuilder heroBold(String text) {
     if (text.isNotNullOrBlank) {
-      children.add(TextSpan(
-          text: text,
-          style: textTheme.headline4!.copyWith(fontWeight: FontWeight.bold)));
+      children.add(TextSpan(text: text, style: textTheme.headline4!.copyWith(fontWeight: FontWeight.bold)));
     }
     return this;
   }
 
   RichTextBuilder hero(String text) {
     if (text.isNotNullOrBlank) {
-      children.add(TextSpan(
-          text: text,
-          style: textTheme.headline4!.copyWith(fontWeight: FontWeight.normal)));
+      children.add(TextSpan(text: text, style: textTheme.headline4!.copyWith(fontWeight: FontWeight.normal)));
     }
     return this;
   }

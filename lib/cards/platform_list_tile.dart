@@ -1,9 +1,6 @@
 import 'dart:async';
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_degen_annotations/flutter_degen_annotations.dart';
 import 'platform_card_theme.dart';
 import '../container/auto_layout.dart';
@@ -13,8 +10,7 @@ import 'platform_card.dart';
 part 'platform_list_tile.g.dart';
 
 @degen()
-abstract class _PlatformListTile extends StatelessWidget
-    with _PlatformCardArgsMixin {
+abstract class _PlatformListTile extends StatelessWidget with _PlatformCardArgsMixin {
   final Widget? leading;
   final Widget? title;
   final Widget? subtitle;
@@ -61,7 +57,7 @@ abstract class _PlatformListTile extends StatelessWidget
   @override
   Widget build(BuildContext context) {
     final tile = ListTile(
-      onTap: onTap == null ? null : ()=>this.onTap?.call(context),
+      onTap: onTap == null ? null : () => this.onTap?.call(context),
       onLongPress: onLongPress == null ? null : () => this.onLongPress?.call(context),
       title: title,
       leading: leading,

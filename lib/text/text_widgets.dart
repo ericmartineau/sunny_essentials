@@ -1,10 +1,7 @@
-import 'dart:ui';
-
 import 'package:dartxx/dartxx.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-
+import 'dart:ui' as ui;
 import '../taps.dart';
 import '../theme.dart';
 import '../typedefs.dart';
@@ -31,8 +28,7 @@ class TileTitle extends StatelessWidget {
   Widget build(BuildContext context) {
     return title is Widget
         ? (title as Widget)
-        : Text(title.toString(),
-            maxLines: 3, softWrap: true, overflow: TextOverflow.ellipsis);
+        : Text(title.toString(), maxLines: 3, softWrap: true, overflow: TextOverflow.ellipsis);
   }
 }
 
@@ -50,17 +46,11 @@ class TileSubtitle extends StatelessWidget {
   Widget build(BuildContext context) {
     return title is Widget
         ? (title as Widget)
-        : Text(title.toString(),
-            maxLines: 3, softWrap: true, overflow: TextOverflow.ellipsis);
+        : Text(title.toString(), maxLines: 3, softWrap: true, overflow: TextOverflow.ellipsis);
   }
 }
 
-Widget? textOrNull(final txt,
-    {TextAlign? alignment,
-    TextStyle? style,
-    Color? color,
-    bool wrap = true,
-    int? maxLines}) {
+Widget? textOrNull(final txt, {TextAlign? alignment, TextStyle? style, Color? color, bool wrap = true, int? maxLines}) {
   if (txt is Widget) return txt;
   if (txt == null) return null;
   final text = "$txt";
@@ -109,17 +99,16 @@ class NormalText extends StatelessWidget {
 }
 
 // ignore: non_constant_identifier_names
-Text? SingleLineText(String? text, {TextAlign? alignment, TextStyle? style}) =>
-    text == null
-        ? null
-        : Text(
-            text,
-            textAlign: alignment,
-            style: style,
-            maxLines: 1,
-            softWrap: false,
-            overflow: TextOverflow.fade,
-          );
+Text? SingleLineText(String? text, {TextAlign? alignment, TextStyle? style}) => text == null
+    ? null
+    : Text(
+        text,
+        textAlign: alignment,
+        style: style,
+        maxLines: 1,
+        softWrap: false,
+        overflow: TextOverflow.fade,
+      );
 
 class PrimaryText extends StatelessWidget {
   final String text;
@@ -127,22 +116,15 @@ class PrimaryText extends StatelessWidget {
   final TextAlign? textAlign;
   final bool nowrap;
 
-  const PrimaryText(this.text,
-      {this.label, this.textAlign, this.nowrap = false});
+  const PrimaryText(this.text, {this.label, this.textAlign, this.nowrap = false});
 
   @override
   Widget build(BuildContext context) {
     if (label != null) {
       return RichText(
         text: TextSpan(children: [
-          TextSpan(
-              text: label,
-              style:
-                  sunnyText.body2Normal.copyWith(fontWeight: FontWeight.bold)),
-          TextSpan(
-              text: text,
-              style: sunnyText.body2Normal
-                  .copyWith(fontWeight: FontWeight.normal)),
+          TextSpan(text: label, style: sunnyText.body2Normal.copyWith(fontWeight: FontWeight.bold)),
+          TextSpan(text: text, style: sunnyText.body2Normal.copyWith(fontWeight: FontWeight.normal)),
         ]),
         textAlign: textAlign ?? TextAlign.start,
         maxLines: nowrap == true ? 1 : null,
@@ -262,8 +244,7 @@ class SecondaryText extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       text,
-      style: sunnyText.body2Normal
-          .copyWith(fontWeight: isBold == true ? FontWeight.bold : null),
+      style: sunnyText.body2Normal.copyWith(fontWeight: isBold == true ? FontWeight.bold : null),
       maxLines: nowrap == true ? 1 : null,
       overflow: nowrap == true ? TextOverflow.ellipsis : TextOverflow.clip,
     );
@@ -281,9 +262,7 @@ class TertiaryText extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       text,
-      style: sunnyText.body3Light.copyWith(
-          color: color,
-          fontWeight: this.isBold == true ? FontWeight.bold : null),
+      style: sunnyText.body3Light.copyWith(color: color, fontWeight: this.isBold == true ? FontWeight.bold : null),
     );
   }
 }
@@ -313,8 +292,7 @@ class ErrorText extends StatelessWidget {
 
   ErrorText(this.text, {this.isCentered = false});
 
-  ErrorText.ofValidationError(Object error, {this.isCentered = false})
-      : text = error.toString();
+  ErrorText.ofValidationError(Object error, {this.isCentered = false}) : text = error.toString();
 
   @override
   Widget build(BuildContext context) {
@@ -335,10 +313,7 @@ class PageSectionHeaderText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(text,
-        style: Theme.of(context).textTheme.headline4,
-        maxLines: 1,
-        overflow: TextOverflow.fade);
+    return Text(text, style: Theme.of(context).textTheme.headline4, maxLines: 1, overflow: TextOverflow.fade);
   }
 }
 
@@ -427,8 +402,7 @@ abstract class StyledText extends StatelessWidget {
     switch (fontType) {
       case FontType.light:
         // Is there ever a bold or medium in the light color?
-        style =
-            style.copyWith(fontWeight: FontWeight.normal, color: _lightColor);
+        style = style.copyWith(fontWeight: FontWeight.normal, color: _lightColor);
         break;
       case FontType.normal:
         style = style.copyWith(fontWeight: FontWeight.w400);
@@ -502,8 +476,7 @@ class Body1Text extends StyledText {
       : fontType = FontType.light,
         super(key: key);
 
-  const factory Body1Text(String text, {Color? color, Key? key}) =
-      Body1Text.normal;
+  const factory Body1Text(String text, {Color? color, Key? key}) = Body1Text.normal;
 
   @override
   StyleExtractor get styleGetter => (theme) => theme.bodyText1;
@@ -530,8 +503,7 @@ class Body0Text extends StyledText {
       : fontType = FontType.light,
         super(key: key);
 
-  const factory Body0Text(String text, {Color? color, Key? key}) =
-      Body0Text.normal;
+  const factory Body0Text(String text, {Color? color, Key? key}) = Body0Text.normal;
 
   @override
   StyleExtractor get styleGetter => (theme) => theme.subtitle1;
@@ -545,32 +517,24 @@ class Body2Text extends StyledText {
   final int? maxLines;
   final TextOverflow? overflow;
 
-  const Body2Text.normal(this.text,
-      {this.softWrap, this.maxLines, this.overflow, this.color, Key? key})
+  const Body2Text.normal(this.text, {this.softWrap, this.maxLines, this.overflow, this.color, Key? key})
       : fontType = FontType.normal,
         super(key: key);
 
-  const Body2Text.bold(this.text,
-      {this.softWrap, this.maxLines, this.overflow, this.color, Key? key})
+  const Body2Text.bold(this.text, {this.softWrap, this.maxLines, this.overflow, this.color, Key? key})
       : fontType = FontType.bold,
         super(key: key);
 
-  const Body2Text.medium(this.text,
-      {this.softWrap, this.maxLines, this.overflow, this.color, Key? key})
+  const Body2Text.medium(this.text, {this.softWrap, this.maxLines, this.overflow, this.color, Key? key})
       : fontType = FontType.medium,
         super(key: key);
 
-  const Body2Text.light(this.text,
-      {this.softWrap, this.maxLines, this.overflow, this.color, Key? key})
+  const Body2Text.light(this.text, {this.softWrap, this.maxLines, this.overflow, this.color, Key? key})
       : fontType = FontType.light,
         super(key: key);
 
-  const factory Body2Text(String text,
-      {bool? softWrap,
-      int? maxLines,
-      TextOverflow? overflow,
-      Color? color,
-      Key? key}) = Body2Text.normal;
+  const factory Body2Text(String text, {bool? softWrap, int? maxLines, TextOverflow? overflow, Color? color, Key? key}) =
+      Body2Text.normal;
 
   @override
   StyleExtractor get styleGetter => (theme) => theme.bodyText2;
@@ -584,8 +548,7 @@ Widget richTextBuilder(BuildContext context, RichTextBuild build) {
   return b.buildText();
 }
 
-Widget richTextInvertedBuilder(
-    BuildContext context, void build(RichTextBuilder builder)) {
+Widget richTextInvertedBuilder(BuildContext context, void build(RichTextBuilder builder)) {
   final b = RichTextBuilder.inverted(context);
   build(b);
   return b.buildText();
@@ -613,33 +576,28 @@ class RichTextBuilder extends StatelessWidget {
   // FontStyle? _fontStyle;
   int? _maxLines;
   TextAlign _textAlign = TextAlign.start;
+
   double? _height = null;
   bool _softWrap = true;
   TextOverflow _overflow = TextOverflow.clip;
 
   final List<InlineSpan> children = [];
 
-  RichTextBuilder(BuildContext context, {Color? lightColor})
-      : this.ofTextTheme(
-            context: context, textTheme: Theme.of(context).textTheme);
+  RichTextBuilder(BuildContext context, {Color? lightColor, TextStyle? start})
+      : this.ofTextTheme(context: context, textTheme: Theme.of(context).textTheme, start: start);
 
-  RichTextBuilder.dark(BuildContext context, {Color? lightColor})
-      : this.ofTextTheme(
-            context: context, textTheme: context.darkTheme.textTheme);
+  RichTextBuilder.dark(BuildContext context, {Color? lightColor, TextStyle? start})
+      : this.ofTextTheme(context: context, textTheme: context.darkTheme.textTheme, start: start);
 
-  RichTextBuilder.inverted(BuildContext context, {Color? lightColor})
-      : this.ofTextTheme(
-            context: context, textTheme: context.invertedTheme.textTheme);
+  RichTextBuilder.inverted(BuildContext context, {Color? lightColor, TextStyle? start})
+      : this.ofTextTheme(context: context, textTheme: context.invertedTheme.textTheme, start: start);
 
-  RichTextBuilder.ofTextTheme(
-      {required this.context, required this.textTheme, Color? lightColor})
-      : lightStyle2 =
-            textTheme.bodyText2!.copyWith(color: lightColor ?? _lightColor),
-        lightStyle1 =
-            textTheme.bodyText1!.copyWith(color: lightColor ?? _lightColor);
+  RichTextBuilder.ofTextTheme({required this.context, required this.textTheme, Color? lightColor, TextStyle? start})
+      : lightStyle2 = textTheme.bodyText2!.copyWith(color: lightColor ?? _lightColor),
+        lightStyle1 = textTheme.bodyText1!.copyWith(color: lightColor ?? _lightColor),
+        _temp = start;
 
-  RichTextBuilder get italic =>
-      this.._temp = _tmpStyle.copyWith(fontStyle: FontStyle.italic);
+  RichTextBuilder get italic => this.._temp = _tmpStyle.copyWith(fontStyle: FontStyle.italic);
 
   Widget call(RichTextBuild builder) {
     builder(this);
@@ -667,8 +625,7 @@ class RichTextBuilder extends StatelessWidget {
     return applyChild(text, baseStyle: sunnyText.body3Light);
   }
 
-  RichTextBuilder icon(IconData data,
-      {double? size, Color? color, double? offset}) {
+  RichTextBuilder icon(IconData data, {double? size, Color? color, double? offset}) {
     size ??= 20;
     offset ??= 0;
     final sizeWithOffset = size + offset;
@@ -761,12 +718,15 @@ class RichTextBuilder extends StatelessWidget {
   }
 
   RichTextBuilder underline() {
-    return this
-      .._temp = _tmpStyle.copyWith(decoration: TextDecoration.underline);
+    return this.._temp = _tmpStyle.copyWith(decoration: TextDecoration.underline);
   }
 
   RichTextBuilder fontSize(double size) {
     return this.._temp = _tmpStyle.copyWith(fontSize: size);
+  }
+
+  RichTextBuilder font(String font) {
+    return this.._temp = _tmpStyle.copyWith(fontFamily: font);
   }
 
   RichTextBuilder weight(FontWeight weight) {
@@ -840,15 +800,11 @@ class RichTextBuilder extends StatelessWidget {
   }
 
   RichTextBuilder h4bold(String text) {
-    return applyChild(text,
-        baseStyle: _header4Bold ??=
-            textTheme.headline4!.copyWith(fontWeight: FontWeight.bold));
+    return applyChild(text, baseStyle: _header4Bold ??= textTheme.headline4!.copyWith(fontWeight: FontWeight.bold));
   }
 
   RichTextBuilder h4normal(String text) {
-    return applyChild(text,
-        baseStyle: _header4Normal ??=
-            textTheme.headline4!.copyWith(fontWeight: FontWeight.normal));
+    return applyChild(text, baseStyle: _header4Normal ??= textTheme.headline4!.copyWith(fontWeight: FontWeight.normal));
   }
 
   RichTextBuilder h4(String text) {
@@ -907,6 +863,162 @@ class RichTextBuilder extends StatelessWidget {
 extension BuildContextRichText on BuildContext {
   RichTextBuilder get richText {
     return RichTextBuilder(this);
+  }
+
+  RichTextBuilder Text({
+    String? text,
+    TextStyle? baseStyle,
+    bool? inherit,
+    TextAlign? align,
+    bool? centerAlign,
+    bool? leftAlign,
+    bool? rightAlign,
+    bool? softWrap,
+    bool? nowrap,
+    Color? color,
+    Color? backgroundColor,
+    double? fontSize,
+    FontWeight? fontWeight,
+    int? fontWeightInt,
+    bool? weightBlack,
+    bool? weightBold,
+    bool? weightLight,
+    FontStyle? fontStyle,
+    double? letterSpacing,
+    double? wordSpacing,
+    TextBaseline? textBaseline,
+    double? height,
+    ui.TextLeadingDistribution? leadingDistribution,
+    Locale? locale,
+    Paint? foreground,
+    Paint? background,
+    List<ui.Shadow>? shadows,
+    List<ui.FontFeature>? fontFeatures,
+    TextDecoration? decoration,
+    Color? decorationColor,
+    TextDecorationStyle? decorationStyle,
+    double? decorationThickness,
+    String? debugLabel,
+    String? fontFamily,
+    List<String>? fontFamilyFallback,
+    String? package,
+    TextOverflow? overflow,
+    bool? clip,
+    bool? fade,
+    bool? ellipses,
+    FutureBuildCallback? gesture,
+    int? maxLines,
+    double? widgetHeight,
+  }) {
+    switch (fontWeightInt) {
+      case null:
+        break;
+      case 1:
+      case 100:
+        fontWeight = FontWeight.w100;
+        break;
+      case 2:
+      case 200:
+        fontWeight = FontWeight.w200;
+        break;
+      case 3:
+      case 300:
+        fontWeight = FontWeight.w300;
+        break;
+      case 4:
+      case 400:
+        fontWeight = FontWeight.w400;
+        break;
+      case 5:
+      case 500:
+        fontWeight = FontWeight.w500;
+        break;
+      case 6:
+      case 600:
+        fontWeight = FontWeight.w600;
+        break;
+      case 7:
+      case 700:
+        fontWeight = FontWeight.w700;
+        break;
+      case 8:
+      case 800:
+        fontWeight = FontWeight.w800;
+        break;
+      case 9:
+      case 900:
+        fontWeight = FontWeight.w900;
+        break;
+      default:
+        throw ArgumentError("Invalid argument for fontWeightInt.  Must be 1-9, 100-900, or null.  Was ${fontWeightInt}");
+    }
+    fontWeight ??= weightBlack == true
+        ? FontWeight.w900
+        : weightBold == true
+            ? FontWeight.bold
+            : weightLight == true
+                ? FontWeight.w100
+                : null;
+    final _base = (baseStyle ?? Theme.of(this).textTheme.bodyText1 ?? const TextStyle()).copyWith(
+      inherit: inherit ?? false,
+      color: color,
+      backgroundColor: backgroundColor,
+      fontSize: fontSize,
+      fontWeight: fontWeight,
+      fontStyle: fontStyle,
+      letterSpacing: letterSpacing,
+      wordSpacing: wordSpacing,
+      textBaseline: textBaseline,
+      height: height,
+      leadingDistribution: leadingDistribution,
+      locale: locale,
+      foreground: foreground,
+      background: background,
+      shadows: shadows,
+      fontFeatures: fontFeatures,
+      decoration: decoration,
+      decorationColor: decorationColor,
+      decorationStyle: decorationStyle,
+      decorationThickness: decorationThickness,
+      debugLabel: debugLabel,
+      fontFamily: fontFamily,
+      fontFamilyFallback: fontFamilyFallback,
+      package: package,
+      overflow: overflow,
+    );
+    var builder = RichTextBuilder(this, start: _base);
+    align = align ??
+        (centerAlign == true
+            ? TextAlign.center
+            : leftAlign == true
+                ? TextAlign.left
+                : rightAlign == true
+                    ? TextAlign.right
+                    : null);
+    if (align != null) {
+      builder._textAlign = align;
+    }
+    if (softWrap != null) {
+      builder._softWrap = softWrap;
+    }
+    if (nowrap != null) {
+      builder._softWrap = !nowrap;
+    }
+    if (overflow != null) builder._overflow = overflow;
+    builder._gesture = gesture;
+    builder._maxLines = maxLines;
+    builder._height = widgetHeight;
+    overflow ??= clip == true
+        ? TextOverflow.clip
+        : ellipses == true
+            ? TextOverflow.ellipsis
+            : fade == true
+                ? TextOverflow.fade
+                : null;
+
+    if (overflow != null) builder._overflow = overflow;
+    if (text != null) builder.text(text, style: baseStyle);
+    return builder;
   }
 
   Widget richTextInverted(RichTextBuild builder) {

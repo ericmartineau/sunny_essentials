@@ -2,23 +2,26 @@ name: sunny_essentials
 version: 0.8.0+13
 description: Just the basic widgets, with limited dependencies
 environment: 
-  sdk: '>=2.14.0 <3.0.0'
+  sdk: '>=2.16.0 <3.0.0'
 dependencies: 
-  cached_network_image: ^3.1.0+1
+  cached_network_image: ^3.2.0
   dartxx: ^0.5.4
   equatable: ^2.0.3
   flutter_degen_annotations: ^1.4.0+1
-  flutter_platform_widgets: ^1.10.0
+  flutter_platform_widgets: ^1.20.0
   flutter_screen_scaling: ^3.3.2+3
   info_x: ^0.8.0+3
   logging: ^1.0.2
   provider: ^6.0.1
   recase: ^4.0.0
-  timeago: ^3.1.0
+  timeago: ^3.2.2
   uri: ^1.0.0
   flutter: 
     sdk: flutter
 dev_dependencies: 
-  flutter_degen: ^0.8.0+2
+  flutter_degen: ^0.8.0+4
   flutter_test: 
     sdk: flutter
+dependency_overrides:
+  flutter_platform_widgets:
+    path: ../flutter_platform_widgets

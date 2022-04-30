@@ -1,5 +1,6 @@
+import 'dart:ui';
+
 import 'package:dartxx/dartxx.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../image/platform_network_image.dart';
@@ -70,11 +71,9 @@ class AutoLayout {
     this._width,
   );
 
-  Widget build(
-      [item1, item2, item3, item4, item5, item6, item7, item8, item9, item10]) {
+  Widget build([item1, item2, item3, item4, item5, item6, item7, item8, item9, item10]) {
     final items = [];
-    [item1, item2, item3, item4, item5, item6, item7, item8, item9, item10]
-        .forEach((element) {
+    [item1, item2, item3, item4, item5, item6, item7, item8, item9, item10].forEach((element) {
       if (element == null) return;
       if (element is Iterable) {
         items.addAll(element);
@@ -99,9 +98,13 @@ class AutoLayout {
         width: _width,
         decoration: _borderRadius == null && _backgroundColor == null
             ? null
-            : BoxDecoration(
-                color: _backgroundColor, borderRadius: _borderRadius),
-        child: _borderRadius == null ? widget : ClipRRect(borderRadius: _borderRadius!, child: widget,),
+            : BoxDecoration(color: _backgroundColor, borderRadius: _borderRadius),
+        child: _borderRadius == null
+            ? widget
+            : ClipRRect(
+                borderRadius: _borderRadius!,
+                child: widget,
+              ),
       );
     } else {
       return widget;
@@ -128,8 +131,7 @@ class AutoLayout {
       w = Text(
         item.data!,
         key: item.key,
-        style: (item.style ?? TextStyle())
-            .copyWith(color: _color ?? item.style?.color),
+        style: (item.style ?? TextStyle()).copyWith(color: _color ?? item.style?.color),
         textAlign: item.textAlign,
         locale: item.locale,
         softWrap: item.softWrap,
@@ -144,9 +146,7 @@ class AutoLayout {
       w = item;
     } else {
       w = Text(item?.toString() ?? '',
-          softWrap: _softWrap,
-          textAlign: _textAlign,
-          style: (_style ?? TextStyle()).copyWith(color: _color));
+          softWrap: _softWrap, textAlign: _textAlign, style: (_style ?? TextStyle()).copyWith(color: _color));
     }
 
     return _centerEach ? Center(child: w) : w;
@@ -163,9 +163,7 @@ class AutoLayout {
     final space = builder.space(_spacing, this);
     final widgets = divide(
       items.notNull().map((item) {
-        return _useFlex == true
-            ? Flexible(flex: 1, child: autoWidget(item))
-            : autoWidget(item);
+        return _useFlex == true ? Flexible(flex: 1, child: autoWidget(item)) : autoWidget(item);
       }),
       space,
     );
@@ -216,15 +214,11 @@ class _RowBuilder implements Layout {
   Widget space(double space, AutoLayout container) => SizedBox(width: space);
 
   @override
-  Widget wrapWidgets(List<Widget> items, AutoLayout container) =>
-      container.applyPadding(
+  Widget wrapWidgets(List<Widget> items, AutoLayout container) => container.applyPadding(
         Row(
-          mainAxisSize: container._mainAxisSize ??
-              (container._isMax == true ? MainAxisSize.max : MainAxisSize.min),
+          mainAxisSize: container._mainAxisSize ?? (container._isMax == true ? MainAxisSize.max : MainAxisSize.min),
           crossAxisAlignment: container._crossAxisAlignment ??
-              (container._isCrossMax == true
-                  ? CrossAxisAlignment.stretch
-                  : CrossAxisAlignment.center),
+              (container._isCrossMax == true ? CrossAxisAlignment.stretch : CrossAxisAlignment.center),
           mainAxisAlignment: container._mainAxisAlignment,
           children: items,
         ),
@@ -238,15 +232,11 @@ class _ContainerBuilder implements Layout {
   Widget space(double space, AutoLayout container) => SizedBox(width: space);
 
   @override
-  Widget wrapWidgets(List<Widget> items, AutoLayout container) =>
-      container.applyPadding(
+  Widget wrapWidgets(List<Widget> items, AutoLayout container) => container.applyPadding(
         Row(
-          mainAxisSize: container._mainAxisSize ??
-              (container._isMax == true ? MainAxisSize.max : MainAxisSize.min),
+          mainAxisSize: container._mainAxisSize ?? (container._isMax == true ? MainAxisSize.max : MainAxisSize.min),
           crossAxisAlignment: container._crossAxisAlignment ??
-              (container._isCrossMax == true
-                  ? CrossAxisAlignment.stretch
-                  : CrossAxisAlignment.center),
+              (container._isCrossMax == true ? CrossAxisAlignment.stretch : CrossAxisAlignment.center),
           mainAxisAlignment: container._mainAxisAlignment,
           children: items,
         ),
@@ -293,19 +283,13 @@ class _ColumnBuilder implements Layout {
   Widget space(double space, AutoLayout container) => SizedBox(height: space);
 
   @override
-  Widget wrapWidgets(List<Widget> items, AutoLayout container) =>
-      container.applyPadding(
+  Widget wrapWidgets(List<Widget> items, AutoLayout container) => container.applyPadding(
         Column(
           mainAxisAlignment: container._mainAxisAlignment,
-          mainAxisSize:
-              container._isMax == true ? MainAxisSize.max : MainAxisSize.min,
+          mainAxisSize: container._isMax == true ? MainAxisSize.max : MainAxisSize.min,
           crossAxisAlignment: container._crossAxisAlignment ??
-              (container._isCrossMax == true
-                  ? CrossAxisAlignment.stretch
-                  : CrossAxisAlignment.center),
-          children: container._divider != null
-              ? DividingLine.divideWithLines(items, container._divider)
-              : items,
+              (container._isCrossMax == true ? CrossAxisAlignment.stretch : CrossAxisAlignment.center),
+          children: container._divider != null ? DividingLine.divideWithLines(items, container._divider) : items,
         ),
       );
 
@@ -314,8 +298,7 @@ class _ColumnBuilder implements Layout {
 
 class _WrapBuilder extends Layout {
   @override
-  Widget wrapWidgets(List<Widget> items, AutoLayout container) =>
-      container.applyPadding(Wrap(
+  Widget wrapWidgets(List<Widget> items, AutoLayout container) => container.applyPadding(Wrap(
         spacing: container._spacing,
         children: items,
       ));
@@ -463,7 +446,12 @@ extension AutoLayoutBuilderExt on AutoLayout {
   }
 
   AutoLayout divider({Color? color, double? thickness}) {
-    return this.._divider = Divider(color: color, thickness: thickness, height: thickness,);
+    return this
+      .._divider = Divider(
+        color: color,
+        thickness: thickness,
+        height: thickness,
+      );
   }
 
   AutoLayout get dividedIndentLeft {
@@ -492,6 +480,16 @@ extension AutoLayoutBuilderExt on AutoLayout {
 
   AutoLayout height(double height) {
     return this.._height = height;
+  }
+
+  AutoLayout blur() {
+    _wrappers.add((widget) => BackdropFilter(
+        filter: ImageFilter.blur(
+          sigmaX: 10.0,
+          sigmaY: 10.0,
+        ),
+        child: widget));
+    return this;
   }
 
   AutoLayout width(double width) {
@@ -558,11 +556,7 @@ extension AutoLayoutBuilderExt on AutoLayout {
     return this.._borderRadius = radius;
   }
 
-  AutoLayout isHeader(
-      {bool pinned = false,
-      bool floating = false,
-      required double height,
-      double? expandedHeight}) {
+  AutoLayout isHeader({bool pinned = false, bool floating = false, required double height, double? expandedHeight}) {
     return this
       .._wrappers.add((widget) {
         final delegate = (expandedHeight != null && expandedHeight != height)
@@ -637,13 +631,7 @@ extension WidgetListExtensions on List<Widget> {
   }
 
   List<Widget> hpadEach([int units = 2]) {
-    return [
-      for (var c in this)
-        Padding(
-            padding: EdgeInsets.symmetric(
-                horizontal: sunnySpacing.spaceUnit * units),
-            child: c)
-    ];
+    return [for (var c in this) Padding(padding: EdgeInsets.symmetric(horizontal: sunnySpacing.spaceUnit * units), child: c)];
   }
 
   List<Widget> bpad([int units = 2]) {

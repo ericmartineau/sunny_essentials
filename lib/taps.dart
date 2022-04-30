@@ -1,7 +1,5 @@
 import 'dart:async';
 
-import 'package:flutter/gestures.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 
@@ -35,6 +33,7 @@ Widget tappable<R>(Widget child,
 
 typedef FutureOrTappableCallback<T> = FutureOr<T> Function();
 typedef FutureTappableCallback<T> = FutureOr<T> Function(BuildContext context);
+typedef LongPressCallback = FutureOr Function(BuildContext context);
 
 enum TapTransform {
   opacity,
@@ -47,16 +46,18 @@ class Tappable extends StatefulWidget {
   final double? pressOpacity;
   final double? pressScale;
   final FutureTappableCallback? onTap;
-  final FutureTappableCallback? onLongPress;
+  final LongPressCallback? onLongPress;
   final HitTestBehavior behavior;
   final Widget? child;
   final Duration duration;
+  final bool useMouseCursor;
 
   Tappable.link(
     String s, {
     this.onTap,
     this.behavior = HitTestBehavior.opaque,
     this.onLongPress,
+    this.useMouseCursor = true,
     TextStyle? style,
   })  : duration = const Duration(milliseconds: 300),
         pressOpacity = null,
@@ -71,6 +72,7 @@ class Tappable extends StatefulWidget {
       this.onLongPress,
       this.duration = const Duration(milliseconds: 300),
       this.onTap,
+      this.useMouseCursor = true,
       this.child})
       : super(key: key);
 
@@ -112,7 +114,9 @@ class _TappableState extends State<Tappable>
   @override
   Widget build(BuildContext context) {
     return MouseRegion(
-      cursor: SystemMouseCursors.click,
+      cursor: widget.useMouseCursor
+          ? SystemMouseCursors.click
+          : SystemMouseCursors.basic,
       child: GestureDetector(
         behavior: widget.behavior,
         onSecondaryTap: widget.onLongPress == null
@@ -131,9 +135,13 @@ class _TappableState extends State<Tappable>
         },
         onLongPress: widget.onLongPress == null
             ? null
-            : () {
+            : () async {
                 HapticFeedback.heavyImpact();
-                widget.onLongPress!(context);
+                var res = await widget.onLongPress!(context);
+
+                if (res == true) {
+                  widget.onTap?.call(context);
+                }
               },
         onTapDown: (tap) {
           setState(() {
@@ -165,8 +173,11 @@ typedef HoverBuilder = Widget Function(bool isHover);
 
 class HoverEffect extends StatefulWidget {
   final HoverBuilder builder;
+  final MouseCursor cursor;
 
-  const HoverEffect({Key? key, required this.builder}) : super(key: key);
+  const HoverEffect(
+      {Key? key, this.cursor = MouseCursor.defer, required this.builder})
+      : super(key: key);
 
   @override
   _HoverEffectState createState() => _HoverEffectState();
@@ -178,6 +189,7 @@ class _HoverEffectState extends State<HoverEffect> {
   @override
   Widget build(BuildContext context) {
     return MouseRegion(
+      cursor: widget.cursor,
       onEnter: (_) {
         if (isHover != true) {
           setState(() {

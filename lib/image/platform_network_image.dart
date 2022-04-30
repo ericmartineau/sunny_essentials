@@ -1,5 +1,4 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
@@ -20,20 +19,20 @@ class PlatformNetworkImage extends PlatformWidgetBase {
   final Alignment alignment;
   final bool useOldImageOnUrlChange;
   final BoxFit? fit;
-  PlatformNetworkImage(
-    dynamic imageUrl, {
-    Key? key,
-    this.height,
-    this.width,
-    this.httpHeaders,
-    this.placeholder,
-    this.errorWidget,
-    this.alignment = Alignment.center,
-    this.useOldImageOnUrlChange = false,
-    this.fit,
-  })  : assert(imageUrl != null),
+  PlatformNetworkImage(dynamic imageUrl,
+      {Key? key,
+      this.height,
+      this.width,
+      this.httpHeaders,
+      this.placeholder,
+      this.errorWidget,
+      this.alignment = Alignment.center,
+      this.useOldImageOnUrlChange = false,
+      this.fit,
+      extraOptions})
+      : assert(imageUrl != null),
         imageUrl = "$imageUrl",
-        super(key: key);
+        super(key: key, extraOptions: extraOptions);
 
   @override
   Widget createMaterialWidget(BuildContext context) => createNative();

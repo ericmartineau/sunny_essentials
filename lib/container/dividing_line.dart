@@ -41,6 +41,14 @@ class DividingLine extends StatelessWidget {
           color: CupertinoColors.separator,
         );
 
+  DividingLine.color([Color color = CupertinoColors.opaqueSeparator])
+      : divider = Divider(
+          indent: 0,
+          height: 1,
+          thickness: 0.5,
+          color: color,
+        );
+
   static PreferredSizeWidget preferredSize() {
     return const PreferredSize(
       preferredSize: Size.fromHeight(1.0),

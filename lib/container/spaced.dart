@@ -1,30 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import '../theme/sunny_colors.dart';
 import '../theme/sunny_spacing.dart';
 
 // Applies the space between each item in the list.  No space is applied after the last item in the list.
 List<Widget> spaced({required List<Widget> children, EdgeInsets? space}) {
   space ??= EdgeInsets.all(sunnySpacing.spaceUnit);
-  final spaced = children
-      .map((item) =>
-          item is Flexible ? item : Container(padding: space, child: item))
-      .toList();
+  final spaced = children.map((item) => item is Flexible ? item : Container(padding: space, child: item)).toList();
   return spaced;
 }
 
-SunnyPad shim(Widget child) => SunnyPad._(
-    child: child, padding: EdgeInsets.all(sunnySpacing.spaceUnit * 0.5));
+SunnyPad shim(Widget child) => SunnyPad._(child: child, padding: EdgeInsets.all(sunnySpacing.spaceUnit * 0.5));
 
 SunnyPad pad(Widget child) => SunnyPad(child: child);
 
 SunnyPad wpad(Widget child) => SunnyPad(child: child, color: Colors.white);
 
-SunnyPad hpad(Widget child, [bool white = true]) => SunnyPad.horizontal(
-    child: child, color: white == true ? Colors.white : null);
+SunnyPad hpad(Widget child, [bool white = true]) => SunnyPad.horizontal(child: child, color: white == true ? Colors.white : null);
 
-SunnyPad vpad(Widget child, [bool white = true]) =>
-    SunnyPad.vertical(child: child, color: white == true ? Colors.white : null);
+SunnyPad vpad(Widget child, [bool white = true]) => SunnyPad.vertical(child: child, color: white == true ? Colors.white : null);
 
 class SunnyPad extends StatelessWidget {
   final Widget? child;
@@ -35,16 +28,14 @@ class SunnyPad extends StatelessWidget {
       : padding = dense == true ? sunnySpacing.half : sunnySpacing.all,
         super(key: key);
 
-  const SunnyPad._({Key? key, this.child, this.color, this.padding})
-      : super(key: key);
+  const SunnyPad._({Key? key, this.child, this.color, this.padding}) : super(key: key);
 
   SunnyPad.vertical({Key? key, this.child, Color? color, bool? dense, bool? opaque})
       : padding = dense == true ? sunnySpacing.vert / 2 : sunnySpacing.vert,
         color = opaque == true ? sunnyColors.white : color,
         super(key: key);
 
-  SunnyPad.horizontal(
-      {Key? key, this.child, Color? color, bool? dense, bool? opaque})
+  SunnyPad.horizontal({Key? key, this.child, Color? color, bool? dense, bool? opaque})
       : padding = dense == true ? sunnySpacing.horiz / 2 : sunnySpacing.horiz,
         color = opaque == true ? sunnyColors.white : color,
         super(key: key);
@@ -84,15 +75,11 @@ class SunnyMargin extends StatelessWidget {
   final Color? color;
   final bool? dense;
 
-  const SunnyMargin({Key? key, this.child, this.color, this.dense})
-      : super(key: key);
+  const SunnyMargin({Key? key, this.child, this.color, this.dense}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-        color: color,
-        margin: dense == true ? sunnySpacing.half : sunnySpacing.all,
-        child: child);
+    return Container(color: color, margin: dense == true ? sunnySpacing.half : sunnySpacing.all, child: child);
   }
 }
 
@@ -106,8 +93,7 @@ const verticalShim = VerticalSpace(0.5);
 const emptyBox = SizedBox(width: 0, height: 0);
 const expandedBox = Expanded(child: SizedBox());
 const sliverEmptyBox = SliverToBoxAdapter(child: emptyBox);
-const sliverLoader = const SliverFillRemaining(
-    child: Center(child: CircularProgressIndicator()));
+const sliverLoader = const SliverFillRemaining(child: Center(child: CircularProgressIndicator()));
 Widget sliverLoaderFn() {
   return sliverLoader;
 }
@@ -123,8 +109,7 @@ class HorizontalSpace extends StatelessWidget {
   const HorizontalSpace([this.units = 1.0]) : super();
 
   @override
-  Widget build(BuildContext context) =>
-      SizedBox(width: sunnySpacing.spaceUnit * units);
+  Widget build(BuildContext context) => SizedBox(width: sunnySpacing.spaceUnit * units);
 
   HorizontalSpace operator *(double num) => HorizontalSpace(this.units * num);
 }
@@ -135,8 +120,7 @@ class VerticalSpace extends StatelessWidget {
   const VerticalSpace([this.units = 1.0]) : super();
 
   @override
-  Widget build(BuildContext context) =>
-      SizedBox(height: sunnySpacing.spaceUnit * units);
+  Widget build(BuildContext context) => SizedBox(height: sunnySpacing.spaceUnit * units);
 
   VerticalSpace operator *(double num) => VerticalSpace(this.units * num);
 

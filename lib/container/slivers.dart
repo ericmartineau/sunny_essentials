@@ -14,26 +14,44 @@ WidgetBuilder buildSliverBox(WidgetBuilder builder) =>
 List<Widget> sliverBoxes(Iterable<Widget> widgets) =>
     widgets.map((widget) => SliverToBoxAdapter(child: widget)).toList();
 
+Widget? assumeWidget(BuildContext context, dynamic item) {
+  assert(item is Widget?, 'Item must be a widget!');
+  return item as Widget?;
+}
+
+typedef SliverWidgetBuilder<T> = Widget? Function(BuildContext context, T item);
+
 class SimpleSliverList<W> extends StatelessWidget {
   static final log = Logger("SimpleSliverList");
   final Iterable<W> itemsIter;
-  final Widget Function(BuildContext context, W item)? builder;
+  final SliverWidgetBuilder<W> builder;
 
-  const SimpleSliverList(this.itemsIter, {Key? key, this.divider, this.builder})
-      : super(key: key);
-  
-  static SimpleSliverList<Widget> children(Iterable<Widget> itemsIter,
-      {Key? key,
-        Widget? divider,}) {
-    return SimpleSliverList(itemsIter,
-        key: key, divider: divider, builder: (context, item)=>item,);
+  SimpleSliverList(
+    this.itemsIter, {
+    Key? key,
+    this.divider,
+    SliverWidgetBuilder<W>? builder,
+  })  : builder = builder ?? ((context, item) => assumeWidget(context, item)),
+        super(key: key);
+
+  static SimpleSliverList<Widget> children(
+    Iterable<Widget> itemsIter, {
+    Key? key,
+    Widget? divider,
+  }) {
+    return SimpleSliverList<Widget>(
+      itemsIter,
+      key: key,
+      divider: divider,
+      builder: (context, item) => item,
+    );
   }
 
   static SimpleSliverList<T> of<T>(Iterable<T> itemsIter,
       {Key? key,
       Widget? divider,
-      Widget builder(BuildContext context, T item)?}) {
-    return SimpleSliverList(itemsIter,
+      Widget? builder(BuildContext context, T item)?}) {
+    return SimpleSliverList<T>(itemsIter,
         key: key, divider: divider, builder: builder);
   }
 
@@ -45,25 +63,23 @@ class SimpleSliverList<W> extends StatelessWidget {
     final items = itemsIter.toList();
     final hasDivider = divider != null;
     final count = hasDivider ? ((items.length * 2) - 1) : items.length;
-    log.info("Sliver list count = ${count}");
+    // log.info("Sliver list count = ${count}");
     return items.isEmpty
         ? sliverEmptyBox
         : SliverList(
             delegate: SliverChildBuilderDelegate(
               (context, idx) {
-                log.info("Building $idx");
                 if (idx.isOdd && hasDivider) {
                   return divider;
                 }
                 idx = hasDivider ? idx ~/ 2 : idx.toInt();
                 final item = items[idx];
                 if (item == null) return null;
-                return builder!(context, item);
+                return builder(context, item);
               },
-              addRepaintBoundaries: true,
+              addSemanticIndexes: false,
+              // addRepaintBoundaries: true,
               childCount: count,
-
-              // addAutomaticKeepAlives: false,
             ),
           );
   }

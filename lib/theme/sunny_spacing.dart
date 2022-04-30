@@ -130,7 +130,7 @@ class SunnySpacing {
     required double appBarHeight,
     required double cardImageHeight,
     required double cardImageExpandedHeight,
-  })   : _pageSideMargin = spaceUnit * 2,
+  })  : _pageSideMargin = spaceUnit * 2,
         _pageTopMargin = spaceUnit * 3,
         _cardSpacing = spaceUnit * 3,
         _spaceUnit = spaceUnit,
@@ -201,6 +201,39 @@ extension WidgetSpacingExt on Widget {
           left: SunnySpacing().spaceUnit * 2,
           top: SunnySpacing().spaceUnit * 3,
           bottom: SunnySpacing().spaceUnit * 2),
+      child: this,
+    );
+  }
+
+  Widget sized({double? height, double? width}) {
+    if (width != null && height != null) {
+      return SizedBox(
+        height: height,
+        width: width,
+        child: this,
+      );
+    } else {
+      return this;
+    }
+  }
+
+  Widget constrained({double? height, double? width}) {
+    if (width != null && height != null) {
+      return ConstrainedBox(
+        constraints: BoxConstraints(
+          maxHeight: height,
+          maxWidth: width,
+        ),
+        child: this,
+      );
+    } else {
+      return this;
+    }
+  }
+
+  Widget loose() {
+    return ConstrainedBox(
+      constraints: BoxConstraints.loose(Size(40, 40)),
       child: this,
     );
   }
@@ -290,8 +323,12 @@ extension WidgetSpacingExt on Widget {
 
 extension SunnySpacingToEdgeInsets on SunnySpacing {
   EdgeInsets get all => EdgeInsets.all(spaceUnit);
+
   EdgeInsets get half => EdgeInsets.all(spaceUnit * 0.5);
+
   EdgeInsets get shim => EdgeInsets.all(spaceUnit * 0.5);
+
   EdgeInsets get vert => EdgeInsets.symmetric(vertical: spaceUnit);
+
   EdgeInsets get horiz => EdgeInsets.symmetric(horizontal: spaceUnit);
 }

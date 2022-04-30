@@ -13,7 +13,8 @@ import 'observer_mixin.dart';
 int counter = 1;
 
 /// A base class
-abstract class BaseState<T extends StatefulWidget> extends State<T> with ObserverMixin, LoggingMixin {
+abstract class BaseState<T extends StatefulWidget> extends State<T>
+    with ObserverMixin, LoggingMixin {
   final int stateCounter = counter++;
   String get stateId => "${runtimeType.simpleName}$stateCounter";
   Object? pageError;
@@ -44,6 +45,19 @@ abstract class BaseState<T extends StatefulWidget> extends State<T> with Observe
     disposers.add(() {
       focusNode.removeListener(updateState);
     });
+  }
+
+  void listen(ChangeNotifier notifier, VoidCallback listener) {
+    notifier.addListener(listener);
+    disposers.add(() {
+      notifier.removeListener(listener);
+    });
+  }
+
+  ScrollController scrollController() {
+    final controller = ScrollController();
+    disposers.add(controller.dispose);
+    return controller;
   }
 
   Future asyncState(AsyncCallback callback) async {
