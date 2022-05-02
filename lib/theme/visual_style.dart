@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
+import 'package:sunny_platform_widgets/sunny_platform_widgets.dart';
 import '../provided.dart';
 
 CupertinoVisualStyle? _instance;

@@ -33,7 +33,8 @@ extension BuildContextProvidesExtension on BuildContext {
   }
 
   void put<T>(T value) {
-    final listenable = Provided.find<ValueNotifier<T>>(this) ?? Provided.find<ValueNotifier<T?>>(this);
+    final listenable = Provided.find<ValueNotifier<T>>(this) ??
+        Provided.find<ValueNotifier<T?>>(this);
     assert(listenable != null, "No ValueNotifier could be found");
     listenable!.value = value;
   }
@@ -51,8 +52,10 @@ extension BuildContextProvidesExtension on BuildContext {
   }
 }
 
-Widget Reprovide<T>(BuildContext context, {bool listen=true, required Widget child}) {
-  return Provider<T>.value(value: Provider.of<T>(context, listen:listen), child: child);
+Widget Reprovide<T>(BuildContext context,
+    {bool listen = true, required Widget child}) {
+  return Provider<T>.value(
+      value: Provider.of<T>(context, listen: listen), child: child);
 }
 
 class Provided {
@@ -64,9 +67,10 @@ class Provided {
       print("##################################  ${T} was found under ${T}?");
       print("##################################");
       final t = Provider.of<T?>(context, listen: false);
-      if(t==null) {
+      if (t == null) {
         rethrow;
       }
+      // ignore: unnecessary_cast
       return t as T;
     }
   }

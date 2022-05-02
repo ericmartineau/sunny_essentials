@@ -258,13 +258,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.4.0+1"
-  flutter_platform_widgets:
-    dependency: "direct main"
-    description:
-      path: "../flutter_platform_widgets"
-      relative: true
-    source: path
-    version: "1.20.0"
   flutter_screen_scaling:
     dependency: "direct main"
     description:
@@ -500,7 +493,7 @@ packages:
       name: provider
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "6.0.1"
+    version: "6.0.2"
   pub_semver:
     dependency: transitive
     description:
@@ -611,6 +604,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.1.0"
+  sunny_platform_widgets:
+    dependency: "direct main"
+    description:
+      name: sunny_platform_widgets
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.20.0"
   synchronized:
     dependency: transitive
     description:
@@ -725,6 +725,4 @@ packages:
     version: "3.1.0"
 sdks:
   dart: ">=2.16.0 <3.0.0"
-  flutter: ">=1.24.0-10.2.pre"
-
-
+  flutter: ">=2.10.0"

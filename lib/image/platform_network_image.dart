@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
+import 'package:sunny_platform_widgets/sunny_platform_widgets.dart';
 
 ImageProvider PlatformNetworkImageProvider(dynamic url) {
   return ((kIsWeb ? NetworkImage("$url") : CachedNetworkImageProvider("$url"))
