@@ -22,6 +22,3 @@ dev_dependencies:
   flutter_degen: ^0.8.0+4
   flutter_test: 
     sdk: flutter
-dependency_overrides:
-  flutter_platform_widgets:
-    path: ../flutter_platform_widgets
