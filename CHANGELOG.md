@@ -1,3 +1,51 @@
+## 0.8.2+1
+
+ - Update a dependency to the latest release.
+
+## 0.8.2
+
+ - **FEAT**: cleanup for melos release.
+ - **FEAT**: bumping version.
+
+## 0.8.1
+
+ - Graduate package to a stable release. See pre-releases prior to this version for changelog entries.
+
+## 0.8.1-dev.7
+
+ - **FEAT**: cleanup for melos release.
+ - **FEAT**: bumping version.
+
+## 0.8.1-dev.6
+
+ - **FEAT**: cleanup for melos release.
+ - **FEAT**: bumping version.
+
+## 0.8.1-dev.5
+
+ - **FEAT**: cleanup for melos release.
+ - **FEAT**: bumping version.
+
+## 0.8.1-dev.4
+
+ - **FEAT**: cleanup for melos release.
+ - **FEAT**: bumping version.
+
+## 0.8.1-dev.3
+
+ - **FEAT**: cleanup for melos release.
+ - **FEAT**: bumping version.
+
+## 0.8.1-dev.2
+
+ - **FEAT**: cleanup for melos release.
+ - **FEAT**: bumping version.
+
+## 0.8.1-dev.1
+
+ - **FEAT**: cleanup for melos release.
+ - **FEAT**: bumping version.
+
 ## 0.8.1-dev.0
 
  - **FEAT**: bumping version.

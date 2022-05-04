@@ -1,15 +1,14 @@
 name: sunny_essentials
-version: 0.8.1-dev.0
+version: 0.8.2+1
 description: Just the basic widgets, with limited dependencies
-repository: https://github.com:ericmartineau/sunny_essentials.git
+repository: https://github.com/ericmartineau/sunny_essentials.git
 environment: 
   sdk: '>=2.16.0 <3.0.0'
 dependencies: 
   cached_network_image: ^3.2.0
-  dartxx: ^0.5.5-dev.0
   equatable: ^2.0.3
-  flutter_degen_annotations: ^1.4.0+1
-  sunny_platform_widgets: ^1.20.0
+  flutter_degen_annotations: ^1.7.0
+  sunny_platform_widgets: ^1.21.0
   flutter_screen_scaling: ^3.3.2+3
   info_x: ^0.8.0+3
   logging: ^1.0.2
@@ -17,9 +16,10 @@ dependencies:
   recase: ^4.0.0
   timeago: ^3.2.2
   uri: ^1.0.0
+  dartxx: ^0.5.5
   flutter: 
     sdk: flutter
 dev_dependencies: 
-  flutter_degen: ^0.8.1-dev.0
+  flutter_degen: ^0.8.2+1
   flutter_test: 
     sdk: flutter
