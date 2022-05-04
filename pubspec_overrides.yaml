@@ -1,8 +1,12 @@
-# melos_managed_dependency_overrides: dartxx,flutter_degen,sunny_platform_widgets
+# melos_managed_dependency_overrides: dartxx,flutter_degen,sunny_platform_widgets,flutter_degen_annotations,flutter_screen_scaling
 dependency_overrides:
   dartxx:
     path: ../dartxx
   flutter_degen:
     path: ../flutter_degen
+  flutter_degen_annotations:
+    path: ../flutter_degen_annotations
+  flutter_screen_scaling:
+    path: ../flutter_screen_scaling
   sunny_platform_widgets:
     path: ../sunny_platform_widgets
