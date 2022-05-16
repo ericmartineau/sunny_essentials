@@ -7,19 +7,26 @@ environment:
 dependencies: 
   cached_network_image: ^3.2.0
   equatable: ^2.0.3
-  flutter_degen_annotations: ^1.7.0
-  sunny_platform_widgets: ^1.21.0
-  flutter_screen_scaling: ^3.3.2+3
-  info_x: ^0.8.0+3
   logging: ^1.0.2
   provider: ^6.0.2
+  octo_image: ^1.0.1
   recase: ^4.0.0
   timeago: ^3.2.2
   uri: ^1.0.0
-  dartxx: ^0.5.5
+  info_x: 
+    path: /Users/ericm/sunny/player_rank/packages/info_x
+  flutter_degen_annotations: 
+    path: /Users/ericm/sunny/player_rank/packages/flutter_degen_annotations
+  sunny_platform_widgets: 
+    path: /Users/ericm/sunny/player_rank/packages/sunny_platform_widgets
+  flutter_screen_scaling: 
+    path: /Users/ericm/sunny/player_rank/packages/flutter_screen_scaling
+  dartxx: 
+    path: /Users/ericm/sunny/player_rank/packages/dartxx
   flutter: 
     sdk: flutter
 dev_dependencies: 
-  flutter_degen: ^0.8.2+1
+  flutter_degen: 
+    path: /Users/ericm/sunny/player_rank/packages/flutter_degen
   flutter_test: 
     sdk: flutter

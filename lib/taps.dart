@@ -2,6 +2,9 @@ import 'dart:async';
 
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
+import 'package:provider/provider.dart';
+import 'package:sunny_essentials/provided.dart';
+import 'package:sunny_essentials/state/state_observer.dart';
 
 import 'theme/sunny_text_theme.dart';
 
@@ -47,6 +50,7 @@ class Tappable extends StatefulWidget {
   final double? pressScale;
   final FutureTappableCallback? onTap;
   final LongPressCallback? onLongPress;
+  final LongPressCallback? onSecondaryPress;
   final HitTestBehavior behavior;
   final Widget? child;
   final Duration duration;
@@ -57,6 +61,7 @@ class Tappable extends StatefulWidget {
     this.onTap,
     this.behavior = HitTestBehavior.opaque,
     this.onLongPress,
+    this.onSecondaryPress,
     this.useMouseCursor = true,
     TextStyle? style,
   })  : duration = const Duration(milliseconds: 300),
@@ -70,6 +75,7 @@ class Tappable extends StatefulWidget {
       this.pressScale,
       this.behavior = HitTestBehavior.opaque,
       this.onLongPress,
+      this.onSecondaryPress,
       this.duration = const Duration(milliseconds: 300),
       this.onTap,
       this.useMouseCursor = true,
@@ -111,6 +117,26 @@ class _TappableState extends State<Tappable>
   var scale = 1.0;
   var translate = Offset(0, 0);
 
+  _onTap() async {
+    try {
+      await widget.onTap?.call(context);
+    } finally {
+      if (mounted) {
+        _ac.reverse();
+      }
+    }
+  }
+
+  _onLongPress() async {
+    HapticFeedback.heavyImpact();
+    late var res;
+    res = await widget.onLongPress!(context);
+
+    if (res == true) {
+      widget.onTap?.call(context);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return MouseRegion(
@@ -119,30 +145,18 @@ class _TappableState extends State<Tappable>
           : SystemMouseCursors.basic,
       child: GestureDetector(
         behavior: widget.behavior,
-        onSecondaryTap: widget.onLongPress == null
-            ? null
-            : () {
-                widget.onLongPress!(context);
-              },
-        onTap: () async {
-          try {
-            await widget.onTap?.call(context);
-          } finally {
-            if (mounted) {
-              _ac.reverse();
-            }
-          }
-        },
-        onLongPress: widget.onLongPress == null
-            ? null
-            : () async {
-                HapticFeedback.heavyImpact();
-                var res = await widget.onLongPress!(context);
-
-                if (res == true) {
-                  widget.onTap?.call(context);
-                }
-              },
+        onSecondaryTap:
+            (widget.onSecondaryPress == null && widget.onLongPress == null)
+                ? null
+                : () {
+                    if (widget.onSecondaryPress != null) {
+                      widget.onSecondaryPress!(context);
+                    } else {
+                      _onLongPress();
+                    }
+                  },
+        onTap: widget.onTap != null ? _onTap : null,
+        onLongPress: widget.onLongPress != null ? _onLongPress : null,
         onTapDown: (tap) {
           setState(() {
             _ac.forward();
@@ -205,6 +219,44 @@ class _HoverEffectState extends State<HoverEffect> {
         }
       },
       child: widget.builder(isHover),
+    );
+  }
+}
+
+abstract class CursorPosition {
+  Offset get currentPosition;
+
+  /// Gets the current cursor position
+  static Offset current(BuildContext context) {
+    return Provided.get<CursorPosition>(context).currentPosition;
+  }
+}
+
+class CursorTracker extends StatefulWidget {
+  final Widget child;
+
+  const CursorTracker({Key? key, required this.child}) : super(key: key);
+
+  @override
+  State<CursorTracker> createState() => _CursorTrackerState();
+}
+
+class _CursorTrackerState extends BaseState<CursorTracker>
+    implements CursorPosition {
+  Offset currentPosition = Offset.zero;
+
+  @override
+  Widget build(BuildContext context) {
+    return Provider<CursorPosition>.value(
+      value: this,
+      updateShouldNotify: (_, __) => false,
+      child: MouseRegion(
+        opaque: false,
+        onHover: (p) {
+          currentPosition = p.position;
+        },
+        child: widget.child,
+      ),
     );
   }
 }

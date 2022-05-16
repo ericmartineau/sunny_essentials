@@ -24,7 +24,10 @@ mixin _PlatformCardArgsMixin
   double? get pressOpacity => _args.pressOpacity;
   double? get pressScale => _args.pressScale;
   FutureOr<dynamic> Function(BuildContext)? get onTap => _args.onTap;
-  FutureOr<dynamic> Function(BuildContext)? get onLongPress => _args.onLongPress;
+  FutureOr<dynamic> Function(BuildContext)? get onLongPress =>
+      _args.onLongPress;
+  FutureOr<dynamic> Function(BuildContext)? get onSecondaryPress =>
+      _args.onSecondaryPress;
   FutureOr<dynamic> Function(BuildContext)? get onHover => _args.onHover;
   List<BoxShadow>? get shadow => _args.shadow;
   PlatformCardTheme? get theme => _args.theme;

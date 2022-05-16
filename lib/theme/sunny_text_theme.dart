@@ -27,7 +27,8 @@ const body3Spacing = 0.41;
 
 const heroSpacing = -0.42;
 
-SunnyTextTheme get sunnyText => _sunnyText ?? (throw Exception("No theme initialized"));
+SunnyTextTheme get sunnyText =>
+    _sunnyText ?? (throw Exception("No theme initialized"));
 
 SunnyTextTheme? _sunnyText;
 
@@ -58,7 +59,9 @@ class SunnyTextTheme {
   final TextStyle body3Link;
   final TextStyle input1;
   final TextStyle input2;
-
+  final TextStyle button1;
+  final TextStyle button2;
+  final TextStyle button3;
   final TextStyle hero;
   final TextStyle heroMedium;
   final TextStyle heroBold;
@@ -103,6 +106,9 @@ class SunnyTextTheme {
     required this.body2Medium,
     required this.body2Bold,
     required this.body2Light,
+    required this.button1,
+    required this.button2,
+    required this.button3,
     required this.header4,
     required this.header3,
     required this.header2,
@@ -184,6 +190,30 @@ class SunnyTextTheme {
       fontFamily: defaultFontFamily,
       color: sunnyColors.textLight,
       fontWeight: FontWeight.normal,
+    ),
+    button1: TextStyle(
+      fontSize: body1Size,
+      letterSpacing: body1Spacing,
+      height: body1Height,
+      fontFamily: defaultFontFamily,
+      color: Colors.white,
+      fontWeight: FontWeight.bold,
+    ),
+    button2: TextStyle(
+      fontSize: body2Size,
+      letterSpacing: body2Spacing,
+      height: body2Height,
+      fontFamily: defaultFontFamily,
+      color: Colors.white,
+      fontWeight: FontWeight.bold,
+    ),
+    button3: TextStyle(
+      fontSize: body3Size,
+      letterSpacing: body3Spacing,
+      height: body3Height,
+      fontFamily: defaultFontFamily,
+      color: Colors.white,
+      fontWeight: FontWeight.bold,
     ),
     header1: TextStyle(
       fontFamily: defaultFontFamily,
@@ -339,6 +369,9 @@ class SunnyTextTheme {
     TextStyle? header1,
     TextStyle? body3Light,
     TextStyle? body3Link,
+    TextStyle? button1,
+    TextStyle? button2,
+    TextStyle? button3,
     TextStyle? input1,
     TextStyle? input2,
     TextStyle? hero,
@@ -357,6 +390,9 @@ class SunnyTextTheme {
       body2Medium: body2Medium ?? this.body2Medium,
       body2Bold: body2Bold ?? this.body2Bold,
       body2Light: body2Light ?? this.body2Light,
+      button1: button1 ?? this.button1,
+      button2: button1 ?? this.button2,
+      button3: button1 ?? this.button3,
       header4: header4 ?? this.header4,
       header3: header3 ?? this.header3,
       header2: header2 ?? this.header2,
@@ -384,6 +420,9 @@ class SunnyTextTheme {
       body2Medium: modification(this.body2Medium),
       body2Bold: modification(this.body2Bold),
       body2Light: modification(this.body2Light),
+      button1: modification(this.button1),
+      button2: modification(this.button2),
+      button3: modification(this.button3),
       header4: modification(this.header4),
       header3: modification(this.header3),
       header2: modification(this.header2),
@@ -413,11 +452,13 @@ extension TextStylePlatformExt on TextStyle {
 
 extension TextThemeApplyEachExt on TextTheme {
   TextTheme withBrightness(Brightness brightness) {
-    return this.applyEach((original) => original?.copyWith(color: original.color?.withBrightness(brightness)));
+    return this.applyEach((original) =>
+        original?.copyWith(color: original.color?.withBrightness(brightness)));
   }
 
   TextTheme brightnessOf(BuildContext context) {
-    return this.applyEach((original) => original?.copyWith(color: original.color?.resolveFrom(context)));
+    return this.applyEach((original) =>
+        original?.copyWith(color: original.color?.resolveFrom(context)));
   }
 
   TextTheme applyEach(TextStyle? apply(TextStyle? original)) {
@@ -469,14 +510,18 @@ class HeroText extends StyledText {
 extension RichTextBuilderTrippiExt on RichTextBuilder {
   RichTextBuilder heroBold(String text) {
     if (text.isNotNullOrBlank) {
-      children.add(TextSpan(text: text, style: textTheme.headline4!.copyWith(fontWeight: FontWeight.bold)));
+      children.add(TextSpan(
+          text: text,
+          style: textTheme.headline4!.copyWith(fontWeight: FontWeight.bold)));
     }
     return this;
   }
 
   RichTextBuilder hero(String text) {
     if (text.isNotNullOrBlank) {
-      children.add(TextSpan(text: text, style: textTheme.headline4!.copyWith(fontWeight: FontWeight.normal)));
+      children.add(TextSpan(
+          text: text,
+          style: textTheme.headline4!.copyWith(fontWeight: FontWeight.normal)));
     }
     return this;
   }

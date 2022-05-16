@@ -26,6 +26,7 @@ class PlatformCardArgs {
   final double? pressScale;
   final FutureTappableCallback? onTap;
   final FutureTappableCallback? onLongPress;
+  final FutureTappableCallback? onSecondaryPress;
   final FutureTappableCallback? onHover;
   final List<BoxShadow>? shadow;
   final PlatformCardTheme? theme;
@@ -48,6 +49,7 @@ class PlatformCardArgs {
     this.onTap,
     this.shouldClip,
     this.onLongPress,
+    this.onSecondaryPress,
     this.shadow,
   });
 }
@@ -101,6 +103,7 @@ class PlatformCard extends StatelessWidget with _PlatformCardArgsMixin {
         onTap: onTap,
         behavior: HitTestBehavior.deferToChild,
         onLongPress: onLongPress,
+        onSecondaryPress: onSecondaryPress,
         child: widget,
       );
     } else {

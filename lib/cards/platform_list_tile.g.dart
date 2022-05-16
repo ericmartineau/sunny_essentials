@@ -24,7 +24,10 @@ mixin _PlatformCardArgsMixin
   double? get pressOpacity => _args!.pressOpacity;
   double? get pressScale => _args!.pressScale;
   FutureOr<dynamic> Function(BuildContext)? get onTap => _args!.onTap;
-  FutureOr<dynamic> Function(BuildContext)? get onLongPress => _args!.onLongPress;
+  FutureOr<dynamic> Function(BuildContext)? get onLongPress =>
+      _args!.onLongPress;
+  FutureOr<dynamic> Function(BuildContext)? get onSecondaryPress =>
+      _args!.onSecondaryPress;
   FutureOr<dynamic> Function(BuildContext)? get onHover => _args!.onHover;
   List<BoxShadow>? get shadow => _args!.shadow;
   PlatformCardTheme? get theme => _args!.theme;
@@ -34,7 +37,6 @@ mixin _PlatformCardArgsMixin
 // **************************************************************************
 // DegenGenerator
 // **************************************************************************
-
 
 class PlatformListTile extends _PlatformListTile with _PlatformCardArgsMixin {
   PlatformListTile({
@@ -54,6 +56,7 @@ class PlatformListTile extends _PlatformListTile with _PlatformCardArgsMixin {
     FutureOr<dynamic> Function(BuildContext)? onTap,
     bool? shouldClip,
     FutureOr<dynamic> Function(BuildContext)? onLongPress,
+    FutureOr<dynamic> Function(BuildContext)? onSecondaryPress,
     List<BoxShadow>? shadow,
     Key? key,
     Widget? leading,
@@ -79,6 +82,7 @@ class PlatformListTile extends _PlatformListTile with _PlatformCardArgsMixin {
               onTap: onTap,
               shouldClip: shouldClip,
               onLongPress: onLongPress,
+              onSecondaryPress: onSecondaryPress,
               shadow: shadow,
             ),
             key: key,

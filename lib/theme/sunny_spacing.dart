@@ -206,7 +206,7 @@ extension WidgetSpacingExt on Widget {
   }
 
   Widget sized({double? height, double? width}) {
-    if (width != null && height != null) {
+    if (width != null || height != null) {
       return SizedBox(
         height: height,
         width: width,
