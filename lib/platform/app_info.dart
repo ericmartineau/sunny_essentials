@@ -2,7 +2,6 @@ import 'package:flutter/widgets.dart';
 import 'package:info_x/sunny_get.dart';
 import 'package:pub_semver/pub_semver.dart' as semver;
 import 'package:pub_semver/pub_semver.dart';
-import 'package:sunny_essentials/provided.dart';
 
 /// Contains fallback app info, in case we can't look up app info from apple's servers
 class FallbackAppInfo extends AppInfo {

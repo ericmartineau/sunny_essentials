@@ -18,6 +18,7 @@ class Themes with EquatableMixin {
   final PlatformCardTheme cardTheme;
   final PlatformOverlayTheme platformOverlayTheme;
   final ListTileTheme listTileTheme;
+
   Themes(
       {required this.brightness,
       required this.cardTheme,
@@ -49,5 +50,6 @@ class Themes with EquatableMixin {
 }
 
 extension ThemesExt on Themes {
-  ThemeData get themeData => brightness==Brightness.light ? lightTheme : darkTheme;
+  ThemeData get themeData =>
+      brightness == Brightness.light ? lightTheme : darkTheme;
 }

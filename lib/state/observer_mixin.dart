@@ -64,7 +64,8 @@ mixin ObserverMixin implements LoggingMixin, HasDisposers {
     return controller;
   }
 
-  Stream<String> streamTextEdit(TextEditingController cont, [StreamController<String>? controller]) {
+  Stream<String> streamTextEdit(TextEditingController cont,
+      [StreamController<String>? controller]) {
     final streamer = controller ?? StreamController<String>.broadcast();
     final listener = () {
       streamer.add(cont.text);
@@ -188,14 +189,14 @@ mixin ObserverMixin implements LoggingMixin, HasDisposers {
 //  }
 
   Future disposeObservations() async {
-    _isDisposing = true;
-    for (var dispose in [...disposers]) {
-      await dispose();
+    if (!_isDisposing) {
+      _isDisposing = true;
+
+      await Future.wait(disposers.map((fn) => Future.value(fn())));
+      disposers.clear();
+
+      await Future.wait(subscriptions.map((sub) => sub.cancel()));
+      subscriptions.clear();
     }
-    disposers.clear();
-    for (var subscription in [...subscriptions]) {
-      await subscription.cancel();
-    }
-    subscriptions.clear();
   }
 }

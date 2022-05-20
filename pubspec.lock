@@ -70,7 +70,7 @@ packages:
       name: build_runner
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.1.10"
+    version: "2.1.11"
   build_runner_core:
     dependency: transitive
     description:
@@ -98,7 +98,7 @@ packages:
       name: cached_network_image
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.2.0"
+    version: "3.2.1"
   cached_network_image_platform_interface:
     dependency: transitive
     description:
@@ -186,8 +186,8 @@ packages:
   dartxx:
     dependency: "direct main"
     description:
-      path: "/Users/ericm/sunny/player_rank/packages/dartxx"
-      relative: false
+      path: "../dartxx"
+      relative: true
     source: path
     version: "0.5.5"
   equatable:
@@ -247,22 +247,22 @@ packages:
   flutter_degen:
     dependency: "direct dev"
     description:
-      path: "/Users/ericm/sunny/player_rank/packages/flutter_degen"
-      relative: false
+      path: "../flutter_degen"
+      relative: true
     source: path
     version: "0.8.2+1"
   flutter_degen_annotations:
     dependency: "direct main"
     description:
-      path: "/Users/ericm/sunny/player_rank/packages/flutter_degen_annotations"
-      relative: false
+      path: "../flutter_degen_annotations"
+      relative: true
     source: path
     version: "1.7.0"
   flutter_screen_scaling:
     dependency: "direct main"
     description:
-      path: "/Users/ericm/sunny/player_rank/packages/flutter_screen_scaling"
-      relative: false
+      path: "../flutter_screen_scaling"
+      relative: true
     source: path
     version: "3.3.2+3"
   flutter_test:
@@ -322,8 +322,8 @@ packages:
   info_x:
     dependency: "direct main"
     description:
-      path: "/Users/ericm/sunny/player_rank/packages/info_x"
-      relative: false
+      path: "../info_x"
+      relative: true
     source: path
     version: "0.8.0+3"
   intl:
@@ -402,7 +402,7 @@ packages:
       name: octo_image
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.1"
+    version: "1.0.2"
   package_config:
     dependency: transitive
     description:
@@ -607,8 +607,8 @@ packages:
   sunny_platform_widgets:
     dependency: "direct main"
     description:
-      path: "/Users/ericm/sunny/player_rank/packages/sunny_platform_widgets"
-      relative: false
+      path: "../sunny_platform_widgets"
+      relative: true
     source: path
     version: "1.21.0"
   synchronized:
@@ -724,5 +724,5 @@ packages:
     source: hosted
     version: "3.1.0"
 sdks:
-  dart: ">=2.17.0-0 <3.0.0"
-  flutter: ">=1.24.0-10.2.pre"
+  dart: ">=2.17.0 <3.0.0"
+  flutter: ">=3.0.0"

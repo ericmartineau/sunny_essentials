@@ -16,6 +16,7 @@ int counter = 1;
 abstract class BaseState<T extends StatefulWidget> extends State<T>
     with ObserverMixin, LoggingMixin {
   final int stateCounter = counter++;
+
   String get stateId => "${runtimeType.simpleName}$stateCounter";
   Object? pageError;
 
@@ -47,11 +48,18 @@ abstract class BaseState<T extends StatefulWidget> extends State<T>
     });
   }
 
-  void listen(ChangeNotifier notifier, VoidCallback listener) {
+  void listen(ChangeNotifier? notifier, VoidCallback listener) {
+    if (notifier == null) return;
     notifier.addListener(listener);
     disposers.add(() {
       notifier.removeListener(listener);
     });
+  }
+
+  T createNotifier<T extends ChangeNotifier>({T create()?, T? instance}) {
+    instance ??= create!();
+    disposers.add(instance.dispose);
+    return instance;
   }
 
   ScrollController scrollController() {

@@ -1,12 +1,11 @@
 import 'package:flutter/widgets.dart';
+import 'package:provider/provider.dart';
 import 'package:sunny_essentials/sunny_essentials.dart';
 
-import '../provided.dart';
-import '../theme/sunny_spacing.dart';
-import '../widget_wrapper.dart';
 import '../widget_wrapper.dart';
 
 enum ModalMode { popover, alert, menu }
+
 enum ModalSize { tiny, small, medium, large, fullScreen }
 
 extension BoxConstraintsToModal on BoxConstraints {
@@ -123,7 +122,13 @@ class ModalConstraints implements WidgetDecorator {
     if (h != null || w != null) {
       result = SizedBox(height: h, width: w, child: result);
     }
-    return result;
+    return injectProvider
+        ? Provider.value(
+            value: this,
+            updateShouldNotify: (a, b) => false,
+            child: result,
+          )
+        : result;
   }
 
   ModalConstraints shrink({double height = 0, double width = 0}) {

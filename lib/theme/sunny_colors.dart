@@ -333,7 +333,10 @@ class _DefaultSunnyColors with SunnyColorMixin {
 
   CupertinoDynamicColor get iconDark => g800;
 
-  CupertinoDynamicColor get shadow => g300;
+  CupertinoDynamicColor get shadow => CupertinoDynamicColor.withBrightness(
+        color: RawSunnyColors.gray300,
+        darkColor: RawSunnyColors.gray300,
+      );
 
   CupertinoDynamicColor get appBarBackground => g50;
 
@@ -631,5 +634,5 @@ extension SunnyColorExt on SunnyColors {
 }
 
 Brightness get platformBrightness {
-  return WidgetsBinding.instance!.window.platformBrightness;
+  return WidgetsBinding.instance.window.platformBrightness;
 }

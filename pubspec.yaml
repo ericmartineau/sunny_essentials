@@ -3,30 +3,30 @@ version: 0.8.2+1
 description: Just the basic widgets, with limited dependencies
 repository: https://github.com/ericmartineau/sunny_essentials.git
 environment: 
-  sdk: '>=2.16.0 <3.0.0'
+  sdk: '>=2.17.0 <3.0.0'
 dependencies: 
-  cached_network_image: ^3.2.0
+  cached_network_image: ^3.2.1
   equatable: ^2.0.3
   logging: ^1.0.2
   provider: ^6.0.2
-  octo_image: ^1.0.1
+  octo_image: ^1.0.2
   recase: ^4.0.0
   timeago: ^3.2.2
   uri: ^1.0.0
   info_x: 
-    path: /Users/ericm/sunny/player_rank/packages/info_x
+    path: /Users/ericm/sunny/local_plugins/info_x
   flutter_degen_annotations: 
-    path: /Users/ericm/sunny/player_rank/packages/flutter_degen_annotations
+    path: /Users/ericm/sunny/local_plugins/flutter_degen_annotations
   sunny_platform_widgets: 
-    path: /Users/ericm/sunny/player_rank/packages/sunny_platform_widgets
+    path: /Users/ericm/sunny/local_plugins/sunny_platform_widgets
   flutter_screen_scaling: 
-    path: /Users/ericm/sunny/player_rank/packages/flutter_screen_scaling
+    path: /Users/ericm/sunny/local_plugins/flutter_screen_scaling
   dartxx: 
-    path: /Users/ericm/sunny/player_rank/packages/dartxx
+    path: /Users/ericm/sunny/local_plugins/dartxx
   flutter: 
     sdk: flutter
 dev_dependencies: 
   flutter_degen: 
-    path: /Users/ericm/sunny/player_rank/packages/flutter_degen
+    path: /Users/ericm/sunny/local_plugins/flutter_degen
   flutter_test: 
     sdk: flutter
