@@ -194,7 +194,6 @@ extension ConstraintOrSizeExt on ModalSize {
           height: size.height,
           width: size.width,
         );
-        break;
     }
   }
 }
