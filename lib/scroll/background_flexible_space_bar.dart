@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'dart:ui' as ui;
 import 'dart:math' as math;
 
@@ -70,10 +69,6 @@ class _SunnyFlexibleSpaceBarState extends State<SunnyFlexibleSpaceBar> {
       builder: (BuildContext context, BoxConstraints constraints) {
         final FlexibleSpaceBarSettings settings = context
             .dependOnInheritedWidgetOfExactType<FlexibleSpaceBarSettings>()!;
-        assert(
-          settings != null,
-          'A FlexibleSpaceBar must be wrapped in the widget returned by FlexibleSpaceBar.createSettings().',
-        );
 
         final List<Widget> children = <Widget>[];
 

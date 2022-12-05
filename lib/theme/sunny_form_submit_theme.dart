@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:info_x/sunny_get.dart';
 import 'package:sunny_essentials/sunny_essentials.dart';
 
 class SunnyButtonSizeData {

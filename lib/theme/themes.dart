@@ -5,12 +5,7 @@ import 'package:info_x/sunny_get.dart';
 import 'package:macos_ui/macos_ui.dart' hide TooltipThemeData;
 import 'package:sunny_essentials/cards/platform_overlay_theme.dart';
 import 'package:sunny_essentials/sunny_essentials.dart';
-import 'package:sunny_essentials/theme/sunny_colors.dart';
-import 'package:sunny_essentials/theme/sunny_form_submit_theme.dart';
-import 'package:sunny_essentials/theme/sunny_text_theme.dart';
 
-import '../provided.dart';
-import 'visual_style.dart';
 export 'theme_extensions.dart';
 
 typedef ThemeDataBuilder = ThemeData Function(

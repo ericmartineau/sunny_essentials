@@ -27,8 +27,7 @@ class RenderSunnySliverFillViewport extends RenderSliverFixedExtentBoxAdaptor {
     required super.childManager,
     double viewportFraction = 1.0,
     required this.minHeight,
-  })  : assert(viewportFraction != null),
-        assert(viewportFraction > 0.0),
+  })  : assert(viewportFraction > 0.0),
         _viewportFraction = viewportFraction;
 
   final double minHeight;
@@ -45,7 +44,6 @@ class RenderSunnySliverFillViewport extends RenderSliverFixedExtentBoxAdaptor {
   double get viewportFraction => _viewportFraction;
   double _viewportFraction;
   set viewportFraction(double value) {
-    assert(value != null);
     if (_viewportFraction == value) return;
     _viewportFraction = value;
     markNeedsLayout();

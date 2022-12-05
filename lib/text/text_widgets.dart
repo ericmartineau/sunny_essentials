@@ -1,12 +1,8 @@
 import 'package:dartxx/dartxx.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:info_x/info_x.dart';
 import 'package:sunny_essentials/sunny_essentials.dart';
 import 'dart:ui' as ui;
-import '../taps.dart';
-import '../theme.dart';
-import '../typedefs.dart';
 
 class TextWidgets {
   static set lightColor(Color updateLightColor) {

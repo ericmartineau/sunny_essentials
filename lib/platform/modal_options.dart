@@ -264,7 +264,6 @@ class ModalOptions {
 extension BoxConstraintsInflate on BoxConstraints {
   BoxConstraints expand(EdgeInsets? edges) {
     if(edges==null) return this;
-    assert(edges != null);
     assert(debugAssertIsValid());
     final double horizontal = edges.horizontal;
     final double vertical = edges.vertical;

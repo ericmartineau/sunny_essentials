@@ -340,8 +340,7 @@ class SunnySliverFillRemaining extends StatelessWidget {
 
 class _SliverFillRemainingWithScrollable extends SingleChildRenderObjectWidget {
   const _SliverFillRemainingWithScrollable(
-      {super.key,
-      super.child,
+      {super.child,
       required this.minHeight,
       required this.maxViewportPercent});
 
@@ -359,7 +358,6 @@ class _SliverFillRemainingWithoutScrollable
   final double minHeight;
 
   const _SliverFillRemainingWithoutScrollable({
-    super.key,
     super.child,
     required this.minHeight,
   });
@@ -371,7 +369,6 @@ class _SliverFillRemainingWithoutScrollable
 
 class _SliverFillRemainingAndOverscroll extends SingleChildRenderObjectWidget {
   const _SliverFillRemainingAndOverscroll({
-    super.key,
     super.child,
     required this.minHeight,
   });

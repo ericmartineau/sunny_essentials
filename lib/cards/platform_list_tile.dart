@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_degen_annotations/flutter_degen_annotations.dart';
-import 'platform_card_theme.dart';
 import '../container/auto_layout.dart';
 
 import 'platform_card.dart';

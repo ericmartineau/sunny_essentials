@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:sunny_essentials/sunny_essentials.dart';
-import '../provided.dart';
-import 'themes.dart';
 
 extension ThemeExtractionExt on ThemeData {
   Color? get textColor => textTheme.bodyMedium?.color;

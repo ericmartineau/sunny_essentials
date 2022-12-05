@@ -8,8 +8,6 @@ import 'package:sunny_essentials/container.dart';
 import '../image/platform_network_image.dart';
 import '../slivers/resizing_pinned_header.dart';
 import '../theme/sunny_spacing.dart';
-import 'dividing_line.dart';
-import 'standard_column.dart';
 
 List<Widget> divide(Iterable<Widget> widgets, Widget? wrapped) {
   return [

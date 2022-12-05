@@ -6,8 +6,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_degen_annotations/flutter_degen_annotations.dart';
 import 'package:info_x/info_x.dart';
-import 'package:tinycolor2/tinycolor2.dart';
-import 'platform_card_theme.dart';
 
 import '../taps.dart';
 
