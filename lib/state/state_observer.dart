@@ -2,8 +2,10 @@ import 'dart:async';
 
 import 'package:dartxx/dartxx.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:sunny_essentials/state.dart';
+import 'package:sunny_essentials/sunny_essentials.dart';
 
 // import 'package:sunny_dart/sunny_dart.dart';
 
@@ -20,12 +22,30 @@ abstract class BaseState<T extends StatefulWidget> extends State<T>
   String get stateId => "${runtimeType.simpleName}$stateCounter";
   Object? pageError;
 
+  ThemeData? _theme;
+  SunnyColors? _sunnyColors;
+
+  SunnyColors get sunnyColors => _sunnyColors ??= context.sunnyColors;
+  ThemeData get theme => _theme ??= Theme.of(context);
+
+  Map<Type, Object> _cachedProviders = {};
+
+  T provide<T extends Object>() {
+    return _cachedProviders.putIfAbsent(T, () => Provided.get<T>(context)) as T;
+  }
+
   void safeState([VoidCallback? callback]) {
     if (mounted) {
       setState(callback ?? () {});
     } else {
       callback?.call();
     }
+  }
+
+  @mustCallSuper
+  @override
+  void initState() {
+    super.initState();
   }
 
   FocusNode createFocusNode({String? debugLabel, bool watch = false}) {

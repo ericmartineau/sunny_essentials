@@ -185,6 +185,13 @@ extension WidgetSpacingExt on Widget {
     return SliverToBoxAdapter(child: this);
   }
 
+  Widget headerIcon() {
+    return Padding(
+      padding: EdgeInsets.only(right: sunnySpacing * 1),
+      child: this,
+    );
+  }
+
   Widget headerPad() {
     return Padding(
       padding: EdgeInsets.only(
@@ -316,6 +323,25 @@ extension WidgetSpacingExt on Widget {
     final u = SunnySpacing().spaceUnit;
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: u * h, vertical: u * v),
+      child: this,
+    );
+  }
+
+  Widget padOnly(
+      {double left = 0,
+      double bottom = 0,
+      double right = 0,
+      double top = 0,
+      double h = 0,
+      double v = 0}) {
+    final u = SunnySpacing().spaceUnit;
+    return Padding(
+      padding: EdgeInsets.only(
+        top: u * (top + h),
+        left: u * (left + h),
+        right: u * (right + h),
+        bottom: u * (bottom + v),
+      ),
       child: this,
     );
   }

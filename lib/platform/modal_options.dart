@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:sunny_essentials/sunny_essentials.dart';
 
 import '../widget_wrapper.dart';
+import 'dart:math' as math;
 
 enum ModalMode { popover, alert, menu }
 
@@ -20,6 +21,7 @@ class ModalConstraints implements WidgetDecorator {
   final double? width;
   final ModalSize? size;
   final double? largeInset;
+  final EdgeInsets? expansion;
 
   static const ModalConstraints empty = ModalConstraints();
 
@@ -32,6 +34,7 @@ class ModalConstraints implements WidgetDecorator {
         width = null,
         largeInset = null,
         size = null,
+  expansion = null,
         constraints = constraints;
 
   static const ModalConstraints small = ModalConstraints(
@@ -56,12 +59,14 @@ class ModalConstraints implements WidgetDecorator {
     this.height,
     this.width,
     this.size,
+    this.expansion,
   });
 
   ModalConstraints.size(
       {this.height, this.width, bool applyConstraints = false})
       : size = null,
         largeInset = null,
+  expansion=null,
         constraints = (applyConstraints && height != null && width != null)
             ? BoxConstraints(maxWidth: width, maxHeight: height)
             : null;
@@ -70,6 +75,7 @@ class ModalConstraints implements WidgetDecorator {
       : size = null,
         height = size.height,
         width = size.width,
+  expansion=null,
         largeInset = null,
         constraints = null;
 
@@ -111,9 +117,9 @@ class ModalConstraints implements WidgetDecorator {
       {required Widget child, bool injectProvider = true}) {
     if (isEmpty) return child;
     var sizing = size?.sizing(context);
-    var h = this.height ?? sizing?.height;
-    var w = this.width ?? sizing?.width;
-    var c = this.constraints ?? sizing?.constraints;
+    var h = (this.height ?? sizing?.height)._plus(expansion?.vertical);
+    var w = (this.width ?? sizing?.width)._plus(expansion?.horizontal);
+    var c = (this.constraints ?? sizing?.constraints)?.expand(expansion);
 
     var result = child;
     if (c != null) {
@@ -140,6 +146,17 @@ class ModalConstraints implements WidgetDecorator {
       height: this.height == null ? null : (this.height! - height),
       size: size,
       largeInset: largeInset,
+    );
+  }
+
+  ModalConstraints expand({double height = 0, double width = 0}) {
+    return ModalConstraints(
+      constraints: constraints,
+      width: this.width,
+      height: this.height,
+      size: size,
+      largeInset: largeInset,
+      expansion: EdgeInsets.symmetric(horizontal: width, vertical: height,),
     );
   }
 }
@@ -241,5 +258,35 @@ class ModalOptions {
       modalMode: modalMode ?? this.modalMode,
       constraints: constraints ?? this.constraints,
     );
+  }
+}
+
+extension BoxConstraintsInflate on BoxConstraints {
+  BoxConstraints expand(EdgeInsets? edges) {
+    if(edges==null) return this;
+    assert(edges != null);
+    assert(debugAssertIsValid());
+    final double horizontal = edges.horizontal;
+    final double vertical = edges.vertical;
+    final double inflatedMinWidth = minWidth + horizontal;
+    final double inflatedMinHeight = minHeight + vertical;
+
+    return BoxConstraints(
+      minWidth: inflatedMinWidth,
+      maxWidth: math.max(inflatedMinWidth, maxWidth + horizontal),
+      minHeight: inflatedMinHeight,
+      maxHeight: math.max(inflatedMinHeight, maxHeight + vertical),
+    );
+  }
+}
+
+extension on num? {
+  double? _plus(double? other) {
+    if(this==null) {
+      return other;
+    } else {
+      return this! + (other ?? 0);
+    }
+
   }
 }

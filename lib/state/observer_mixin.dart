@@ -111,22 +111,6 @@ mixin ObserverMixin implements LoggingMixin, HasDisposers {
 //    }).cancel);
 //  }
 
-  // SyncStream<V> watchVStream<V>(ValueStream<V> stream,
-  //     {String name, Consumer<V> onChange}) {
-  //   assert(stream != null);
-  //   final syncStream = stream.toSyncStream(
-  //       onChange == null
-  //           ? null
-  //           : (input) {
-  //               if (!_isDisposing) {
-  //                 onChange(input);
-  //               }
-  //             },
-  //       name);
-  //   disposers.add(syncStream.disposeAll);
-  //   return syncStream;
-  // }
-
 //  void watchDiffStream<V>(ValueStream<ListDiffs<V>> stream, {String name, Consumer<ListDiffs<V>> onChange}) {
 //    if (stream == null) return;
 //    subscriptions.add(stream.listen(onChange));

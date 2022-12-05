@@ -15,6 +15,7 @@ mixin _PlatformCardArgsMixin
   EdgeInsets? get padding => _args!.padding;
   EdgeInsets? get margin => _args!.margin;
   Color? get color => _args!.color;
+  Color? get hoverColor => _args!.hoverColor;
   BorderRadius? get borderRadius => _args!.borderRadius;
   bool? get useShadow => _args!.useShadow;
   double? get height => _args!.height;
@@ -30,7 +31,6 @@ mixin _PlatformCardArgsMixin
       _args!.onSecondaryPress;
   FutureOr<dynamic> Function(BuildContext)? get onHover => _args!.onHover;
   List<BoxShadow>? get shadow => _args!.shadow;
-  PlatformCardTheme? get theme => _args!.theme;
   bool? get shouldClip => _args!.shouldClip;
 }
 
@@ -47,11 +47,11 @@ class PlatformListTile extends _PlatformListTile with _PlatformCardArgsMixin {
     EdgeInsets? margin,
     BorderRadius? borderRadius,
     Color? color,
+    Color? hoverColor,
     double? height,
     double? width,
     bool? useShadow,
     double? minWidth,
-    PlatformCardTheme? theme,
     double? minHeight,
     FutureOr<dynamic> Function(BuildContext)? onTap,
     bool? shouldClip,
@@ -77,7 +77,6 @@ class PlatformListTile extends _PlatformListTile with _PlatformCardArgsMixin {
               width: width,
               useShadow: useShadow,
               minWidth: minWidth,
-              theme: theme,
               minHeight: minHeight,
               onTap: onTap,
               shouldClip: shouldClip,

@@ -18,6 +18,7 @@ mixin _PlatformCardArgsMixin
   BorderRadius? get borderRadius => _args.borderRadius;
   bool? get useShadow => _args.useShadow;
   double? get height => _args.height;
+  Color? get hoverColor => _args.hoverColor;
   double? get width => _args.width;
   double? get minHeight => _args.minHeight;
   double? get minWidth => _args.minWidth;
@@ -30,6 +31,5 @@ mixin _PlatformCardArgsMixin
       _args.onSecondaryPress;
   FutureOr<dynamic> Function(BuildContext)? get onHover => _args.onHover;
   List<BoxShadow>? get shadow => _args.shadow;
-  PlatformCardTheme? get theme => _args.theme;
   bool? get shouldClip => _args.shouldClip;
 }

@@ -1,7 +1,9 @@
 import 'dart:ui';
 
 import 'package:dartxx/dartxx.dart';
+import 'package:sliver_tools/sliver_tools.dart';
 import 'package:flutter/material.dart';
+import 'package:sunny_essentials/container.dart';
 
 import '../image/platform_network_image.dart';
 import '../slivers/resizing_pinned_header.dart';
@@ -24,6 +26,7 @@ class AutoLayout {
   Layout _layout;
   TextStyle? _style;
   double _spacing = 0;
+  bool _isSliver = false;
   double _radius = 12;
   bool _softWrap = true;
   Color? _color;
@@ -55,6 +58,7 @@ class AutoLayout {
     this._divider,
     this._style,
     this._textAlign,
+    this._isSliver,
     this._useFlex,
     this._isMax,
     this._isCrossMax,
@@ -71,9 +75,11 @@ class AutoLayout {
     this._width,
   );
 
-  Widget build([item1, item2, item3, item4, item5, item6, item7, item8, item9, item10]) {
+  Widget build(
+      [item1, item2, item3, item4, item5, item6, item7, item8, item9, item10]) {
     final items = [];
-    [item1, item2, item3, item4, item5, item6, item7, item8, item9, item10].forEach((element) {
+    [item1, item2, item3, item4, item5, item6, item7, item8, item9, item10]
+        .forEach((element) {
       if (element == null) return;
       if (element is Iterable) {
         items.addAll(element);
@@ -84,6 +90,12 @@ class AutoLayout {
     return applyTo(items, this._layout);
   }
 
+  Widget call(
+      [item1, item2, item3, item4, item5, item6, item7, item8, item9, item10]) {
+    return build(
+        item1, item2, item3, item4, item5, item6, item7, item8, item9, item10);
+  }
+
   Widget applyPadding(Widget widget) {
     if (_padding != null ||
         _margin != null ||
@@ -91,6 +103,8 @@ class AutoLayout {
         _width != null ||
         _backgroundColor != null ||
         _borderRadius != null) {
+      assert(!_isSliver, 'Cannot be sliver and apply padding or colors');
+
       return Container(
         padding: _padding,
         margin: _margin,
@@ -98,7 +112,8 @@ class AutoLayout {
         width: _width,
         decoration: _borderRadius == null && _backgroundColor == null
             ? null
-            : BoxDecoration(color: _backgroundColor, borderRadius: _borderRadius),
+            : BoxDecoration(
+                color: _backgroundColor, borderRadius: _borderRadius),
         child: _borderRadius == null
             ? widget
             : ClipRRect(
@@ -131,7 +146,8 @@ class AutoLayout {
       w = Text(
         item.data!,
         key: item.key,
-        style: (item.style ?? TextStyle()).copyWith(color: _color ?? item.style?.color),
+        style: (item.style ?? TextStyle())
+            .copyWith(color: _color ?? item.style?.color),
         textAlign: item.textAlign,
         locale: item.locale,
         softWrap: item.softWrap,
@@ -146,7 +162,9 @@ class AutoLayout {
       w = item;
     } else {
       w = Text(item?.toString() ?? '',
-          softWrap: _softWrap, textAlign: _textAlign, style: (_style ?? TextStyle()).copyWith(color: _color));
+          softWrap: _softWrap,
+          textAlign: _textAlign,
+          style: (_style ?? TextStyle()).copyWith(color: _color));
     }
 
     return _centerEach ? Center(child: w) : w;
@@ -163,7 +181,9 @@ class AutoLayout {
     final space = builder.space(_spacing, this);
     final widgets = divide(
       items.notNull().map((item) {
-        return _useFlex == true ? Flexible(flex: 1, child: autoWidget(item)) : autoWidget(item);
+        return _useFlex == true
+            ? Flexible(flex: 1, child: autoWidget(item))
+            : autoWidget(item);
       }),
       space,
     );
@@ -214,11 +234,15 @@ class _RowBuilder implements Layout {
   Widget space(double space, AutoLayout container) => SizedBox(width: space);
 
   @override
-  Widget wrapWidgets(List<Widget> items, AutoLayout container) => container.applyPadding(
+  Widget wrapWidgets(List<Widget> items, AutoLayout container) =>
+      container.applyPadding(
         Row(
-          mainAxisSize: container._mainAxisSize ?? (container._isMax == true ? MainAxisSize.max : MainAxisSize.min),
+          mainAxisSize: container._mainAxisSize ??
+              (container._isMax == true ? MainAxisSize.max : MainAxisSize.min),
           crossAxisAlignment: container._crossAxisAlignment ??
-              (container._isCrossMax == true ? CrossAxisAlignment.stretch : CrossAxisAlignment.center),
+              (container._isCrossMax == true
+                  ? CrossAxisAlignment.stretch
+                  : CrossAxisAlignment.center),
           mainAxisAlignment: container._mainAxisAlignment,
           children: items,
         ),
@@ -232,11 +256,15 @@ class _ContainerBuilder implements Layout {
   Widget space(double space, AutoLayout container) => SizedBox(width: space);
 
   @override
-  Widget wrapWidgets(List<Widget> items, AutoLayout container) => container.applyPadding(
+  Widget wrapWidgets(List<Widget> items, AutoLayout container) =>
+      container.applyPadding(
         Row(
-          mainAxisSize: container._mainAxisSize ?? (container._isMax == true ? MainAxisSize.max : MainAxisSize.min),
+          mainAxisSize: container._mainAxisSize ??
+              (container._isMax == true ? MainAxisSize.max : MainAxisSize.min),
           crossAxisAlignment: container._crossAxisAlignment ??
-              (container._isCrossMax == true ? CrossAxisAlignment.stretch : CrossAxisAlignment.center),
+              (container._isCrossMax == true
+                  ? CrossAxisAlignment.stretch
+                  : CrossAxisAlignment.center),
           mainAxisAlignment: container._mainAxisAlignment,
           children: items,
         ),
@@ -283,14 +311,26 @@ class _ColumnBuilder implements Layout {
   Widget space(double space, AutoLayout container) => SizedBox(height: space);
 
   @override
-  Widget wrapWidgets(List<Widget> items, AutoLayout container) => container.applyPadding(
-        Column(
-          mainAxisAlignment: container._mainAxisAlignment,
-          mainAxisSize: container._isMax == true ? MainAxisSize.max : MainAxisSize.min,
-          crossAxisAlignment: container._crossAxisAlignment ??
-              (container._isCrossMax == true ? CrossAxisAlignment.stretch : CrossAxisAlignment.center),
-          children: container._divider != null ? DividingLine.divideWithLines(items, container._divider) : items,
-        ),
+  Widget wrapWidgets(List<Widget> items, AutoLayout container) =>
+      container.applyPadding(
+        container._isSliver
+            ? SliverList(
+                delegate: SliverChildListDelegate(
+                items,
+              ))
+            : Column(
+                mainAxisAlignment: container._mainAxisAlignment,
+                mainAxisSize: container._isMax == true
+                    ? MainAxisSize.max
+                    : MainAxisSize.min,
+                crossAxisAlignment: container._crossAxisAlignment ??
+                    (container._isCrossMax == true
+                        ? CrossAxisAlignment.stretch
+                        : CrossAxisAlignment.center),
+                children: container._divider != null
+                    ? DividingLine.divideWithLines(items, container._divider)
+                    : items,
+              ),
       );
 
   const _ColumnBuilder();
@@ -298,7 +338,8 @@ class _ColumnBuilder implements Layout {
 
 class _WrapBuilder extends Layout {
   @override
-  Widget wrapWidgets(List<Widget> items, AutoLayout container) => container.applyPadding(Wrap(
+  Widget wrapWidgets(List<Widget> items, AutoLayout container) =>
+      container.applyPadding(Wrap(
         spacing: container._spacing,
         children: items,
       ));
@@ -317,6 +358,10 @@ extension AutoLayoutBuilderExt on AutoLayout {
 
   AutoLayout style(TextStyle style) {
     return this.._style = style;
+  }
+
+  AutoLayout get sliver {
+    return this.._isSliver = true;
   }
 
   AutoLayout get noSpacing {
@@ -556,7 +601,11 @@ extension AutoLayoutBuilderExt on AutoLayout {
     return this.._borderRadius = radius;
   }
 
-  AutoLayout isHeader({bool pinned = false, bool floating = false, required double height, double? expandedHeight}) {
+  AutoLayout isHeader(
+      {bool pinned = false,
+      bool floating = false,
+      required double height,
+      double? expandedHeight}) {
     return this
       .._wrappers.add((widget) {
         final delegate = (expandedHeight != null && expandedHeight != height)
@@ -592,6 +641,7 @@ extension AutoLayoutBuilderExt on AutoLayout {
       _style,
       _textAlign,
       _useFlex,
+      _isSliver,
       _isMax,
       _isCrossMax,
       _mainAxisAlignment,
@@ -624,6 +674,19 @@ extension AutoLayoutSingleExt on AutoLayout {
 }
 
 extension WidgetListExtensions on List<Widget> {
+  /// Wraps a list of widgets into a single MultiSliver, if there are more than
+  /// one slivers
+  Widget toMultiSliver() {
+    switch (this.length) {
+      case 0:
+        return sliverEmptyBox;
+      case 1:
+        return this.single;
+      default:
+        return MultiSliver(children: this);
+    }
+  }
+
   List<Widget> toSlivers() {
     return [
       for (var w in this) SliverToBoxAdapter(child: w),
@@ -631,7 +694,13 @@ extension WidgetListExtensions on List<Widget> {
   }
 
   List<Widget> hpadEach([int units = 2]) {
-    return [for (var c in this) Padding(padding: EdgeInsets.symmetric(horizontal: sunnySpacing.spaceUnit * units), child: c)];
+    return [
+      for (var c in this)
+        Padding(
+            padding: EdgeInsets.symmetric(
+                horizontal: sunnySpacing.spaceUnit * units),
+            child: c)
+    ];
   }
 
   List<Widget> bpad([int units = 2]) {
@@ -641,4 +710,3 @@ extension WidgetListExtensions on List<Widget> {
     ];
   }
 }
-

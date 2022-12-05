@@ -19,6 +19,20 @@ Widget? assumeWidget(BuildContext context, dynamic item) {
   return item as Widget?;
 }
 
+Widget AlignCenterLeft({required Widget child}) =>
+    Align(alignment: Alignment.centerLeft, child: child);
+
+Widget AlignCenterRight({required Widget child}) =>
+    Align(alignment: Alignment.centerRight, child: child);
+
+Widget AlignTopCenter({required Widget child}) =>
+    Align(alignment: Alignment.topCenter, child: child);
+
+Widget AlignBottomCenter({required Widget child}) =>
+    Align(alignment: Alignment.bottomCenter, child: child);
+
+Widget SliverBox({required Widget child}) => SliverToBoxAdapter(child: child);
+
 typedef SliverWidgetBuilder<T> = Widget? Function(BuildContext context, T item);
 
 class SimpleSliverList<W> extends StatelessWidget {
@@ -78,6 +92,7 @@ class SimpleSliverList<W> extends StatelessWidget {
                 return builder(context, item);
               },
               addSemanticIndexes: false,
+
               // addRepaintBoundaries: true,
               childCount: count,
             ),

@@ -36,6 +36,7 @@ Widget tappable<R>(Widget child,
 
 typedef FutureOrTappableCallback<T> = FutureOr<T> Function();
 typedef FutureTappableCallback<T> = FutureOr<T> Function(BuildContext context);
+typedef SimpleFutureTappableCallback<T> = FutureOr<T> Function();
 typedef LongPressCallback = FutureOr Function(BuildContext context);
 
 enum TapTransform {
@@ -140,9 +141,8 @@ class _TappableState extends State<Tappable>
   @override
   Widget build(BuildContext context) {
     return MouseRegion(
-      cursor: widget.useMouseCursor
-          ? SystemMouseCursors.click
-          : SystemMouseCursors.basic,
+      cursor:
+          widget.useMouseCursor ? SystemMouseCursors.click : MouseCursor.defer,
       child: GestureDetector(
         behavior: widget.behavior,
         onSecondaryTap:

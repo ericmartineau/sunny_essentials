@@ -26,8 +26,9 @@ class PlatformOverlayTheme {
       : _backgroundColor = backgroundColor,
         _foregroundColor = foregroundColor;
 
-  Color get backgroundColor =>
-      _backgroundColor ?? sunnyColors.scaffoldBackground.darkColor;
+  Color backgroundColor(BuildContext context) =>
+      _backgroundColor ?? context.sunnyColors.scaffoldBackground.darkColor;
 
-  Color get foregroundColor => _foregroundColor ?? sunnyColors.g800.darkColor;
+  Color foregroundColor(BuildContext context) =>
+      _foregroundColor ?? context.sunnyColors.g800.darkColor;
 }

@@ -58,7 +58,16 @@ Widget Reprovide<T>(BuildContext context,
       value: Provider.of<T>(context, listen: listen), child: child);
 }
 
+class ProvidedList<T, R> {
+  final List<R> items;
+  ProvidedList(this.items);
+}
+
 class Provided {
+  static List<T> getList<R, T>(BuildContext context) {
+    return get<ProvidedList<R, T>>(context).items;
+  }
+
   static T get<T>(BuildContext context) {
     try {
       final t = Provider.of<T>(context, listen: false);
@@ -72,6 +81,28 @@ class Provided {
       }
       // ignore: unnecessary_cast
       return t as T;
+    }
+  }
+
+  static F cast<T, F extends T>(BuildContext context) {
+    try {
+      final t = Provider.of<T>(context, listen: false);
+      if (t is F) {
+        return t;
+      }
+      throw 'Invalid cast!  Found ${t.runtimeType} but expected $F';
+    } on ProviderNotFoundException {
+      print("##################################  ${T} was found under ${T}?");
+      print("##################################");
+      final t = Provider.of<T?>(context, listen: false);
+      if (t is! T) {
+        rethrow;
+      }
+      // ignore: unnecessary_cast
+      if (t is F) {
+        return t;
+      }
+      throw 'Invalid cast!  Found ${t.runtimeType} but expected $F';
     }
   }
 

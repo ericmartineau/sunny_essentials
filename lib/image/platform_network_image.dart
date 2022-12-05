@@ -1,23 +1,18 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:octo_image/octo_image.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:octo_image/octo_image.dart';
+import 'package:sunny_essentials/image/platform_image_proxy.dart';
 import 'package:sunny_platform_widgets/sunny_platform_widgets.dart';
 
-bool useCachedNetworkImage = false;
-
-ImageProvider PlatformNetworkImageProvider(dynamic url,
-    {Map<String, String>? headers}) {
-  return ((kIsWeb || !useCachedNetworkImage
-          ? NetworkImage("$url", headers: headers)
-          : CachedNetworkImageProvider("$url")) as ImageProvider<dynamic>)
-      as ImageProvider<Object>;
-}
+export 'platform_image_proxy.dart';
 
 typedef ImageProgressBuilder = Widget Function(
     BuildContext context, DownloadProgress progress);
 
 class PlatformNetworkImage extends PlatformWidgetBase {
+  static ImageProviderFactory imageProviderFactory =
+      PlatformNetworkImageProvider;
+
   final String? imageUrl;
   final double? height;
   final double? width;
@@ -30,12 +25,17 @@ class PlatformNetworkImage extends PlatformWidgetBase {
   final Alignment alignment;
   final bool useOldImageOnUrlChange;
   final BoxFit? fit;
+  final ImageProviderFactory? factory;
+
+  static ImageProvider provider(imageUrl, {Map<String, String>? headers}) =>
+      imageProviderFactory(imageUrl, headers: headers);
 
   PlatformNetworkImage(dynamic imageUrl,
       {Key? key,
       this.height,
       this.width,
       this.httpHeaders,
+      this.factory,
       this.placeholder,
       bool showProgress = true,
       ImageProgressBuilder? progressBuilder,
@@ -63,8 +63,8 @@ class PlatformNetworkImage extends PlatformWidgetBase {
             color: Colors.grey.withOpacity(0.5),
           )
         : OctoImage(
-            image:
-                PlatformNetworkImageProvider(imageUrl!, headers: httpHeaders),
+            image: (factory ?? imageProviderFactory)(imageUrl!,
+                headers: httpHeaders),
             height: height,
             width: width,
             fit: fit,
@@ -118,9 +118,12 @@ Widget _defaultErrorWidget(BuildContext context, String url, dynamic error) {
 
 Widget _defaultProgressBuilder(
     BuildContext context, DownloadProgress progress) {
-  return AspectRatio(
-      aspectRatio: 1.0,
-      child: progress.progress == null
-          ? CircularProgressIndicator()
-          : CircularProgressIndicator(value: progress.progress!));
+  return SizedBox(
+    height: 65,
+    child: AspectRatio(
+        aspectRatio: 1.0,
+        child: progress.progress == null
+            ? CircularProgressIndicator()
+            : CircularProgressIndicator(value: progress.progress!)),
+  );
 }
