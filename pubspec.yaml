@@ -5,21 +5,28 @@ repository: https://github.com/ericmartineau/sunny_essentials.git
 environment: 
   sdk: '>=2.16.0 <3.0.0'
 dependencies: 
-  cached_network_image: ^3.2.0
-  equatable: ^2.0.3
-  flutter_degen_annotations: ^1.7.0
-  sunny_platform_widgets: ^1.21.0
-  flutter_screen_scaling: ^3.3.2+3
-  info_x: ^0.8.0+3
+  cached_network_image: ^3.2.2
+  equatable: ^2.0.5
   logging: ^1.0.2
-  provider: ^6.0.2
+  provider: ^6.0.3
   recase: ^4.0.0
   timeago: ^3.2.2
-  uri: ^1.0.0
-  dartxx: ^0.5.5
+  flutter_degen_annotations: 
+    path: /Users/ericm/reliveit/checkout/ericmartineau/flutter_degen_annotations
+  sunny_platform_widgets: 
+    path: /Users/ericm/reliveit/checkout/SunnyApp/flutter_platform_widgets
+  flutter_screen_scaling: 
+    path: /Users/ericm/reliveit/checkout/SunnyApp/flutter_screen_scaling
+  info_x: 
+    path: /Users/ericm/reliveit/checkout/ericmartineau/info_x
+  uri: 
+    path: /Users/ericm/sunny/local_plugins/uri.dart
+  dartxx: 
+    path: /Users/ericm/reliveit/checkout/ericmartineau/dartxx
   flutter: 
     sdk: flutter
 dev_dependencies: 
-  flutter_degen: ^0.8.2+1
+  flutter_degen: 
+    path: /Users/ericm/reliveit/checkout/SunnyApp/flutter_degen
   flutter_test: 
     sdk: flutter
