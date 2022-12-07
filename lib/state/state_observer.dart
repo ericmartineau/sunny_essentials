@@ -2,8 +2,9 @@ import 'dart:async';
 
 import 'package:dartxx/dartxx.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 import 'package:sunny_essentials/state.dart';
+import 'package:sunny_essentials/sunny_essentials.dart';
 
 // import 'package:sunny_dart/sunny_dart.dart';
 
@@ -16,8 +17,21 @@ int counter = 1;
 abstract class BaseState<T extends StatefulWidget> extends State<T>
     with ObserverMixin, LoggingMixin {
   final int stateCounter = counter++;
+
   String get stateId => "${runtimeType.simpleName}$stateCounter";
   Object? pageError;
+
+  ThemeData? _theme;
+  SunnyColors? _sunnyColors;
+
+  SunnyColors get sunnyColors => _sunnyColors ??= context.sunnyColors;
+  ThemeData get theme => _theme ??= Theme.of(context);
+
+  Map<Type, Object> _cachedProviders = {};
+
+  T provide<T extends Object>() {
+    return _cachedProviders.putIfAbsent(T, () => Provided.get<T>(context)) as T;
+  }
 
   void safeState([VoidCallback? callback]) {
     if (mounted) {
@@ -25,6 +39,12 @@ abstract class BaseState<T extends StatefulWidget> extends State<T>
     } else {
       callback?.call();
     }
+  }
+
+  @mustCallSuper
+  @override
+  void initState() {
+    super.initState();
   }
 
   FocusNode createFocusNode({String? debugLabel, bool watch = false}) {
@@ -47,11 +67,18 @@ abstract class BaseState<T extends StatefulWidget> extends State<T>
     });
   }
 
-  void listen(ChangeNotifier notifier, VoidCallback listener) {
+  void listen(ChangeNotifier? notifier, VoidCallback listener) {
+    if (notifier == null) return;
     notifier.addListener(listener);
     disposers.add(() {
       notifier.removeListener(listener);
     });
+  }
+
+  T createNotifier<T extends ChangeNotifier>({T create()?, T? instance}) {
+    instance ??= create!();
+    disposers.add(instance.dispose);
+    return instance;
   }
 
   ScrollController scrollController() {

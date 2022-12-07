@@ -64,7 +64,8 @@ mixin ObserverMixin implements LoggingMixin, HasDisposers {
     return controller;
   }
 
-  Stream<String> streamTextEdit(TextEditingController cont, [StreamController<String>? controller]) {
+  Stream<String> streamTextEdit(TextEditingController cont,
+      [StreamController<String>? controller]) {
     final streamer = controller ?? StreamController<String>.broadcast();
     final listener = () {
       streamer.add(cont.text);
@@ -109,22 +110,6 @@ mixin ObserverMixin implements LoggingMixin, HasDisposers {
 //      onChange?.call(change);
 //    }).cancel);
 //  }
-
-  // SyncStream<V> watchVStream<V>(ValueStream<V> stream,
-  //     {String name, Consumer<V> onChange}) {
-  //   assert(stream != null);
-  //   final syncStream = stream.toSyncStream(
-  //       onChange == null
-  //           ? null
-  //           : (input) {
-  //               if (!_isDisposing) {
-  //                 onChange(input);
-  //               }
-  //             },
-  //       name);
-  //   disposers.add(syncStream.disposeAll);
-  //   return syncStream;
-  // }
 
 //  void watchDiffStream<V>(ValueStream<ListDiffs<V>> stream, {String name, Consumer<ListDiffs<V>> onChange}) {
 //    if (stream == null) return;
@@ -188,14 +173,14 @@ mixin ObserverMixin implements LoggingMixin, HasDisposers {
 //  }
 
   Future disposeObservations() async {
-    _isDisposing = true;
-    for (var dispose in [...disposers]) {
-      await dispose();
+    if (!_isDisposing) {
+      _isDisposing = true;
+
+      await Future.wait(disposers.map((fn) => Future.value(fn())));
+      disposers.clear();
+
+      await Future.wait(subscriptions.map((sub) => sub.cancel()));
+      subscriptions.clear();
     }
-    disposers.clear();
-    for (var subscription in [...subscriptions]) {
-      await subscription.cancel();
-    }
-    subscriptions.clear();
   }
 }

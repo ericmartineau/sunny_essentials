@@ -2,15 +2,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:info_x/info_x.dart';
-
-SunnyColors? _sunnyColors;
-
-SunnyColors get sunnyColors =>
-    _sunnyColors ??
-    (throw Exception(
-        "No sunny colors have been initialized.  Set using SunnyColors.init"));
+import 'package:sunny_essentials/provided.dart';
 
 abstract class SunnyColors {
+  static SunnyColors of(BuildContext context) {
+    var found = Provided.get<SunnyColors>(context);
+    return found;
+  }
+
   /// The currently resolved brightness of this color set.
   Brightness get brightness;
 
@@ -106,18 +105,6 @@ abstract class SunnyColors {
     required Color barrierColor,
   }) = SunnyColorData;
 
-  static void init([SunnyColors? color]) {
-    _sunnyColors = color ?? SunnyColors.defaults();
-  }
-
-  /**
-   * Given a brightness, resolves colors against it
-   */
-  static SunnyColors resolveBrightness(BuildContext context) {
-    _sunnyColors = sunnyColors.resolve(context);
-    return sunnyColors;
-  }
-
   factory SunnyColors.defaults() => const _DefaultSunnyColors();
 
   SunnyColors copyWith({
@@ -150,9 +137,28 @@ abstract class SunnyColors {
     CupertinoDynamicColor? textLight,
     Color? barrierColor,
   });
+
+  factory SunnyColors.ofTheme(Brightness brightness, ThemeData theme,
+      [ThemeData? other]) {
+    final th = ThemeDataCupertinoColorAdapter(theme, other ?? theme);
+    return SunnyColors.defaults().copyWith(
+      red: th.get((_) => _.errorColor),
+      primaryColor: CupertinoDynamicColor.withBrightness(
+          color: th.light.primaryColorLight,
+          darkColor: th.light.primaryColorDark),
+      linkColor: CupertinoDynamicColor.withBrightness(
+          color: th.light.primaryColorLight,
+          darkColor: th.light.primaryColorDark),
+      iconDark: th.get((_) => _.iconTheme.color),
+      appBarBackground: th.get((_) => _.appBarTheme.backgroundColor),
+      scaffoldBackground: th.get((_) => _.scaffoldBackgroundColor),
+      text: th.get((_) => _.typography.black.bodyMedium!.color),
+    );
+  }
 }
 
 class RawSunnyColors {
+  static const white = Colors.white;
   static const gray950 = Color(0xFF202327);
   static const gray900 = Color(0xFF212429);
   static const gray800 = Color(0xFF353A40);
@@ -186,7 +192,7 @@ class _DefaultSunnyColors with SunnyColorMixin {
 
   CupertinoDynamicColor get text => g800;
 
-  CupertinoDynamicColor get textLight => g600;
+  CupertinoDynamicColor get textLight => g500;
 
   CupertinoDynamicColor get white => const CupertinoDynamicColor(
         debugLabel: "white/black",
@@ -333,7 +339,10 @@ class _DefaultSunnyColors with SunnyColorMixin {
 
   CupertinoDynamicColor get iconDark => g800;
 
-  CupertinoDynamicColor get shadow => g300;
+  CupertinoDynamicColor get shadow => CupertinoDynamicColor.withBrightness(
+        color: RawSunnyColors.gray300,
+        darkColor: RawSunnyColors.gray300,
+      );
 
   CupertinoDynamicColor get appBarBackground => g50;
 
@@ -436,6 +445,71 @@ class SunnyColorData with SunnyColorMixin implements SunnyColors {
     required this.textLight,
     required this.barrierColor,
   });
+}
+
+/// Implementation of color spec.
+class MutableSunnyColors {
+  CupertinoDynamicColor? primaryColor;
+  CupertinoDynamicColor? linkColor;
+  CupertinoDynamicColor? red;
+  CupertinoDynamicColor? white;
+  CupertinoDynamicColor? g50;
+  CupertinoDynamicColor? g100;
+  CupertinoDynamicColor? g200;
+  CupertinoDynamicColor? g300;
+  CupertinoDynamicColor? g400;
+  CupertinoDynamicColor? g500;
+  CupertinoDynamicColor? g600;
+  CupertinoDynamicColor? g700;
+  CupertinoDynamicColor? g800;
+  CupertinoDynamicColor? g900;
+  CupertinoDynamicColor? black;
+  CupertinoDynamicColor? iconDark;
+  CupertinoDynamicColor? shadow;
+  CupertinoDynamicColor? appBarBackground;
+  CupertinoDynamicColor? placeholder;
+  CupertinoDynamicColor? inputBackground;
+  CupertinoDynamicColor? scaffoldBackground;
+  CupertinoDynamicColor? modalBackground;
+  CupertinoDynamicColor? inputBorder;
+  CupertinoDynamicColor? headerLink;
+  CupertinoDynamicColor? separator;
+  CupertinoDynamicColor? text;
+  CupertinoDynamicColor? textLight;
+  CupertinoDynamicColor? barrierColor;
+
+  SunnyColors build() {
+    return SunnyColors.defaults().copyWith(
+      primaryColor: primaryColor,
+      linkColor: linkColor,
+      red: red,
+      white: white,
+      g50: g50,
+      g100: g100,
+      g200: g200,
+      g300: g300,
+      g400: g400,
+      g500: g500,
+      g600: g600,
+      g700: g700,
+      g800: g800,
+      g900: g900,
+      black: black,
+      iconDark: iconDark,
+      shadow: shadow,
+      appBarBackground: appBarBackground,
+      placeholder: placeholder,
+      inputBackground: inputBackground,
+      scaffoldBackground: scaffoldBackground,
+      modalBackground: modalBackground,
+      inputBorder: inputBorder,
+      headerLink: headerLink,
+      separator: separator,
+      text: text,
+      textLight: textLight,
+      barrierColor: barrierColor,
+    );
+  }
 }
 
 mixin SunnyColorMixin implements SunnyColors {
@@ -552,14 +626,17 @@ final defaultDarkTheme = ThemeData.dark();
 
 extension TextStyleColorExt on TextStyle {
   // TextStyle get selected {
-  //   return isIOS ? this : this.copyWith(color: sunnyColors.white);
+  //   return isIOS ? this : this.copyWith(color: context.sunnyColors.white);
   // }
 }
 
 extension BrightnessExt on Brightness {
-  bool get isDark => this == Brightness.dark;
+  bool get dark => this == Brightness.dark;
 
-  bool get isLight => !isDark;
+  bool get light => !dark;
+  Brightness get inverse => dark ? Brightness.light : Brightness.dark;
+
+  ThemeData defaultTheme() => dark ? ThemeData.dark() : ThemeData.light();
 }
 
 extension CupertinoDynamicColorToWidgetExt on CupertinoDynamicColor {
@@ -584,7 +661,8 @@ extension ColorResolver on Color {
     }
   }
 
-  Color withBrightness(Brightness brightness) {
+  Color withBrightness(Brightness? brightness) {
+    if (brightness == null) return this;
     final self = this;
     if (self is CupertinoDynamicColor) {
       return brightness == Brightness.light ? self.color : self.darkColor;
@@ -631,5 +709,34 @@ extension SunnyColorExt on SunnyColors {
 }
 
 Brightness get platformBrightness {
-  return WidgetsBinding.instance!.window.platformBrightness;
+  return WidgetsBinding.instance.window.platformBrightness;
+}
+
+extension SunnyColorsFromBuildContext on BuildContext {
+  SunnyColors get sunnyColors {
+    return SunnyColors.of(this);
+  }
+}
+
+class ThemeDataCupertinoColorAdapter {
+  final ThemeData light;
+  final ThemeData dark;
+
+  const ThemeDataCupertinoColorAdapter(this.light, this.dark);
+
+  CupertinoDynamicColor? get(Color? navigate(ThemeData theme)) {
+    var l = navigate(light);
+    var d = navigate(dark);
+    if (l == null && d == null) return null;
+
+    return CupertinoDynamicColor.withBrightness(
+        color: l ?? d!, darkColor: d ?? l!);
+  }
+}
+
+extension ThemeDataCupertinoColorAdapters on ThemeData {
+  CupertinoDynamicColor get primaryColorCupertino {
+    return CupertinoDynamicColor.withBrightness(
+        color: primaryColorDark, darkColor: primaryColorLight);
+  }
 }

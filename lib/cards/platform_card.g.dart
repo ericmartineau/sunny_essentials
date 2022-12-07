@@ -18,15 +18,18 @@ mixin _PlatformCardArgsMixin
   BorderRadius? get borderRadius => _args.borderRadius;
   bool? get useShadow => _args.useShadow;
   double? get height => _args.height;
+  Color? get hoverColor => _args.hoverColor;
   double? get width => _args.width;
   double? get minHeight => _args.minHeight;
   double? get minWidth => _args.minWidth;
   double? get pressOpacity => _args.pressOpacity;
   double? get pressScale => _args.pressScale;
   FutureOr<dynamic> Function(BuildContext)? get onTap => _args.onTap;
-  FutureOr<dynamic> Function(BuildContext)? get onLongPress => _args.onLongPress;
+  FutureOr<dynamic> Function(BuildContext)? get onLongPress =>
+      _args.onLongPress;
+  FutureOr<dynamic> Function(BuildContext)? get onSecondaryPress =>
+      _args.onSecondaryPress;
   FutureOr<dynamic> Function(BuildContext)? get onHover => _args.onHover;
   List<BoxShadow>? get shadow => _args.shadow;
-  PlatformCardTheme? get theme => _args.theme;
   bool? get shouldClip => _args.shouldClip;
 }

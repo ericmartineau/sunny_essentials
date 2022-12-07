@@ -1,15 +1,4 @@
 import 'package:flutter/material.dart';
-import '../provided.dart';
-import '../theme.dart';
-
-ThemeData form0Theme(Themes themes, Brightness brightness) {
-  final tt = sunnyText;
-  return themes.themeBuilder(
-    brightness,
-    tt.input0,
-    tt.placeholder0,
-  );
-}
 
 class Form0Theme extends StatelessWidget {
   final Widget? child;
@@ -19,8 +8,8 @@ class Form0Theme extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // ignore: unused_local_variable
-    var currentTheme = Theme.of(context);
+    // var currentTheme = Theme.of(context);
 
-    return Theme(data: form0Theme(context.get(), context.get()), child: child!);
+    return child!;
   }
 }

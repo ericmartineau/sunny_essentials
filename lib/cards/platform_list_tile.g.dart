@@ -15,6 +15,7 @@ mixin _PlatformCardArgsMixin
   EdgeInsets? get padding => _args!.padding;
   EdgeInsets? get margin => _args!.margin;
   Color? get color => _args!.color;
+  Color? get hoverColor => _args!.hoverColor;
   BorderRadius? get borderRadius => _args!.borderRadius;
   bool? get useShadow => _args!.useShadow;
   double? get height => _args!.height;
@@ -24,17 +25,18 @@ mixin _PlatformCardArgsMixin
   double? get pressOpacity => _args!.pressOpacity;
   double? get pressScale => _args!.pressScale;
   FutureOr<dynamic> Function(BuildContext)? get onTap => _args!.onTap;
-  FutureOr<dynamic> Function(BuildContext)? get onLongPress => _args!.onLongPress;
+  FutureOr<dynamic> Function(BuildContext)? get onLongPress =>
+      _args!.onLongPress;
+  FutureOr<dynamic> Function(BuildContext)? get onSecondaryPress =>
+      _args!.onSecondaryPress;
   FutureOr<dynamic> Function(BuildContext)? get onHover => _args!.onHover;
   List<BoxShadow>? get shadow => _args!.shadow;
-  PlatformCardTheme? get theme => _args!.theme;
   bool? get shouldClip => _args!.shouldClip;
 }
 
 // **************************************************************************
 // DegenGenerator
 // **************************************************************************
-
 
 class PlatformListTile extends _PlatformListTile with _PlatformCardArgsMixin {
   PlatformListTile({
@@ -45,15 +47,16 @@ class PlatformListTile extends _PlatformListTile with _PlatformCardArgsMixin {
     EdgeInsets? margin,
     BorderRadius? borderRadius,
     Color? color,
+    Color? hoverColor,
     double? height,
     double? width,
     bool? useShadow,
     double? minWidth,
-    PlatformCardTheme? theme,
     double? minHeight,
     FutureOr<dynamic> Function(BuildContext)? onTap,
     bool? shouldClip,
     FutureOr<dynamic> Function(BuildContext)? onLongPress,
+    FutureOr<dynamic> Function(BuildContext)? onSecondaryPress,
     List<BoxShadow>? shadow,
     Key? key,
     Widget? leading,
@@ -74,11 +77,11 @@ class PlatformListTile extends _PlatformListTile with _PlatformCardArgsMixin {
               width: width,
               useShadow: useShadow,
               minWidth: minWidth,
-              theme: theme,
               minHeight: minHeight,
               onTap: onTap,
               shouldClip: shouldClip,
               onLongPress: onLongPress,
+              onSecondaryPress: onSecondaryPress,
               shadow: shadow,
             ),
             key: key,

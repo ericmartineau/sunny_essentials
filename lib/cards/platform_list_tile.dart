@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_degen_annotations/flutter_degen_annotations.dart';
-import 'platform_card_theme.dart';
 import '../container/auto_layout.dart';
 
 import 'platform_card.dart';
@@ -10,7 +9,8 @@ import 'platform_card.dart';
 part 'platform_list_tile.g.dart';
 
 @degen()
-abstract class _PlatformListTile extends StatelessWidget with _PlatformCardArgsMixin {
+abstract class _PlatformListTile extends StatelessWidget
+    with _PlatformCardArgsMixin {
   final Widget? leading;
   final Widget? title;
   final Widget? subtitle;
@@ -57,15 +57,20 @@ abstract class _PlatformListTile extends StatelessWidget with _PlatformCardArgsM
   @override
   Widget build(BuildContext context) {
     final tile = ListTile(
+      contentPadding: padding == null ? padding : padding! * 4,
       onTap: onTap == null ? null : () => this.onTap?.call(context),
-      onLongPress: onLongPress == null ? null : () => this.onLongPress?.call(context),
+      onLongPress:
+          onLongPress == null ? null : () => this.onLongPress?.call(context),
       title: title,
       leading: leading,
       trailing: trailing,
       subtitle: subtitle,
+      tileColor: color,
     );
     return PlatformCard(
-      args: this,
+      args: this.copyWith(
+        args: this._args?.copyArgs(padding: EdgeInsets.zero),
+      ),
       child: bottom == null
           ? tile
           : Layout.column().noFlex.crossAxisStretch.build(

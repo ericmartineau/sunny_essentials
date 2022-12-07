@@ -30,7 +30,7 @@ mixin LoggingMixin {
 
 /// Produces a logger using snake case naming conventions.  If [subscript] is provided, it will be
 /// appended to the name in square brackets, eg
-/// sunny_list[contact]
+/// sunny_list[record]
 Logger sunnyLogger(Type type, {Type? subscript}) {
   String typeName = loggerNameOf(type);
   if (subscript != null) typeName += "[${loggerNameOf(subscript)}]";

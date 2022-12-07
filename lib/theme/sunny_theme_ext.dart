@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
-import '../provided.dart';
-import 'themes.dart';
+import 'package:sunny_essentials/sunny_essentials.dart';
+
+extension ThemeExtractionExt on ThemeData {
+  Color? get textColor => textTheme.bodyMedium?.color;
+}
 
 // final x = colorExtension();
 extension BuildContextThemes on BuildContext {
@@ -8,37 +11,27 @@ extension BuildContextThemes on BuildContext {
     return Provided.get(this);
   }
 
-  ThemeData get darkTheme {
-    return themes.darkTheme;
+  ThemeData get theme {
+    return Theme.of(this);
   }
 
-  ThemeData get lightTheme {
-    return themes.lightTheme;
+  ThemesProvider get themesProvider {
+    return Provided.get(this);
+  }
+
+  ThemeData get materialTheme {
+    return themes.materialTheme;
   }
 
   Brightness get brightness {
-    return themes.brightness;
+    return MediaQuery.of(this).platformBrightness;
   }
 
   ThemeData get currentTheme {
-    switch (brightness) {
-      case Brightness.dark:
-        return darkTheme;
-      case Brightness.light:
-        return lightTheme;
-      default:
-        return lightTheme;
-    }
+    return materialTheme;
   }
 
   ThemeData get invertedTheme {
-    switch (brightness) {
-      case Brightness.dark:
-        return lightTheme;
-      case Brightness.light:
-        return darkTheme;
-      default:
-        return darkTheme;
-    }
+    return themesProvider.resolve(brightness.inverse).materialTheme;
   }
 }
