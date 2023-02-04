@@ -119,7 +119,7 @@ extension BoxDecorationMergeExt on BoxDecoration {
       boxShadow: other.boxShadow ?? boxShadow,
       gradient: other.gradient ?? gradient,
       backgroundBlendMode: other.backgroundBlendMode ?? backgroundBlendMode,
-      shape: other.shape ?? shape,
+      shape: other.shape,
     );
   }
 }

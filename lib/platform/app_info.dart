@@ -71,6 +71,6 @@ class AppInfo {
   }
 
   static AppInfo of(BuildContext context) {
-    return sunny.find<AppInfo>(context: context) ?? AppInfo.unknown();
+    return sunny.get<AppInfo?>(context: context) ?? AppInfo.unknown();
   }
 }

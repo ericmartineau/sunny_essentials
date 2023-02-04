@@ -33,8 +33,8 @@ abstract class BaseState<T extends StatefulWidget> extends State<T>
     return _cachedProviders.putIfAbsent(T, () => Provided.get<T>(context)) as T;
   }
 
-  void safeState([VoidCallback? callback]) {
-    if (mounted) {
+  void safeState([VoidCallback? callback, bool applyState = true]) {
+    if (mounted && applyState) {
       setState(callback ?? () {});
     } else {
       callback?.call();

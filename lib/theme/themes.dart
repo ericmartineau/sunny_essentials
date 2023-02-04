@@ -2,9 +2,10 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:info_x/sunny_get.dart';
-import 'package:macos_ui/macos_ui.dart' hide TooltipThemeData;
+import 'package:macos_ui/macos_ui.dart';
 import 'package:sunny_essentials/cards/platform_overlay_theme.dart';
 import 'package:sunny_essentials/sunny_essentials.dart';
+import 'package:sunny_essentials/theme/theme_token.dart';
 
 export 'theme_extensions.dart';
 
@@ -12,25 +13,27 @@ typedef ThemeDataBuilder = ThemeData Function(
     Brightness brightness, TextStyle inputStyle, TextStyle placeholder1);
 
 abstract class ThemesResolver {
-  Themes resolve(Object? key);
+  Themes resolve(ThemeToken? key);
 }
 
-typedef _ThemeKeyMapper = Object Function(Object? source);
+/// Default mapper which echoes the provided [ThemeKey]
+ThemeToken _defaultTokenConverter(ThemeToken? input) => input!;
 
-Object _self(Object? input) => input!;
-
+/// For a given app, there may be subsections that have different themes.  These
+/// themes are described by a key (typically a ThemeKey), which produces a set
+/// of Themes for different platforms/brightness.
 class ThemesProvider implements ThemesResolver {
-  /// Maps the requested theme to a known type
-  final _ThemeKeyMapper mapper;
-  final Map<Object, Themes> _allThemes;
+  /// Maps the requested ThemeKey to a known ThemeKey.
+  final ThemeToken Function(ThemeToken? source) themeKeyMapper;
+  final Map<ThemeToken, Themes> _allThemes;
 
   const ThemesProvider({
-    this.mapper = _self,
-    required Map<Object, Themes> allThemes,
+    this.themeKeyMapper = _defaultTokenConverter,
+    required Map<ThemeToken, Themes> allThemes,
   }) : _allThemes = allThemes;
 
   static ThemesProvider of(BuildContext context) {
-    return sunny.get();
+    return sunny.get<ThemesProvider>(context: context);
   }
 
   void check() {
@@ -40,19 +43,27 @@ class ThemesProvider implements ThemesResolver {
     }
   }
 
-  Themes resolve(Object? key) {
-    final actualKey = mapper(key);
+  Themes resolve(ThemeToken? key) {
+    final ThemeToken actualKey = themeKeyMapper(key);
     var theme = _allThemes[actualKey];
-    assert(theme != null, "No theme found for $key (mapped to $actualKey)");
-    return theme!;
+    if (theme == null) {
+      // Fallback theme resolution...
+      for (var parentToken in actualKey.resolveTokens) {
+        theme = _allThemes[parentToken];
+        if (theme != null) break;
+      }
+      assert(theme != null,
+          "No theme found for $key (mapped to $actualKey, but found ${_allThemes.keys})");
+      return theme!;
+    } else {
+      return theme;
+    }
   }
 }
 
-void _noop() {}
-
-class Themes with EquatableMixin {
+class Themes<T extends ThemeName> with EquatableMixin {
   final String? debugLabel;
-  final Object key;
+  final ThemeToken<T> key;
   final Brightness brightness;
   final ThemeData materialTheme;
   final CupertinoVisualStyle visualStyle;
@@ -87,6 +98,19 @@ class Themes with EquatableMixin {
 
   static Themes of(BuildContext context) {
     return Provided.get<Themes>(context);
+  }
+}
+
+extension ButtonThemeToButtonStyleExt on ThemeData {
+  ButtonStyle toElevatedButtonStyle() {
+    var bt = buttonTheme;
+    var tt = textTheme;
+
+    return ButtonStyle();
+  }
+
+  ElevatedButtonThemeData toElevatedButtonTheme() {
+    return ElevatedButtonThemeData(style: toElevatedButtonStyle());
   }
 }
 
@@ -169,8 +193,7 @@ extension ThemeDataToMacOsTheme on ThemeData {
     NavigationBarThemeData navigationBarTheme(NavigationBarThemeData existing)?,
     NavigationRailThemeData navigationRailTheme(
         NavigationRailThemeData existing)?,
-    OutlinedButtonThemeData outlinedButtonTheme(
-        OutlinedButtonThemeData existing)?,
+    ButtonStyle outlinedButtonTheme(ButtonStyle existing)?,
     PopupMenuThemeData popupMenuTheme(PopupMenuThemeData existing)?,
     ProgressIndicatorThemeData progressIndicatorTheme(
         ProgressIndicatorThemeData existing)?,
@@ -179,7 +202,7 @@ extension ThemeDataToMacOsTheme on ThemeData {
     SnackBarThemeData snackBarTheme(SnackBarThemeData existing)?,
     SwitchThemeData switchTheme(SwitchThemeData existing)?,
     TabBarTheme tabBarTheme(TabBarTheme existing)?,
-    TextButtonThemeData textButtonTheme(TextButtonThemeData existing)?,
+    ButtonStyle textButtonTheme(ButtonStyle existing)?,
     TextSelectionThemeData textSelectionTheme(TextSelectionThemeData existing)?,
     TimePickerThemeData timePickerTheme(TimePickerThemeData existing)?,
     ToggleButtonsThemeData toggleButtonsTheme(ToggleButtonsThemeData existing)?,
@@ -294,7 +317,9 @@ extension ThemeDataToMacOsTheme on ThemeData {
           : navigationRailTheme(this.navigationRailTheme),
       outlinedButtonTheme: outlinedButtonTheme == null
           ? null
-          : outlinedButtonTheme(this.outlinedButtonTheme),
+          : OutlinedButtonThemeData(
+              style: outlinedButtonTheme(
+                  this.outlinedButtonTheme.style ?? ButtonStyle())),
       popupMenuTheme:
           popupMenuTheme == null ? null : popupMenuTheme(this.popupMenuTheme),
       progressIndicatorTheme: progressIndicatorTheme == null
@@ -308,7 +333,10 @@ extension ThemeDataToMacOsTheme on ThemeData {
       tabBarTheme: tabBarTheme == null ? null : tabBarTheme(this.tabBarTheme),
       textButtonTheme: textButtonTheme == null
           ? null
-          : textButtonTheme(this.textButtonTheme),
+          : TextButtonThemeData(
+              style:
+                  textButtonTheme(this.textButtonTheme.style ?? ButtonStyle()),
+            ),
       textSelectionTheme: textSelectionTheme == null
           ? null
           : textSelectionTheme(this.textSelectionTheme),
@@ -378,12 +406,12 @@ extension ThemeDataToMacOsTheme on ThemeData {
           color: textTheme.bodyMedium!.color!,
           body: textTheme.bodyMedium!,
           callout: textTheme.bodySmall!,
-          caption1: textTheme.labelLarge,
-          caption2: textTheme.labelMedium,
-          footnote: textTheme.labelSmall,
-          headline: textTheme.displayLarge,
-          largeTitle: textTheme.headlineLarge,
-          subheadline: textTheme.titleMedium,
+          caption1: textTheme.labelMedium,
+          caption2: textTheme.labelLarge,
+          footnote: textTheme.labelMedium,
+          headline: textTheme.displaySmall,
+          largeTitle: textTheme.displayLarge,
+          subheadline: textTheme.labelLarge,
           title1: textTheme.headlineMedium,
           title2: textTheme.titleMedium,
           title3: textTheme.titleSmall,

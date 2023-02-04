@@ -1,3 +1,4 @@
+import 'package:equatable/equatable.dart';
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 
@@ -68,9 +69,9 @@ class Provided {
     return get<ProvidedList<R, T>>(context).items;
   }
 
-  static T get<T>(BuildContext context) {
+  static T get<T>(BuildContext context, {bool? listen}) {
     try {
-      final t = Provider.of<T>(context, listen: false);
+      final t = Provider.of<T>(context, listen: listen ?? false);
       return t;
     } on ProviderNotFoundException {
       print("##################################  ${T} was found under ${T}?");
@@ -106,9 +107,9 @@ class Provided {
     }
   }
 
-  static T? find<T>(BuildContext context) {
+  static T? find<T>(BuildContext context, {bool? listen}) {
     try {
-      final t = Provider.of<T>(context, listen: false);
+      final t = Provider.of<T>(context, listen: listen ?? false);
       return t;
     } on ProviderNotFoundException {
       return null;
@@ -157,4 +158,13 @@ class ProvidedBox<T> {
     return _value ??
         (throw Exception("No value $T could be found.  Was it set?"));
   }
+}
+
+class ProvidedWrapper<X> extends Equatable {
+  final X value;
+
+  const ProvidedWrapper(this.value);
+
+  @override
+  List<Object?> get props => [value];
 }

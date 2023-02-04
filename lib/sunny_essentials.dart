@@ -5,6 +5,7 @@ export 'container.dart';
 export 'image/platform_network_image.dart';
 export 'provided.dart';
 export 'scroll.dart';
+export 'sorted.dart';
 export 'platform/modal_options.dart';
 export 'platform/app_info.dart';
 export 'hero.dart';

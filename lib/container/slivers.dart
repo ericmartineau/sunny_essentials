@@ -33,6 +33,10 @@ Widget AlignBottomCenter({required Widget child}) =>
 
 Widget SliverBox({required Widget child}) => SliverToBoxAdapter(child: child);
 
+List<Widget> SliverBoxes({required Iterable<Widget> children}) => [
+      for (final c in children) SliverBox(child: c),
+    ];
+
 typedef SliverWidgetBuilder<T> = Widget? Function(BuildContext context, T item);
 
 class SimpleSliverList<W> extends StatelessWidget {

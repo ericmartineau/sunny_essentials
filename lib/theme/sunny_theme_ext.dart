@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sunny_essentials/sunny_essentials.dart';
+import 'package:sunny_essentials/theme/theme_token.dart';
 
 extension ThemeExtractionExt on ThemeData {
   Color? get textColor => textTheme.bodyMedium?.color;
@@ -32,6 +33,8 @@ extension BuildContextThemes on BuildContext {
   }
 
   ThemeData get invertedTheme {
-    return themesProvider.resolve(brightness.inverse).materialTheme;
+    return themesProvider
+        .resolve(ThemeToken<ThemeName>(brightness: brightness.inverse))
+        .materialTheme;
   }
 }

@@ -8,3 +8,4 @@ export 'theme/sunny_theme_ext.dart';
 export 'theme/sunny_form_submit_theme.dart';
 export 'theme/themes.dart';
 export 'theme/visual_style.dart';
+export 'theme/theme_loader.dart';

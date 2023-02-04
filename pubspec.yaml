@@ -5,35 +5,36 @@ repository: https://github.com/ericmartineau/sunny_essentials.git
 environment: 
   sdk: '>=2.17.1 <3.0.0'
 dependencies: 
-  cached_network_image: ^3.2.2
+  cached_network_image: ^3.2.3
   equatable: ^2.0.5
-  logging: ^1.0.2
-  provider: ^6.0.3
+  logging: ^1.1.0
+  provider: ^6.0.4
+  json_theme: ^4.0.3+3
   octo_image: ^1.0.2
-  recase: ^4.0.0
-  timeago: ^3.2.2
-  tinycolor2: ^2.1.0
+  recase: ^4.1.0
+  timeago: ^3.3.0
+  tinycolor2: ^3.0.1
   dynamic_color: ^1.5.4
-  sliver_tools: ^0.2.7
-  auto_route: ^5.0.3
-  uri: 
-    path: /Users/ericm/sunny/local_plugins/uri.dart
+  sliver_tools: ^0.2.8
+  uri: ^1.0.0
+  auto_route: 
+    path: /Users/ericm/reliveit/checkout/ericmartineau/auto_route_library/auto_route
   info_x: 
-    path: /Users/ericm/sunny/local_plugins/info_x
+    path: /Users/ericm/reliveit/checkout/ericmartineau/info_x
   flutter_degen_annotations: 
-    path: /Users/ericm/sunny/local_plugins/flutter_degen_annotations
+    path: /Users/ericm/reliveit/checkout/ericmartineau/flutter_degen_annotations
   sunny_platform_widgets: 
-    path: /Users/ericm/sunny/local_plugins/sunny_platform_widgets
+    path: /Users/ericm/reliveit/checkout/SunnyApp/flutter_platform_widgets
   macos_ui: 
-    path: /Users/ericm/sunny/local_plugins/macos_ui
+    path: /Users/ericm/reliveit/checkout/SunnyApp/macos_ui
   flutter_screen_scaling: 
-    path: /Users/ericm/sunny/local_plugins/flutter_screen_scaling
+    path: /Users/ericm/reliveit/checkout/SunnyApp/flutter_screen_scaling
   dartxx: 
-    path: /Users/ericm/sunny/local_plugins/dartxx
+    path: /Users/ericm/reliveit/checkout/ericmartineau/dartxx
   flutter: 
     sdk: flutter
 dev_dependencies: 
   flutter_degen: 
-    path: /Users/ericm/sunny/local_plugins/flutter_degen
+    path: /Users/ericm/reliveit/checkout/SunnyApp/flutter_degen
   flutter_test: 
     sdk: flutter
