@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:dartxx/dartxx.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
@@ -184,14 +185,23 @@ class _TappableState extends State<Tappable>
 }
 
 typedef HoverBuilder = Widget Function(bool isHover);
+typedef HoverChanged = void Function(bool isHover);
 
 class HoverEffect extends StatefulWidget {
   final HoverBuilder builder;
   final MouseCursor cursor;
+  final HoverChanged? onChange;
+  final ValueNotifier<bool>? notify;
+  final HitTestBehavior behavior;
 
-  const HoverEffect(
-      {Key? key, this.cursor = MouseCursor.defer, required this.builder})
-      : super(key: key);
+  const HoverEffect({
+    Key? key,
+    this.cursor = MouseCursor.defer,
+    this.onChange,
+    this.behavior = HitTestBehavior.translucent,
+    required this.builder,
+    this.notify,
+  }) : super(key: key);
 
   @override
   _HoverEffectState createState() => _HoverEffectState();
@@ -199,13 +209,19 @@ class HoverEffect extends StatefulWidget {
 
 class _HoverEffectState extends State<HoverEffect> {
   bool isHover = false;
+  late VoidCallback debouncedUpdate;
 
   @override
   Widget build(BuildContext context) {
     return MouseRegion(
       cursor: widget.cursor,
+      hitTestBehavior: widget.behavior,
       onEnter: (_) {
         if (isHover != true) {
+          widget.onChange?.call(true);
+          if (widget.notify != null) {
+            widget.notify!.value = true;
+          }
           setState(() {
             isHover = true;
           });
@@ -213,6 +229,10 @@ class _HoverEffectState extends State<HoverEffect> {
       },
       onExit: (_) {
         if (isHover == true) {
+          widget.onChange?.call(false);
+          if (widget.notify != null) {
+            widget.notify!.value = false;
+          }
           setState(() {
             isHover = false;
           });

@@ -4,6 +4,7 @@ import 'package:dartxx/dartxx.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:sunny_essentials/state.dart';
+import 'package:sunny_essentials/state/state_module.dart';
 import 'package:sunny_essentials/sunny_essentials.dart';
 
 // import 'package:sunny_dart/sunny_dart.dart';
@@ -33,6 +34,12 @@ abstract class BaseState<T extends StatefulWidget> extends State<T>
     return _cachedProviders.putIfAbsent(T, () => Provided.get<T>(context)) as T;
   }
 
+  S createModule<S extends StateExtension>({S factory()?, S? instance}) {
+    S module = instance ?? factory!();
+    disposers.add(module.dispose);
+    return module;
+  }
+
   void safeState([VoidCallback? callback, bool applyState = true]) {
     if (mounted && applyState) {
       setState(callback ?? () {});
@@ -47,14 +54,18 @@ abstract class BaseState<T extends StatefulWidget> extends State<T>
     super.initState();
   }
 
-  FocusNode createFocusNode({String? debugLabel, bool watch = false}) {
-    var node = FocusNode(debugLabel: debugLabel);
-    disposers.add(node.dispose);
-
+  FocusNode createFocusNode(
+      {String? debugLabel, FocusNode? existing, bool watch = false}) {
+    var node = existing ?? FocusNode(debugLabel: debugLabel);
     if (watch) {
-      node.addListener(() {
+      var listenerFn = () {
         safeState(() {});
-      });
+      };
+      node.addListener(listenerFn);
+      disposers.add(() => node.removeListener(listenerFn));
+    }
+    if (existing == null) {
+      disposers.add(node.dispose);
     }
     return node;
   }
@@ -81,10 +92,32 @@ abstract class BaseState<T extends StatefulWidget> extends State<T>
     return instance;
   }
 
-  ScrollController scrollController() {
-    final controller = ScrollController();
-    disposers.add(controller.dispose);
+  ValueNotifier<T> createValueNotifier<T>([T? initialValue]) {
+    assert(initialValue is T,
+        'Initial value not valid.  Probably needs to be non-null');
+    var notifier = ValueNotifier(initialValue as T);
+    disposers.add(notifier.dispose);
+    return notifier;
+  }
+
+  T createState<T>({required T create()?, required void dispose(T instance)}) {
+    final instance = create!();
+    disposers.add(() => dispose(instance));
+    return instance;
+  }
+
+  ScrollController createScrollController([ScrollController? existing]) {
+    final controller = existing ?? ScrollController();
+    if (existing == null) {
+      disposers.add(controller.dispose);
+    }
     return controller;
+  }
+
+  Timer createTimer(Duration duration, FutureOr exec(Timer timer)) {
+    var timer = Timer.periodic(duration, exec);
+    disposers.add(timer.cancel);
+    return timer;
   }
 
   Future asyncState(AsyncCallback callback) async {

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 typedef TextRender = Text Function(
-  String text, {
+  dynamic text, {
   InlineSpan? textSpan,
   StrutStyle? strutStyle,
   TextAlign? textAlign,
@@ -20,7 +20,7 @@ typedef TextRender = Text Function(
 
 TextRender _render(TextStyle style) {
   return (
-    String text, {
+    dynamic text, {
     InlineSpan? textSpan,
     StrutStyle? strutStyle,
     TextAlign? textAlign,
@@ -37,7 +37,7 @@ TextRender _render(TextStyle style) {
     FontWeight? fontWeight,
   }) =>
       Text(
-        text,
+        text?.toString() ?? '',
         style:
             fontWeight == null ? style : style.copyWith(fontWeight: fontWeight),
         strutStyle: strutStyle,

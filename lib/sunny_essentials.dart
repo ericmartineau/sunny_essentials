@@ -14,3 +14,4 @@ export 'text.dart';
 export 'theme.dart';
 export 'typedefs.dart';
 export 'sunny_navigator.dart';
+export 'widget_ext.dart';
