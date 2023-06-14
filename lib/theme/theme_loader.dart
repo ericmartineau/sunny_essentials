@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:dartxx/dartxx.dart';
-import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:json_theme/json_theme.dart';
@@ -51,8 +50,9 @@ class RawThemeData with LoggingMixin {
       startTheme = brightnessOrLight.defaultTheme();
     } else {
       var mergedData =
-          jsonThemeData.reduce((value, element) => value!.deepMerge(element));
-      startTheme = ThemeDecoder.decodeThemeData(mergedData)!.copyWith();
+          jsonThemeData.reduce((value, element) => value.deepMerge(element));
+      startTheme =
+          ThemeDecoder.decodeThemeData(mergedData, validate: false)!.copyWith();
     }
 
     return startTheme;

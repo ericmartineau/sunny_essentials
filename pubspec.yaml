@@ -7,34 +7,33 @@ environment:
 dependencies: 
   cached_network_image: ^3.2.3
   equatable: ^2.0.5
-  logging: ^1.1.1
+  logging: 1.2.0
   provider: ^6.0.5
-  json_theme: ^4.0.3+3
+  json_theme: ^5.0.2+6
   octo_image: ^1.0.2
   recase: ^4.1.0
-  timeago: ^3.3.0
+  timeago: ^3.4.0
   tinycolor2: ^3.0.1
-  dynamic_color: ^1.6.2
-  sliver_tools: ^0.2.9
+  dynamic_color: ^1.6.5
+  sliver_tools: ^0.2.10
   uri: ^1.0.0
-  auto_route: 
-    path: /Users/ericm/reliveit/checkout/ericmartineau/auto_route_library/auto_route
+  auto_route: ^7.4.0
   info_x: 
-    path: /Users/ericm/reliveit/checkout/ericmartineau/info_x
+    path: /Users/ericm/aesthetika/checkout/ericmartineau/info_x
   flutter_degen_annotations: 
-    path: /Users/ericm/reliveit/checkout/ericmartineau/flutter_degen_annotations
+    path: /Users/ericm/aesthetika/checkout/ericmartineau/flutter_degen_annotations
   sunny_platform_widgets: 
-    path: /Users/ericm/reliveit/checkout/SunnyApp/flutter_platform_widgets
+    path: /Users/ericm/aesthetika/checkout/SunnyApp/flutter_platform_widgets
   macos_ui: 
-    path: /Users/ericm/reliveit/checkout/SunnyApp/macos_ui
+    path: /Users/ericm/aesthetika/checkout/SunnyApp/macos_ui
   flutter_screen_scaling: 
-    path: /Users/ericm/reliveit/checkout/SunnyApp/flutter_screen_scaling
+    path: /Users/ericm/aesthetika/checkout/SunnyApp/flutter_screen_scaling
   dartxx: 
-    path: /Users/ericm/reliveit/checkout/ericmartineau/dartxx
+    path: /Users/ericm/aesthetika/checkout/ericmartineau/dartxx
   flutter: 
     sdk: flutter
 dev_dependencies: 
   flutter_degen: 
-    path: /Users/ericm/reliveit/checkout/SunnyApp/flutter_degen
+    path: /Users/ericm/aesthetika/checkout/SunnyApp/flutter_degen
   flutter_test: 
     sdk: flutter
